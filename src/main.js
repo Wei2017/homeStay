@@ -3,18 +3,24 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import "babel-polyfill"  
+import 'lib-flexible'  //移动端rem适配
+import './axios'
 import fastClick from 'fastclick'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import 'css/reset.css'
-import 'css/border.css'
-import 'swiper/dist/css/swiper.css'
 
+// import 'swiper/dist/css/swiper.css'
+import NutUI from '@nutui/nutui';
+import '@nutui/nutui/dist/nutui.css';
+
+NutUI.install(Vue);
 Vue.config.productionTip = false
 /* 通过fastClick解决移动端点击 300毫秒延迟 */
 fastClick.attach(document.body)
-
 // 全局注册swiper插件
 Vue.use(VueAwesomeSwiper)
+
+require('es6-promise').polyfill()
 
 /* eslint-disable no-new */
 new Vue({
