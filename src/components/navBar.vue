@@ -50,8 +50,7 @@
 		methods: {
 			tabSwitch(val, index) {
 				this.$router.push({
-					path: val.path,
-
+					path: val.path
 				})
 			},
 		},

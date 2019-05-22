@@ -5,6 +5,109 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>home-stay</title>
   </head>
+	<style>
+		@charset "utf-8";
+		html,body{
+			width:100%;
+			height:100%;
+			font
+			font-family:"SimSun";
+		}
+		*{
+			margin: 0;
+			padding:0;
+		}
+		body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form,
+		input, textarea, p,th, td {
+		  margin: 0;
+		  padding: 0;
+		}
+		/* ie 不支持h5标签*/
+		header,footer,section,main,nav,article,aside,menu{
+			display: block;
+		}
+		table {
+		  border-collapse: collapse; /*让表格边框细线*/
+		  border-spacing: 0; /*清除边框间距*/
+		}
+		fieldset, img {
+		  border: 0 none; /*有些浏览器默认这些标签有边框，所以要清除默认边框*/
+		  display: block;
+		}
+		input, textarea {
+		  outline: 0 none; /*去掉文本框的默认轮廓线*/
+		  -webkit-user-select: auto !important;
+		  resize: none;
+		  border:none;
+		  background: none;
+		}
+		ol, ul {
+		  list-style: none; /*清除列表默认样式*/
+		}
+		caption, th {
+		  text-align: left; /*清除标签默认文本居中对齐*/
+		}
+		h1, h2, h3, h4, h5, h6 {
+		  font-size: 100%;
+		  font-weight: normal; /*清除标题标签的默认样式*/
+		}
+		img{
+			border:none;
+		}
+		a {
+		  text-decoration: none; /*大部分页面中的链接没有下划线*/
+		 	outline: none;
+		}
+		.lf{
+			float: left;
+		}
+		.rg{
+			float: right;
+		}
+		.clearfix:after {
+		  height: 0;
+		  content: " ";
+		  display: block;
+		  overflow: hidden;
+		  clear: both;
+		}
+		.clearfix {
+		  zoom: 1; /*IE低版本浏览器不支持after伪类所以要加这一句*/
+		}
+		input::-webkit-input-placeholder {
+		/* placeholder颜色  */
+		  color: #999999!important; 
+		   /* placeholder字体大小  */
+		  /*font-size: 14px;*/
+		  /* placeholder位置  */
+		}
+		input:-moz-placeholder{ 
+			color: #999999!important;  
+		} 
+		input::-moz-placeholder{ 
+			color: #999999!important;  
+		} 
+		input:-ms-input-placeholder{ 
+			color: #999999!important; 
+		} 
+		/*背景透明度*/
+		/*.opacity{
+		 	filter: alpha(opacity=10);  
+			opacity:0.6;
+			-moz-opacity:0.10;
+		}*/
+		/*文字阴影*/
+		/*.textShadow{
+			text-shadow: 1px 1px 1px #666; 
+			filter: Shadow(Color=#666666, Direction=135, Strength=5); 
+		}*/
+		/*box 阴影*/
+		/*.boxShadow{
+			box-shadow: 5px 5px 5px #666; 
+			-moz-box-shadow: 5px 5px 5px #666; 
+			-webkit-box-shadow: 5px 5px 5px #666;
+		}*/
+	</style>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->

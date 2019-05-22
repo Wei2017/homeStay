@@ -26,5 +26,13 @@ export default {
 </script>
 
 <style>
-	
+	#app{
+		width:100%;
+		height: 100%;
+	}
+	.main{
+		margin-bottom:150px;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
 </style>

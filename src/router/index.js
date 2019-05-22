@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+// 主界面
 import Home from '@/page/home/home'
 import Order from '@/page/order/order'
 import Msg from '@/page/msg/msg'
 import Me from '@/page/me/me'
+// search
+import search from '@/page/search/search'
+import timeChose from '@/page/search/timeChose'
 
 Vue.use(Router)
 
@@ -41,6 +44,22 @@ const router = new Router({
 				title: 'me - 我的',
 			},
 			component: Me
+		},
+		{
+			path: '/search',
+			name: 'search',
+			meta: {
+				title: 'search - 搜索页',
+			},
+			component: search
+		},
+		{
+			path: '/timeChose',
+			name: 'timeChose',
+			meta: {
+				title: '选择入离事件',
+			},
+			component: timeChose
 		},
 		{
 			path: '/',

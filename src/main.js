@@ -8,8 +8,7 @@ import 'lib-flexible'  //移动端rem适配
 import './axios'
 import fastClick from 'fastclick'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-
-// import 'swiper/dist/css/swiper.css'
+import 'swiper/dist/css/swiper.css'
 import NutUI from '@nutui/nutui';
 import '@nutui/nutui/dist/nutui.css';
 
