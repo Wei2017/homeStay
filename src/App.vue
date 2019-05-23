@@ -4,7 +4,7 @@
 			<keep-alive>
 			  <router-view></router-view>
 			</keep-alive>
-			<nav-bar></nav-bar>
+			<nav-bar v-show="$route.meta.showFooter"></nav-bar>
 		</div>
     
   </div>
@@ -21,6 +21,15 @@ export default {
 		return{
 			
 		}
+	},
+	mounted() {
+		
+	},
+	methods:{
+		
+	},
+	watch:{
+		
 	}
 }
 </script>

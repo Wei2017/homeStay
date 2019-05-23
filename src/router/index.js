@@ -18,6 +18,7 @@ const router = new Router({
 			name: 'home',
 			meta: {
 				title: '乐居-轻松生活',
+				showFooter:true
 			},
 			component: Home
 		},
@@ -26,6 +27,7 @@ const router = new Router({
 			name: 'order',
 			meta: {
 				title: 'order - 订单',
+				showFooter:true
 			},
 			component: Order
 		},
@@ -34,6 +36,7 @@ const router = new Router({
 			name: 'msg',
 			meta: {
 				title: 'msg - 消息',
+				showFooter:true
 			},
 			component: Msg
 		},
@@ -42,6 +45,7 @@ const router = new Router({
 			name: 'me',
 			meta: {
 				title: 'me - 我的',
+				showFooter:true
 			},
 			component: Me
 		},
@@ -50,6 +54,7 @@ const router = new Router({
 			name: 'search',
 			meta: {
 				title: 'search - 搜索页',
+				showFooter:false
 			},
 			component: search
 		},
@@ -57,7 +62,8 @@ const router = new Router({
 			path: '/timeChose',
 			name: 'timeChose',
 			meta: {
-				title: '选择入离事件',
+				title: '选择入离时间',
+				showFooter:false
 			},
 			component: timeChose
 		},
