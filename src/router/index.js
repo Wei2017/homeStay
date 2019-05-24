@@ -9,6 +9,8 @@ import Me from '@/page/me/me'
 import search from '@/page/search/search'
 import timeChose from '@/page/search/timeChose'
 
+// 房源详情
+import detail from '@/page/detail/detail'
 Vue.use(Router)
 
 const router = new Router({
@@ -26,7 +28,7 @@ const router = new Router({
 			path: '/order',
 			name: 'order',
 			meta: {
-				title: 'order - 订单',
+				title: '订单',
 				showFooter:true
 			},
 			component: Order
@@ -35,7 +37,7 @@ const router = new Router({
 			path: '/msg',
 			name: 'msg',
 			meta: {
-				title: 'msg - 消息',
+				title: '消息列表',
 				showFooter:true
 			},
 			component: Msg
@@ -44,7 +46,7 @@ const router = new Router({
 			path: '/me',
 			name: 'me',
 			meta: {
-				title: 'me - 我的',
+				title: '我的',
 				showFooter:true
 			},
 			component: Me
@@ -53,7 +55,7 @@ const router = new Router({
 			path: '/search',
 			name: 'search',
 			meta: {
-				title: 'search - 搜索页',
+				title: '杭州',
 				showFooter:false
 			},
 			component: search
@@ -66,6 +68,15 @@ const router = new Router({
 				showFooter:false
 			},
 			component: timeChose
+		},
+		{
+			path: '/detail',
+			name: 'detail',
+			meta: {
+				title: '房源详情',
+				showFooter:false
+			},
+			component: detail
 		},
 		{
 			path: '/',

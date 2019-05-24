@@ -1,6 +1,6 @@
 <template>
 	<div class="list-hotel">
-		<div class="lists" v-for="(item,index) in listObj.items" :key="index">
+		<div class="lists" v-for="(item,index) in listObj.items" :key="index" @click="jumpDetail(item.id)">
 			<div class="list-top">
 				<img :src="item.img" alt="">
 			</div>
@@ -41,6 +41,12 @@
 		methods: {
 			init(){
 				this.listObj = this.listData
+			},
+			jumpDetail(id){
+				this.$router.push({
+				  path: "/detail",
+				  query: {delId: id}
+				})
 			}
 		},
 		computed:{

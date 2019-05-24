@@ -3,25 +3,27 @@
 		<div class="time-top">
 			<div><em>入住日期</em><em>离店日期</em></div>
 			<div class="times">
-				<span class="startTime">05月16日 <b>周四</b></span>
-				<b>共20晚</b>
-				<span class="endTime">05月16日 <b>周四</b></span>
+				<span class="startTime">{{timeObj.startM}}月{{timeObj.startD}}日 <b>周{{timeObj.startWeek}}</b></span>
+				<b>共{{timeObj.days}}晚</b>
+				<span class="endTime">{{timeObj.endM}}月{{timeObj.endD}}日 <b>周{{timeObj.endWeek}}</b></span>
 			</div>
 			<div class="week">
 				<span v-for="(week,index) in timeObj.weekArr" :key="index">{{week}}</span>
 			</div>
 		</div>
 		<nut-calendar 
+			ref="calendarDiv"
 			:is-visible="true" 
 			type="range" 
 			title=""
+			:isAutoBackFill = "true"
 			:start-date="timeObj.startDate" 
 			:end-date="timeObj.endDate"
 			:animation="`nutSlideUp`" 
 			@close="clearTime" 
-			@choose="setChooseValue3">
+			@choose="chooseTime">
 		</nut-calendar>
-		<div class="footer-line">我是有底线的，最长可预订近4个月的房屋</div>
+		<!-- <div class="footer-line">我是有底线的，最长可预订近4个月的房屋</div> -->
 	</div>
 </template>
 
@@ -31,6 +33,15 @@
 		data() {
 			return {
 				timeObj:{
+					params:[],
+					days:1,
+					startM:'05',
+					startD:'16',
+					startWeek:'三',
+					endM:'06',
+					endD:'18',
+					endWeek:'周二',
+					dateArr:[],
 					weekArr:['日','一','二','三','四','五','六'],
 					startDate:'2019-05-23',
 					endDate:'2019-09-31'
@@ -39,18 +50,35 @@
 		},
 		components: {},
 		mounted() {
-
+			this.init()
 		},
 		methods: {
+			init(){
+				let calendar = document.getElementsByClassName('nut-calendar-months-panel')[0]
+				calendar.innerHTML = calendar.innerHTML + '<div class="footer-line"> 我是有底线的，最长可预订近4个月的房屋 </div>'
+			},
 			// 清空选择的时间
-			clearTime(param) {
-				console.log(param)
+			clearTime() {
+				
 			},
 			// 选定时间
-			setChooseValue3(param) {
+			chooseTime(param) {
 				console.log(param)
-				this.date3 = [...[param[0][3], param[1][3]]];
-				console.log(this.date3)
+				let dateArr = [...[param[0][3], param[1][3]]]
+				this.timeObj = {
+					params:param,
+					days:this.$common.DateMinus(dateArr[0],dateArr[1]),
+					startM:param[0][1],
+					startD:param[0][2],
+					startWeek:param[0][4].slice(2),
+					endM:param[1][1],
+					endD:param[1][2],
+					endWeek:param[1][4].slice(2),
+					dateArr:dateArr,
+					weekArr:['日','一','二','三','四','五','六'],
+					startDate:'2019-05-23',
+					endDate:'2019-09-31'
+				}
 			},
 			timeSure(){
 				
@@ -60,13 +88,31 @@
 
 		},
 		watch: {
-
+			timeObj:{
+				handler(){
+					let dateArr = this.timeObj.dateArr
+					this.timeObj.days = this.$common.DateMinus(dateArr[0],dateArr[1])
+				},
+				deep:true
+			}
 		}
 	}
 </script>
 
 <style scoped="scoped" lang="scss">
 	.timeChose {
+		// overflow: auto;
+		/deep/ .footer-line{
+			width:100%;
+			position: absolute;
+			bottom:380px;
+			left:50%;
+			transform: translateX(-50%);
+			text-align: center;
+			font-size: 28px;
+			color: #999;
+			// padding: 100px;
+		}
 		.time-top{
 			>div:first-child{
 				margin: 65px 20px 25px;
@@ -117,12 +163,11 @@
 			}
 		}
 		/deep/ .nut-calendar{
-			position: unset;
+			// position: unset;
 			margin-bottom:100px;
-			// top:350px;
+			top:340px;
 			padding-top:0;
-			// bottom: 200px;
-			// padding-bottom:160px;
+			bottom: 200px;
 			.nut-calendar-control{
 				position: fixed;
 				bottom:0;
@@ -157,13 +202,21 @@
 					display: none;
 				}
 			}
+			
 			.nut-calendar-months{
+				// height: 100%;
+				// overflow-y: scroll;
+				.nut-calendar-month-con .nut-calendar-month-day .nut-calendar-day-tip{
+					font-size:22px!important;
+				}
 				.nut-calendar-months-panel{
-					transform: unset!important;
-					transition: unset!important;
+					// transform: unset!important;
+					// transition: unset!important;
+					height: 100%;
+					padding-bottom:200px;
 				}
 				.nut-calendar-month:last-child{
-					// margin-bottom: 150px;
+					margin-bottom: 100px;
 				}
 				.nut-calendar-loading-tip{
 					display: none;
@@ -196,14 +249,6 @@
 					background-color:#ffe693;
 				}
 			}
-		}
-		.footer-line{
-			height: 30px;
-			line-height: 30px;
-			text-align: center;
-			font-size: 30px;
-			color: #999;
-			margin-bottom:80px;
 		}
 	}
 </style>

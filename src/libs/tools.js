@@ -73,6 +73,8 @@ const isEarly = (timeStamp, currentTime) => {
   return timeStamp < currentTime
 }
 
+
+
 /**
  * @param {Number} num 数值
  * @returns {String} 处理后的字符串
@@ -99,7 +101,17 @@ const getDate = (timeStamp, startType) => {
   else resStr = month + '-' + date + ' ' + hours + ':' + minutes
   return resStr
 }
-
+/**
+ * @param {String} 时间
+ * @returns {String} 两个日期之间的天数
+ */
+const DateMinus = (date1, date2) => {
+	let sdate = new Date(date1); 
+  let now = new Date(date2); 
+  let days = now.getTime() - sdate.getTime(); 
+  let day = parseInt(days / (1000 * 60 * 60 * 24)); 
+  return day; 
+} 
 /**
  * @param {String|Number} timeStamp 时间戳
  * @returns {String} 相对时间字符串
@@ -117,6 +129,7 @@ export const getRelativeTime = timeStamp => {
   const IS_EARLY = isEarly(timeStamp, currentTime)
   // 获取两个时间戳差值
   let diff = currentTime - timeStamp
+	// 获取两个时间差值天数
   // 如果IS_EARLY为false则差值取反
   if (!IS_EARLY) diff = -diff
   let resStr = ''

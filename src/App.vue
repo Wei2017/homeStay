@@ -40,7 +40,8 @@ export default {
 		height: 100%;
 	}
 	.main{
-		margin-bottom:150px;
+		height:100%;
+		padding-bottom:2rem;
 		overflow-y: auto;
 		overflow-x: hidden;
 	}

@@ -69,6 +69,10 @@
 		margin-top: 0;
 		border-bottom: none;
 		border-top: 1px solid #cccccc;
+		/deep/ .tabbar-nav-word{
+			font-size:24px;
+			color:#000;
+		}
 		/deep/ .icon-box .icon{
 			width:34px;
 			height:34px;

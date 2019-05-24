@@ -11,7 +11,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import NutUI from '@nutui/nutui';
 import '@nutui/nutui/dist/nutui.css';
-
+import common from '@/common/index'
 NutUI.install(Vue);
 Vue.config.productionTip = false
 /* 通过fastClick解决移动端点击 300毫秒延迟 */
@@ -20,7 +20,7 @@ fastClick.attach(document.body)
 Vue.use(VueAwesomeSwiper)
 
 require('es6-promise').polyfill()
-
+Vue.prototype.$common = common
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

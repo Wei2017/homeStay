@@ -4,7 +4,15 @@
 			<span @click="choseTime">{{datas.time}}</span>
 			<input v-model="datas.searchText" type="text" placeholder="位置/房源/关键字">
 		</div>
-		<com-list :listData = "datas.searchObj"></com-list>
+		<nut-infiniteloading 
+			@loadmore="moreList" 
+			:is-show-mod="true" 
+			:has-more="datas.isHasMore" 
+			:is-loading="datas.isLoading" 
+			:threshold="100">
+			<com-list :listData = "datas.searchObj"></com-list>
+		</nut-infiniteloading>
+		
 	</div>
 </template>
 
@@ -17,51 +25,82 @@
 				datas:{
 					searchText:'',
 					time:'05.15-05.16',
+					pageSize:10,
+					pageNum:1,
+					isHasMore:true,
+					isLoading:false,
 					searchObj: {
-						score: false,
-						comment: false,
-						items: [
-							{
-								img:'/static/img/footer-img@2x.png',
-								title:'杭州西湖边的名人别墅',
-								yPrice:284,
-								nPrice:263
-							},
-							{
-								img:'/static/img/ms-lb.png',
-								title:'宿州别墅',
-								yPrice:224,
-								nPrice:263
-							},
-							{
-								img:'/static/img/ms-lb.png',
-								title:'宿州别墅',
-								yPrice:244,
-								nPrice:263
-							},
-							{
-								img:'/static/img/footer-img@2x.png',
-								title:'杭州西湖边的名人别墅',
-								yPrice:193,
-								nPrice:150
-							},
-						]
+						score: true,
+						comment: true,
+						items: []
 					},
 				}
-		}
-	},
-	components: {
+			}
+		},
+		components: {
 			comList
 		},
 		mounted() {
-
+			this.getList()
 		},
+		destroyed() {
+			
+    },
 		methods: {
+			// 选取时间
 			choseTime(){
 				this.$router.push({
 					path: '/timeChose',
 					query:{}
 				})
+			},
+			// 获取数据
+			getList(){
+				this.datas.searchObj.items = [
+					{
+						img:'/static/img/footer-img@2x.png',
+						title:'杭州西湖边的名人别墅',
+						yPrice:284,
+						nPrice:263
+					},
+					{
+						img:'/static/img/ms-lb.png',
+						title:'宿州别墅',
+						yPrice:224,
+						nPrice:263
+					},
+					{
+						img:'/static/img/ms-lb.png',
+						title:'宿州别墅',
+						yPrice:244,
+						nPrice:263
+					},
+					{
+						img:'/static/img/footer-img@2x.png',
+						title:'杭州西湖边的名人别墅',
+						yPrice:193,
+						nPrice:150
+					},
+				]
+// 				if(res.code !== 600){
+// 					this.datas.isLoading = false;
+// 					this.datas.isHasMore = false;
+// 				}
+			},
+			// 加载更多
+			moreList(){
+				// this.datas.isLoading = true
+				let arr = [
+					{
+						img:'/static/img/footer-img@2x.png',
+						title:'杭州西湖边的名人别墅',
+						yPrice:284,
+						nPrice:263
+					}
+				]
+				// this.datas.searchObj.items.concat(arr)
+				// this.datas.pageNum ++
+				// console.log(this.datas.pageNum)
 			}
 		},
 		computed: {
