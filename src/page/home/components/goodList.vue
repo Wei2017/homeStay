@@ -1,8 +1,8 @@
 <template>
 	<div class="wrapper">
 		<swiper :options="swiperOption" class="swiper">
-			<swiper-slide v-for="(item,index) in listObj.items" :key="index">
-        <div class="lists">
+			<swiper-slide v-for="(item,index) in listObj.items" :key="index" >
+        <div class="lists" @click="jumpDetail(item.id)">
         	<div class="list-top">
         		<img :src="item.img" alt="">
         	</div>
@@ -49,6 +49,13 @@
 		methods: {
 			init(){
 				this.listObj = this.listData
+			},
+			jumpDetail(id){
+				this.$router.push({
+				  path: "/detail",
+				  query: {delId: id}
+				})
+				window.scrollTo(0, 0)
 			}
 		},
 		computed:{

@@ -47,6 +47,7 @@
 				  path: "/detail",
 				  query: {delId: id}
 				})
+				window.scrollTo(0, 0)
 			}
 		},
 		computed:{

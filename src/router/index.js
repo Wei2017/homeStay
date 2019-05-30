@@ -6,11 +6,19 @@ import Order from '@/page/order/order'
 import Msg from '@/page/msg/msg'
 import Me from '@/page/me/me'
 // search
-import search from '@/page/search/search'
+import searchList from '@/page/search/searchList'
 import timeChose from '@/page/search/timeChose'
 
 // 房源详情
 import detail from '@/page/detail/detail'
+// 设施服务详情
+import hotelDevice from '@/page/detail/hotelDevice'
+// 客房点评
+import commentList from '@/page/detail/commentList'
+// 房东印象
+import fdImpress from '@/page/detail/fdImpress'
+
+
 Vue.use(Router)
 
 const router = new Router({
@@ -52,13 +60,13 @@ const router = new Router({
 			component: Me
 		},
 		{
-			path: '/search',
-			name: 'search',
+			path: '/searchList',
+			name: 'searchList',
 			meta: {
 				title: '杭州',
 				showFooter:false
 			},
-			component: search
+			component: searchList
 		},
 		{
 			path: '/timeChose',
@@ -79,6 +87,33 @@ const router = new Router({
 			component: detail
 		},
 		{
+			path: '/hotelDevice',
+			name: 'hotelDevice',
+			meta: {
+				title: '设施服务详情',
+				showFooter:false
+			},
+			component: hotelDevice
+		},
+		{
+			path: '/commentList',
+			name: 'commentList',
+			meta: {
+				title: '客房评价',
+				showFooter:false
+			},
+			component: commentList
+		},
+		{
+			path: '/fdImpress',
+			name: 'fdImpress',
+			meta: {
+				title: '房东印象',
+				showFooter:false
+			},
+			component: fdImpress
+		},
+		{
 			path: '/',
 			redirect: '/home'
 		}
@@ -87,5 +122,8 @@ const router = new Router({
 router.beforeEach((to, form, next) => {
 	window.document.title = to.meta.title == undefined ? '默认标题' : to.meta.title
 	next()
+})
+router.afterEach(to => {
+	window.scrollTo(0, 0)
 })
 export default router

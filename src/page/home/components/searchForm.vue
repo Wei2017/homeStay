@@ -4,7 +4,7 @@
 		<div class="text">
 			<input type="text" v-model="datas.seachText" placeholder="位置/房源/关键字">
 			<span>
-				<nut-icon type="right"></nut-icon>
+				<van-icon name="arrow" />
 			</span>
 		</div>
 		<div class="searchBtn"><span @click="searchStart">开始搜索</span></div>
@@ -32,7 +32,7 @@
 			// 开始搜索
 			searchStart(){
 				this.$router.push({
-					path: '/search',
+					path: '/searchList',
 					query:{}
 				})
 			}
@@ -48,7 +48,7 @@
 
 <style scoped="scoped" lang="scss">
 	.search{
-		height: 280px;
+		height: 285px;
 		background: #fff;
 		border-radius: 20px;
 		box-shadow: 0px 1px 10px #999;
@@ -73,10 +73,9 @@
 				width: 100px;
 				text-align:right;
 				cursor: pointer;
-				/deep/ .nut-icon{
-					color: #e9e9e9;
-					width: 12px;
-					height: 26px;
+				/deep/ .van-icon{
+					color: #999;
+					font-size:24px;
 				}
 			}
 		}

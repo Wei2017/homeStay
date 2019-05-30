@@ -41,8 +41,5 @@ export default {
 	}
 	.main{
 		height:100%;
-		padding-bottom:2rem;
-		overflow-y: auto;
-		overflow-x: hidden;
 	}
 </style>
