@@ -58,7 +58,9 @@
 		},
 		//在路由离开的时候，关闭预览的图片
 		beforeRouteLeave(to, from, next) {
-			this.obj.imgConfig.close()
+			if(this.obj.imgConfig){
+				this.obj.imgConfig.close()
+			}
 			next();
 		},
 		components: {

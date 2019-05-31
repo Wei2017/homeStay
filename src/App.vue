@@ -37,9 +37,9 @@ export default {
 <style>
 	#app{
 		width:100%;
-		height: 100%;
+		height: auto;
 	}
 	.main{
-		height:100%;
+		height:auto;
 	}
 </style>

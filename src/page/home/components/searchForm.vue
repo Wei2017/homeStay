@@ -61,7 +61,7 @@
 		.location{
 			border-bottom: 1px solid #e9e9e9;
 			padding-left: 28px;
-			background: url('../../../assets/img/location-icon@2x.png') no-repeat left center;
+			background: url('/static/img/location-icon@2x.png') no-repeat left center;
 			background-size: 17px 21px;
 			font-size: 30px;
 		}

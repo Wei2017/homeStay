@@ -30,6 +30,6 @@
 	}
 </script>
 
-<style scoped="scoped" lang="stylus">
+<style scoped="scoped" lang="scss">
 
 </style>

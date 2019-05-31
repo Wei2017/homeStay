@@ -11,13 +11,20 @@ import timeChose from '@/page/search/timeChose'
 
 // 房源详情
 import detail from '@/page/detail/detail'
-// 设施服务详情
+// 详情-设施服务详情
 import hotelDevice from '@/page/detail/hotelDevice'
-// 客房点评
+// 详情-客房点评
 import commentList from '@/page/detail/commentList'
-// 房东印象
+// 详情-房东印象
 import fdImpress from '@/page/detail/fdImpress'
 
+// 订单相关页面
+// 填写订单
+import fillOrder from '@/page/order/fillOrder'
+// 费用明细
+import priceDetail from '@/page/order/priceDetail'
+// 等待确认
+import sureOrder from '@/page/order/sureOrder'
 
 Vue.use(Router)
 
@@ -77,6 +84,7 @@ const router = new Router({
 			},
 			component: timeChose
 		},
+		// 详情相关页面
 		{
 			path: '/detail',
 			name: 'detail',
@@ -112,6 +120,34 @@ const router = new Router({
 				showFooter:false
 			},
 			component: fdImpress
+		},
+		// 订单相关页面
+		{
+			path: '/fillOrder',
+			name: 'fillOrder',
+			meta: {
+				title: '填写订单',
+				showFooter:false
+			},
+			component: fillOrder
+		},
+		{
+			path: '/priceDetail',
+			name: 'priceDetail',
+			meta: {
+				title: '费用明细',
+				showFooter:false
+			},
+			component: priceDetail
+		},
+		{
+			path: '/sureOrder',
+			name: 'sureOrder',
+			meta: {
+				title: '等待确认',
+				showFooter:false
+			},
+			component: sureOrder
 		},
 		{
 			path: '/',

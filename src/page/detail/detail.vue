@@ -172,7 +172,7 @@
 				<img src="/static/img/detail_tel.png" alt="">
 				<span>电话</span>
 			</div>
-			<div class="btn">
+			<div class="btn" @click="sureOrder">
 				<span>￥224</span>
 				<em>￥263</em>
 				<span>立即预定</span>
@@ -254,6 +254,13 @@
 			jumpFd(){
 				this.$router.push({
 				  path: "/fdImpress",
+				  query: {delId: this.delId}
+				})
+			},
+			// 立即预定
+			sureOrder(){
+				this.$router.push({
+				  path: "/fillOrder",
 				  query: {delId: this.delId}
 				})
 			}

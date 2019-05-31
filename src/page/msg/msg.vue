@@ -1,12 +1,12 @@
 <template>
 	<div>
-		msg
+		fillOrder
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'msg',
+		name: 'fillOrder',
 		data() {
 			return {
 
@@ -30,6 +30,6 @@
 	}
 </script>
 
-<style scoped="scoped" lang="stylus">
+<style scoped="scoped" lang="scss">
 
 </style>

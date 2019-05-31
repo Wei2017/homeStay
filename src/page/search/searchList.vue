@@ -181,6 +181,20 @@
 				width:100%;
 				height: 440px!important;
 			}
+			.list-bottom{
+				>div{
+					span{
+						height: 30px;
+						line-height: 30px;
+						display: inline-block;
+						padding-right:15px;
+						border-right:1px solid #999;
+					}
+					span:last-child{
+						border-right:none;
+					}
+				}
+			}
 		}
 	}
 </style>

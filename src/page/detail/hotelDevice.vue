@@ -102,7 +102,7 @@
 			}
 		}
 		.closeDevice{
-			font-size:36px;
+			font-size:40px;
 			color: #999;
 			text-align: center;
 			margin: 80px 0;
