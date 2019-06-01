@@ -70,14 +70,14 @@ export default {
       return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
     }
   },
-	// 两个字符串日期相差天数
-	DateMinus:function(date1,date2){
-		let sdate = new Date(date1); 
-		let now = new Date(date2); 
-		let days = now.getTime() - sdate.getTime(); 
-		let day = parseInt(days / (1000 * 60 * 60 * 24)); 
-		return day; 
-	},
+  // 两个字符串日期相差天数
+  DateMinus: function (date1, date2) {
+    let sdate = new Date(date1);
+    let now = new Date(date2);
+    let days = now.getTime() - sdate.getTime();
+    let day = parseInt(days / (1000 * 60 * 60 * 24));
+    return day;
+  },
   // 此方法处理每个页面只能触发一次onresize事件，主要是图表插件，窗口放大缩小，图表不执行
   debounce: function (func, threshold, execAsap) {
     var timeoutTwo
@@ -94,7 +94,7 @@ export default {
       timeoutTwo = setTimeout(delayed, threshold || 100)
     }
   },
-	importXlsfun: function (obj) { //obj读取的文件
+  importXlsfun: function (obj) { //obj读取的文件
     /*
       FileReader共有4种读取方法：
       1.readAsArrayBuffer(file)：将文件读取为ArrayBuffer。
