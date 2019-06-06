@@ -1,6 +1,6 @@
 <template>
   <div class="notData">
-    <img src="/static/img/noData.png" alt width="80" height="63">
+    <img src="/static/img/noData.png" alt width="60" height="43">
     <p>{{NoDataVal}}</p>
   </div>
 </template>

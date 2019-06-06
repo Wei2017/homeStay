@@ -158,6 +158,12 @@ export default {
           font-size: 20px;
           max-width: 280px;
           margin-bottom: 12px;
+					text-overflow: -o-ellipsis-lastline;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
         }
         .order-date {
           font-size: 20px;

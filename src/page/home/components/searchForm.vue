@@ -33,8 +33,9 @@ export default {
     searchStart() {
       this.$router.push({
         path: "/searchList",
-        query: {}
+        query: {searchName:this.datas.seachText}
       });
+			this.datas.seachText = ''
     }
   },
   computed: {},
