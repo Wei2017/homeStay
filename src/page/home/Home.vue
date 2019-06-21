@@ -61,6 +61,9 @@
 						var index = Math.abs((this.$refs.mySwiper.swiper.activeIndex - 1) % length)
 						let url = this.datas.bannerImg[index].adUrl
 						location.href = url
+						this.$router.push({
+						  path: "/activity",
+						})
 					}
 				},
 				datas: {
