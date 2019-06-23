@@ -1,33 +1,13 @@
 <template>
   <div class="hotelDevice">
     <div class="content">
-      <div class="list">
-        <h3>基础设施</h3>
+      <div class="list" v-for="(item,index) in deviceItems" :key="index">
+        <h3>{{index}}</h3>
         <div class="list-con">
-          <span>
-            <em>无线电视</em>
-            <van-icon name="checked"/>
-          </span>
-          <span class="clear">
-            <em>无线电视</em>
-            <van-icon name="clear"/>
-          </span>
-        </div>
-      </div>
-      <div class="list">
-        <h3>卫浴设施</h3>
-        <div class="list-con">
-          <span>
-            <em>全天热水</em>
-            <van-icon name="checked"/>
-          </span>
-          <span class="clear">
-            <em>洗漱用品</em>
-            <van-icon name="clear"/>
-          </span>
-          <span>
-            <em>毛巾</em>
-            <van-icon name="checked"/>
+          <span v-for="(cItem,cInx) in item" :key="cInx" :class="{'clear' : cItem.keyDes === '1'}">
+            <em>{{cItem.keyOption}}</em>
+            <van-icon v-if="cItem.keyDes === '1'" name="checked"/>
+            <van-icon v-else name="clear"/>
           </span>
         </div>
       </div>
@@ -39,20 +19,26 @@
 </template>
 
 <script>
+import { getRoomServiceList } from "../../api/api";
 export default {
   name: "hotelDevice",
   data() {
     return {
-      deviceItems: [
-        {
-          title: "基础设施"
-        }
-      ]
+      deviceItems: null
     };
   },
   components: {},
-  mounted() {},
+  mounted() {
+    this.init();
+  },
   methods: {
+    init() {
+      getRoomServiceList(this.$route.query.delId).then(res => {
+        if (res.respCode === "2000") {
+          this.deviceItems = res.respData;
+        }
+      });
+    },
     closeDevice() {
       this.$router.go(-1);
     }

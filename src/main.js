@@ -9,8 +9,8 @@ import './axios'
 import fastClick from 'fastclick'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
-import NutUI from '@nutui/nutui';
-import '@nutui/nutui/dist/nutui.css';
+// import NutUI from '@nutui/nutui';
+// import '@nutui/nutui/dist/nutui.css';
 import common from '@/common/index'
 // NutUI.install(Vue);
 import {

@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    <div class="location">
+    <div class="location" @click="jumpLocation">
       <span>{{datas.location}}</span>
     </div>
     <div class="text">
@@ -33,9 +33,14 @@ export default {
     searchStart() {
       this.$router.push({
         path: "/searchList",
-        query: {searchName:this.datas.seachText}
+        query: { searchName: this.datas.seachText }
       });
-			this.datas.seachText = ''
+      this.datas.seachText = "";
+    },
+    jumpLocation() {
+      this.$router.push({
+        path: "/citySelect"
+      });
     }
   },
   computed: {},

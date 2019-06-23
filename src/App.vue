@@ -19,7 +19,9 @@ export default {
   data() {
     return {};
   },
-  mounted() {},
+  mounted() {
+    localStorage.setItem("userId", 2);
+  },
   methods: {},
   watch: {}
 };
@@ -32,5 +34,8 @@ export default {
 }
 .main {
   height: auto;
+}
+.van-toast {
+  padding: 35px !important;
 }
 </style>

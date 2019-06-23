@@ -4,7 +4,7 @@
       class="lists"
       v-for="(item,index) in listObj.items"
       :key="index"
-      @click="jumpDetail(item.id)"
+      @click="jumpDetail(item.roomAccId)"
     >
       <div class="list-top">
         <img :src="item.roomImg" alt>
@@ -45,10 +45,10 @@ export default {
     init() {
       this.listObj = this.listData;
     },
-    jumpDetail(id) {
+    jumpDetail(roomAccId) {
       this.$router.push({
         path: "/detail",
-        query: { delId: id }
+        query: { delId: roomAccId }
       });
       window.scrollTo(0, 0);
     }

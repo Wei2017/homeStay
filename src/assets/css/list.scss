@@ -8,15 +8,16 @@
 .list-bottom{
 	.title{
 		font-size: 30px;
-		width:98%;
-		margin: 15px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; 
+		margin: 15px 10px;
+    display:-webkit-box;
+		-webkit-box-orient:vertical;
+		-webkit-line-clamp:2;
+		overflow:hidden;
+		min-height:80px;
 	}
 	>div{
 		span{
-			margin-left: 10px;
+			margin:0 10px;
 			color: #999999;
 			font-size: 24px;
 			white-space: nowrap;
@@ -26,6 +27,7 @@
 		}
 	}
 	.price{
+		margin:6px 8px;
 		span{
 			font-size:30px;
 			color:#ffd33b;
