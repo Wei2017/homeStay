@@ -61,15 +61,6 @@ export default {
         query: {}
       });
     },
-    init() {
-      this.datas.listObj.items = [];
-      this.pageData.pageNum = 1;
-      this.datas.loading = true; //下拉加载中
-      this.datas.finished = false; //下拉结束
-      if (this.datas.loading) {
-        this.onLoad();
-      }
-    },
     // 获取数据-上拉加载
     onLoad() {
       let par = {
@@ -82,23 +73,21 @@ export default {
         stayInDate: "", //入住日期, 格式为 yyyy-MM-dd
         stayOutDate: "" //离店日期, 格式为 yyyy-MM-dd
       };
-      this.datas.loading = true;
-      this.datas.finished = false;
       searchList(par).then(res => {
-        // 加载结束
-        this.datas.loading = false;
         if (res.respCode === "2000") {
           if (res.respData.length > 0) {
+						this.pageData.pageNum += 1;
             this.datas.listObj.items = this.datas.listObj.items.concat(
               res.respData
-            );
-            this.pageData.pageNum++;
+            )
           } else {
             this.datas.finished = true; //数据加载完成
           }
         } else {
           this.datas.finished = true;
         }
+				// 加载结束
+				this.datas.loading = false;
       });
     },
     // 搜索查询

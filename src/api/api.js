@@ -45,6 +45,24 @@ export const cityLists = params => {
 		.then(res => res.data)
 		.catch(res => res.data)
 }
+// 首页-点击进入城市列表
+export const hotCityList = params => {
+	return axios.get(`${BASEURL}/Recommend/GetOpenedCityList`, {
+		params: params
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 首页-搜索点击进入热门城市
+export const getHotSearchKey = (cityName) => {
+	return axios.get(`${BASEURL}/Recommend/GetHotSearchKey`, {
+		params: {
+			cityName: cityName
+		}
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
 // 详情页
 export const homeDetail = (roomAccId, userid) => {
 	return axios.get(`${BASEURL}/Room/GetRoomForDetailPage`, {
@@ -72,4 +90,38 @@ export const getRoomServiceList = (roomAccId) => {
 		.then(res => res.data)
 		.catch(res => res.data)
 }
-
+// 详情页—获取一个房型的所有设施
+export const getListPageByAccOrRoom = params => {
+	return axios.get(`${BASEURL}/RoomEvaluate/GetListPageByAccOrRoom`, {
+		params: params
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 详情页—房东详情
+export const fdInfo = (accountid,froms) => {
+	return axios.get(`${BASEURL}/AccInfo/GetModelByAccId`, {
+		params: {
+			accountid: accountid,
+			from: froms
+		}
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 详情页—房东详情上架房源
+export const fdGetRoomList= params => {
+	return axios.get(`${BASEURL}/ViewRoomMainInfo/GetListPageSearch`, {
+		params:params
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 详情页—房东详情客房点评
+export const fdGetCommentList = params => {
+	return axios.get(`${BASEURL}/RoomEvaluate/GetListPageByAccOrRoom`, {
+		params:params
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}

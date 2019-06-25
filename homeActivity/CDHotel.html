@@ -1,0 +1,6892 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+    <title>CDHotel数据库结构 create by king</title>
+    <style type='text/css'>
+ * { margin: 0px;  font-family: 'Microsoft YaHei' !important;  }
+        body {   font-size: 9px;   }
+        table { margin: 20px;   width: 97%;   } 
+        tr {  border: 1px solid;   background-color: #808080;   }
+        td, th {   font-size: 12px;  padding: 7px 10px;  }
+        h3 {   font-size: 20px;  } 
+        .top {  position: fixed;   right: 0;   bottom: 100px;   font-weight: bold   } 
+        .tbmiao a { text-decoration:none; color:#2e1a1a;font-weight:bold; font-size:15px; }
+        .tbmiao td:hover {  background-color:#4f3c3c;   }
+    </style>
+</head>
+
+<body>
+    <div style='text-align: center'>
+    <a class='top' href='javascript:scroll(0,0)'>回<br/>顶<br/>部</a>
+<div><h3 style='font-size:20px'> >>>CDHotel 数据表 目录<<< </h3></div> 
+        <table class='tbmiao'>
+            <tr>
+                <td><a href='#AccConfigKey'>AccConfigKey     </a></td>
+                <td><a href='#AccConfigVal'>AccConfigVal     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#AccInfo'>AccInfo     </a></td>
+                <td><a href='#AccMenu'>AccMenu     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#Account'>Account     </a></td>
+                <td><a href='#AccRole'>AccRole     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#AccWallet'>AccWallet     </a></td>
+                <td><a href='#AuthAccount'>AuthAccount     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#AuthAccRole'>AuthAccRole     </a></td>
+                <td><a href='#DicType'>DicType     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#MsgFAQ'>MsgFAQ     </a></td>
+                <td><a href='#MsgFeedBack'>MsgFeedBack     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#MsgNotice'>MsgNotice     </a></td>
+                <td><a href='#MsgSysUpLog'>MsgSysUpLog     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#MsgToAccount'>MsgToAccount     </a></td>
+                <td><a href='#OrderLog'>OrderLog     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#OrderMain'>OrderMain     </a></td>
+                <td><a href='#OrderSKU'>OrderSKU     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#OrderState'>OrderState     </a></td>
+                <td><a href='#RecommendAD'>RecommendAD     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#RecommendRoom'>RecommendRoom     </a></td>
+                <td><a href='#RoomAcc'>RoomAcc     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#RoomAccMainInfo'>RoomAccMainInfo     </a></td>
+                <td><a href='#RoomConfigKey'>RoomConfigKey     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#RoomDay'>RoomDay     </a></td>
+                <td><a href='#RoomDiscount'>RoomDiscount     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#RoomEvaluate'>RoomEvaluate     </a></td>
+                <td><a href='#RoomImg'>RoomImg     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#RoomLog'>RoomLog     </a></td>
+                <td><a href='#RoomServer'>RoomServer     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#SystemConfig'>SystemConfig     </a></td>
+                <td><a href='#UserWX'>UserWX     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#View_AccConfig'>View_AccConfig     </a></td>
+                <td><a href='#View_Account'>View_Account     </a></td>
+            </tr>
+            <tr>
+                <td><a href='#View_RoleAuth'>View_RoleAuth     </a></td>
+                <td><a href='#View_RoomMainInfo'>View_RoomMainInfo     </a></td>
+            </tr>
+        </table>
+
+<div  id='AccConfigKey' name='AccConfigKey'><h3 style='font-size:20px'>AccConfigKey (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户配置项 表 自增id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>CfgName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>配置项名称</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>CfgDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>配置项描述</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>CfgInputDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>配置项如何填写要配置的值</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>DefaultVal</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>配置项默认值</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>CfgTarget</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>针对哪种角色的设置 0全部线上线下 1线上 2线下</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>IsAdminSet</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>1只能管理员给他设置 0商户自己设置</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsShow</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((1))</td>
+                <td>是否有效/有用 , 是否可展示</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改 时间</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='AccConfigVal' name='AccConfigVal'><h3 style='font-size:20px'>AccConfigVal (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户配置项目的值 表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccConfigKeyId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>外键关联AccConfigKey</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>CfgVal</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>主配置 值</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>CfgValA</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>辅助配置值1</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>CfgValB</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>辅助配置值2</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>CfgValC</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>辅助配置值3</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>外键关联Account表的id (主要是商户角色的accountid)</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>AccName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>外键关联account表的UInfo</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>IsOpen</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((1))</td>
+                <td>1开启有效 0关闭无效</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>配置/修改 时间</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='AccInfo' name='AccInfo'><h3 style='font-size:20px'>AccInfo (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>用户信息(商户角色)表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>关联account表的id, 此表主要存储商户信息</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>AccountName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>AccGgcTitle</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>店铺广告词标题</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>AccGgcDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>店铺广告词描述</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>AccPositionDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>交通位置</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>AccNearDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>周边介绍</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>BusType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户经营 还是 个人经营</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>BusUser</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>业务联系人 姓名</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>BusPhone</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>业务联系人电话</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>BusAddress</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>商户经营地址,尽量写全了</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>ServicePhone</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>售后电话</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>NickName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房东昵称</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>BusImgA</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>营业执照或者 个人 认证信息</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>BusImgB</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>银行开户许可证</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>BusImgC</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>法人身份证</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>BusFile</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>上传文件, 例如合同等</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>BankName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>银行名称</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>BankBusName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>银行开户名</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>BankNum</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>公司银行账号</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改时间</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>AccHeadImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>商户头像 200 * 200 px</td>
+            </tr>
+        </table>
+
+<div  id='AccMenu' name='AccMenu'><h3 style='font-size:20px'>AccMenu (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>菜单表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>MenuType</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>菜单类别 1一级菜单 2二级菜单 3三级菜单 4页面权限</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>MenuName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>菜单名称</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>MenuUrl</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>菜单路径</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>MenuDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>菜单描述</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>MenuParentId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>菜单父级</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>MenuIcon</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>菜单图标</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>MenuSort</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((100))</td>
+                <td>菜单排序, 默认100,越小越靠前, 同样顺序看updatetime</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>MenuIsOpen</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((1))</td>
+                <td>菜单是否开放中(有效)</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>MenuContainUrls</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>除了 以List.aspx和Add.aspx结尾外,哪些url可以是此菜单保持激活/选中 样式</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改时间</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='Account' name='Account'><h3 style='font-size:20px'>Account (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>用户账户表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>UName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>登录名</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>UPhone</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>电话</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>UMail</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>邮箱</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>UPwd</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>密码</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>UImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>头像</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UInfo</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>名字</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>AParentId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>父级id,自关联</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>AccRoleId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>角色,关联accrole表</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>AStatus</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>状态 0待审核 1审核失败 2审核通过 3暂停使用 </td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>CreateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加时间</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>SignTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>最后登录时间</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>SignIp</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>最后登录ip或者经纬度</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>SignCount</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>总登录次数</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>WXOpenId</td>
+                <td> nvarchar</td>
+                <td>100</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>绑定的微信信息 openid</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>WXName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>微信昵称</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='AccRole' name='AccRole'><h3 style='font-size:20px'>AccRole (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>RoleName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>角色名称</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>RoleGroup</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>角色组别 1管理员组 2线上商户组 3线下商户组 4商户操作员组</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>RoleGrade</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((5))</td>
+                <td>角色等级 1高级 2中级 3一般级</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>RoleDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>角色描述</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>RStatus</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((1))</td>
+                <td>角色状态 1使用生效中 0已废弃失效</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改 时间, 根据时间控制排序</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='AccWallet' name='AccWallet'><h3 style='font-size:20px'>AccWallet (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户账户变动记录</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>ProjectName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>项目名称: 账户变动名称</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>ProjectDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>描述</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>ProjVerifyCode</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>账户变动的唯一识别号码</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>ProjMoney</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>涉及到的金额, 一个正数或者负数</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>AfterTimeMoney</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>充值或扣款或当时钱后多少, 和上次记录计算的出来的</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>外键关联 account表id</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>AccountName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>外键关联 account表uinfo</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>ProjState</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((1))</td>
+                <td>0待审核 1无效 2有效</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改 时间</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='AuthAccount' name='AuthAccount'><h3 style='font-size:20px'>AuthAccount (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>account的权限(菜单)表 自增主键Id, 是account和accmenu的中间关联表</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>外键关联account表id</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>AccMenuId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>外键关联 accmenu表的id</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>AuthDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>权限描述, 格式: 菜单类型_用户名_菜单名</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>AuthType</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((1))</td>
+                <td>1允许 2禁止</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改 时间</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='AuthAccRole' name='AuthAccRole'><h3 style='font-size:20px'>AuthAccRole (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>角色 权限(菜单) 表 自增主键Id, 是AccRole和AccMenu的中间关联表</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccRoleId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>外键关联AccRole表Id</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>AccMeunId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>外键关联AccMenu表Id</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>AuthDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>描述 格式: 菜单类型_用户名_菜单名</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>ShortcutNum</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>是否为常用快捷菜单, 如果是快捷菜单, 则>0 , 越大月常用</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改 时间</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='DicType' name='DicType'><h3 style='font-size:20px'>DicType (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>系统类别说明总表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>DicClass</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>1.各个位置图片推荐 2各个位置房源推荐</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>DicGroup</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>分类所属组 code</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>DicName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>类别名称</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>DicParentId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>类别父级id</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>DicParentName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>类别父级名称</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>DicDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>类别说明/描述</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsOpen</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((1))</td>
+                <td>是否开启</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='MsgFAQ' name='MsgFAQ'><h3 style='font-size:20px'>MsgFAQ (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>faq 自增主键id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>FAQTitle</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>标题</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>FAQMsg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>内容</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>FAQType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>类型: 商品问答, 订单问答, 结算问答, 商户问答, 其他问答</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/更新时间</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='MsgFeedBack' name='MsgFeedBack'><h3 style='font-size:20px'>MsgFeedBack (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>用户建议意见表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>来自account表的id</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>AccountName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>来自 account表的 uinfo</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>SugType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>关于商户的, 关于商品的, 关于订单的, 关于结算的, 关于消息的</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>SugMsg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>留言</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>SugReplay</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>回复</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>SugState</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>0待回复 1已处理 </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改 时间</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='MsgNotice' name='MsgNotice'><h3 style='font-size:20px'>MsgNotice (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>消息 公告表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>NoticeType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>公告类型: 商品公告 , 订单公告, 操作公告, 其他公告</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>NoticeTitle</td>
+                <td> nvarchar</td>
+                <td>100</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>公告标题 30字以内</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>NoticeContent</td>
+                <td> nvarchar</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>公告内容</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>StartTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>公告可见时间 起始</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>EndTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>公告 可见时间 结束时间</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>ShowGroup</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>可见范围 0全部 1商户级 2线上商户 3线下商户 </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Updatetime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改时间</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除 </td>
+            </tr>
+        </table>
+
+<div  id='MsgSysUpLog' name='MsgSysUpLog'><h3 style='font-size:20px'>MsgSysUpLog (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>系统更新日志表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>UpVersion</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>版本号</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>UpType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>更新类别 1. 花啦系统 2.花啦接口 3.花啦小程序</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>UpTitle</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>更新标题</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>UpDes</td>
+                <td> nvarchar</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>更新明细(选填)</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/更新时间</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='MsgToAccount' name='MsgToAccount'><h3 style='font-size:20px'>MsgToAccount (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>消息 私信 自增主键id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>目标商户的id, 一般是商户id, 当然也有给操作员的</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>AccountName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>商户名称</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>AccountRoleId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户角色id</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>MsgType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>私信类型: 1给商户的私信 2给操作员的私信</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>TheMsg</td>
+                <td> nvarchar</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>私信内容, 尽量不要字太多</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>MsgState</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>状态 0未读 1已读 2失效  3删除</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>MsgFrom</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>谁发的私信</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>MsgLog</td>
+                <td> nvarchar</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>私信操作日志</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>ExpireTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>过期时间</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>RelationTable</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>和这个私信有关的表 名</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>RelationValue</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>和这个私信有关的表 值</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改时间</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='OrderLog' name='OrderLog'><h3 style='font-size:20px'>OrderLog (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>订单日志表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>OrderCode</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>订单编号</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>OrderState</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>状态名称</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>LogMsg</td>
+                <td> nvarchar</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>日志内容</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>OpName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>操作员</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='OrderMain' name='OrderMain'><h3 style='font-size:20px'>OrderMain (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>OrderType</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>1订房订单(R开头) 2.订餐订单(M开头) 3.特产订单(P开头)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>OrderCode</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>订单编号</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>OName</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>订单名称</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>OMoney</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>订单总额</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>ExtMoney</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>在线 支付的押金或者邮费</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>OMark</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>订单备注</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>OTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>下单时间</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>OSkuCount</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>入住几天或者 买了几种商品</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>UserWXOpenId</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>下单用户微信openid</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>UserInfo</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>下单用户微信昵称</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>RecName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>顾客姓名</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>RecPhone</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>顾客电话</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>RecIdCard</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>顾客身份证( 多个顾客入住的话填写一个人的就行, 到店都出示)</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>RecStayIn</td>
+                <td> date</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>入住时间</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>RecStayOut</td>
+                <td> date</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>离店时间</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>RecMark</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>顾客下单留言</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>OStateId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>订单状态, 关联OrderState表</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>OStateName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>订单状态名称, 关联OrderState表</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>PayInfo</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>付款信息</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>PayTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(((2000)-(1))-(1))</td>
+                <td>付款时间</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>RefundMoney</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>退款金额</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>RefundInfo</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>退款信息</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>RefundExtMoney</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>退回的押金金额</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>商户Id, 关联Account表Id</td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>AccountName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>商户名称</td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td>OExtA</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留扩展</td>
+            </tr>
+            <tr>
+                <td>28</td>
+                <td>OExtB</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留扩展</td>
+            </tr>
+            <tr>
+                <td>29</td>
+                <td>OExtC</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留扩展</td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td>OExtD</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留扩展</td>
+            </tr>
+            <tr>
+                <td>31</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>32</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>33</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='OrderSKU' name='OrderSKU'><h3 style='font-size:20px'>OrderSKU (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>订单商品SKU表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>OrderCode</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>订单编号</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>PCode</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>商品识别码, 订房的话是roomdayid, 订餐的话是餐的id</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>PName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商品名称</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>PMoney</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>单价</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>PCount</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((1))</td>
+                <td>数量</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>PImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>商品图片</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>PUrl</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>链接地址</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>PDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>描述</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='OrderState' name='OrderState'><h3 style='font-size:20px'>OrderState (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>订单状态表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>StateGroup</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>状态分组 , 默认 1001 (房屋预定类订单)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>StateName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>订单状态名称</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>StateDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>订单状态描述</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>IsOpen</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((1))</td>
+                <td>此状态是否正常使用中 0关闭中 1开启中</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RecommendAD' name='RecommendAD'><h3 style='font-size:20px'>RecommendAD (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>c端用户站点推荐 广告位 自增主键ID</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>DicTypeId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>推荐位置类型id, 关联DicType表的Id</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>DicTypeName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>推荐位置类型id, 关联DicType表的Name</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>AdTitle</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>标题</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>AdDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>副标题或者描述</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>AdUrl</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>点击广告或者推荐资源位要跳转的链接</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>AdUrlApp</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>跳转到微信app的链接</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>AdImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>图片链接</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RecommendRoom' name='RecommendRoom'><h3 style='font-size:20px'>RecommendRoom (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房源/房型推荐 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>DicTypeId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>推荐类型 关联DicType表Id</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>DicTypeName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>推荐类型 关联DicType表name</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>RoomAccId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>推荐房型的名称, 关联RoomAccId表</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>RecmTitle</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>推荐标题</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>RecmDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>推荐描述</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>RecmImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>推荐图片, 选填</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RoomAcc' name='RoomAcc'><h3 style='font-size:20px'>RoomAcc (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户Id, 外键关联Account表的Id</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>AccountName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户名称, 外键关联Account表的名称</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>RoomName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房屋名称/房型名称</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>RoomNameDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>房型标题描述</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>RMainImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>房型图片</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>RoomDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房屋特殊, 房型描述</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>StayInTime</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>房客入住时间</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>StypeOutTime</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房客离店时间</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>RoomClear</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>多久提供打扫卫生</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>BedClear</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>对酒提供被单更换</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>StayInTips</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>入驻提示</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>RoomAllow</td>
+                <td> nvarchar</td>
+                <td>1000</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>对客要求</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>BasicPrice</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>基础价格</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>RefundBeforeDay</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((-1))</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>RefundBreachPercent</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(N'50%')</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>DepositMoney</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>押金金额</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>DepositType</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((1))</td>
+                <td>1到店支付 2在线支付</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>LeastStayDays</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((1))</td>
+                <td>至少入住天数</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>RentType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>出租方式: 整套出租 还是  独立房间</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>RoomStyle</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房屋类型</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>RoomType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房屋户型 </td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>RoomSize</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>房屋面积  多少平米</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>RoomSight</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房屋景观  无; 海景; 江景; 山景;</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>BedA</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>床型A</td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>BedACount</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((1))</td>
+                <td>床型A数量</td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td>BedB</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>床型B</td>
+            </tr>
+            <tr>
+                <td>28</td>
+                <td>BedBCount</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>床型B数量</td>
+            </tr>
+            <tr>
+                <td>29</td>
+                <td>SuitablePerson</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((2))</td>
+                <td>宜住人数</td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td>RoomThisType</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((1))</td>
+                <td>同类房屋数量</td>
+            </tr>
+            <tr>
+                <td>31</td>
+                <td>RoomServerIds</td>
+                <td> nvarchar</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>外键关联RoomServer的id,多个用英文逗号间隔</td>
+            </tr>
+            <tr>
+                <td>32</td>
+                <td>AddrP</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房源所在地 省份</td>
+            </tr>
+            <tr>
+                <td>33</td>
+                <td>AddrC</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房源所在地 城市</td>
+            </tr>
+            <tr>
+                <td>34</td>
+                <td>AddrR</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房源所在地 区县</td>
+            </tr>
+            <tr>
+                <td>35</td>
+                <td>AddrS</td>
+                <td> nvarchar</td>
+                <td>100</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房源所在地 街道小区门牌</td>
+            </tr>
+            <tr>
+                <td>36</td>
+                <td>RoomExtA</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>37</td>
+                <td>RoomExtB</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>38</td>
+                <td>RoomExtC</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>39</td>
+                <td>CreateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>40</td>
+                <td>RoomState</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>房屋状态 0待审核 1审核中 3审核不通过 4审核通过 5暂停营业/下架中</td>
+            </tr>
+            <tr>
+                <td>41</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>42</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>43</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1 删除</td>
+            </tr>
+        </table>
+
+<div  id='RoomAccMainInfo' name='RoomAccMainInfo'><h3 style='font-size:20px'>RoomAccMainInfo (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型主信息表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>RoomAccId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型表Id, 关联RoomAcc表Id</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>RoomName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型表Id, 关联RoomAcc表name</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>RoomDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>房型副标题, 总结于 roomacc表中数据</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>RoomImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>房型主图</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>BasicPrice</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型基础价</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>SelDatePrice</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>所选日期的日均价</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型所属商户id</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>AccNickName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房东昵称</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>AccHeadImg</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房东头像</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>AccBusType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>房东类型 (是个人经营还是 商户经营)</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>RAddrProvince</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>地址中 省份部分</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>RAddrCity</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>地址中 城市部分</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>RAddrRegion</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>地址中 区县部分</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>RAddrStreet</td>
+                <td> nvarchar</td>
+                <td>100</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>地址中 街道部分</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>RaddrGPSPoint</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>经纬度</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>RoomSEO</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>关键搜索词</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>RBasicDesA</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>基础信息A</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>RBasicDesB</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>基础信息B</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>RBasicDesC</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>基础信息C</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>RBasicDesD</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>基础信息D</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>RBasicDesE</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>基础信息E</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>RBasicDesF</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>基础信息F</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RoomConfigKey' name='RoomConfigKey'><h3 style='font-size:20px'>RoomConfigKey (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房屋设置 存储表 自增主键</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>KeyCodeGroup</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>项目分组</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>KeyCode</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>配置项目编号,  1000起步</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>KeyName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>配置项目名称</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>KeyOption</td>
+                <td> nvarchar</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>配置项可选值</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>KeyDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>配置项描述说明</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>ParentId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>本表内父级Id</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RoomDay' name='RoomDay'><h3 style='font-size:20px'>RoomDay (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房源日历(每天的价格和库存) 自增主键ID</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>RoomAccId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型ID, 外键关联RoomAcc表</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>DayState</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>当日房源状态 1可售 2已关房 3已售空</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Price</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>当日房型价格</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>RemainingRoom</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>当日房型库存(还剩几间房可售)</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>DayShow</td>
+                <td> date</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>日期</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>RDExtA</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>RDExtB</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>RDExtC</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/更新时间</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RoomDiscount' name='RoomDiscount'><h3 style='font-size:20px'>RoomDiscount (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型满减折扣优惠表 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户Id, 外键关联AccountId表的Id</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>RoomAccId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型ID, 外键关联RoomAcc表的Id</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>ReachDays</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>满N天, 连住N天</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>DisCount</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>折扣, 例如 8.5折就是 0.85</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/更新时间</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RoomEvaluate' name='RoomEvaluate'><h3 style='font-size:20px'>RoomEvaluate (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房源评价 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>OrderCode</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>UserId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>用户Id</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>UserOpenId</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>微信用户的openid</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>UserName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>用户昵称</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>UserHeadImg</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>用户头像</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UserEvaluate</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>评论内容</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>UserScore</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((5))</td>
+                <td>用户给房型打分, 1~5</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>UserEImgA</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>评论附加的图片1</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>UserEImgB</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>评论附加的图片 </td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>UserEImgC</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>评论附加的图片 </td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>UserEImgD</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>评论附加的图片 </td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>UserEImgE</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>评论附加的图片 </td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>RoomAccId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>房型id, 关联roomacc表的Id</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>RoomAccName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>房型名称</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>商户id, 关联account表的id</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>AccNickName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>商户昵称</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>AccReply</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>商户回复</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>CreateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加时间</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RoomImg' name='RoomImg'><h3 style='font-size:20px'>RoomImg (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型和商家的图片 存储 </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>ImgType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>图片类型</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>ImgUrl</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>图片路径</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>ImgDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>图片介绍</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户id, 外键关联account表</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>AccountName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>商户名称, 外键关联account表</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>RoomAccId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td>房型id, 外键关联room表</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>RoomName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>房型名称, 外键关联room表</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RoomLog' name='RoomLog'><h3 style='font-size:20px'>RoomLog (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>房型, 房源 修改日志 自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>RoomAccId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>RoomAcc表的ID</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>RoomDayId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>RoomDay表的ID</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>LogInfo</td>
+                <td> nvarchar</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>日志信息</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>商户Id</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>AccInfo</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>操作员信息</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/更新时间</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='RoomServer' name='RoomServer'><h3 style='font-size:20px'>RoomServer (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>设施服务 配置目录 自增主键</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>ServerName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>服务名称</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>GroupName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>服务设施 类型</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>GroupCode</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>服务设置类型编码 , 1000起步</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='SystemConfig' name='SystemConfig'><h3 style='font-size:20px'>SystemConfig (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>系统公共配置表 自增主键Id, 由admin或技术人员配置, 不可随意修改</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>ConfigKey</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>配置项目 , 名称</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>ConfigVal</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>配置的值</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>ConfigDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>配置描述, 介绍</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>ConfigCode</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>配置项编码,预留</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>添加/修改时间</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留1 删除</td>
+            </tr>
+        </table>
+
+<div  id='UserWX' name='UserWX'><h3 style='font-size:20px'>UserWX (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>用户表自增主键Id</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>UNickName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>用户昵称,一般是微信昵称</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>UWXOpenId</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>微信openid</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>UWXAppOpenId</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>微信小程序openid</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>UHeadImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>头像</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>UPhone</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>手机号</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>LastViewTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>最后留言时间</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>LastGPSPoint</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td></td>
+                <td>('')</td>
+                <td>最后一次用户所处的位置</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>CreateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>用户首次创建时间</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>('')</td>
+                <td>预留备注</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>(getdate())</td>
+                <td>更新时间</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td>((0))</td>
+                <td>删除标记 0保留 1删除</td>
+            </tr>
+        </table>
+
+<div  id='View_AccConfig' name='View_AccConfig'><h3 style='font-size:20px'>View_AccConfig (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccConfigKeyId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>CfgVal</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>CfgValA</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>CfgValB</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>CfgValC</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>AccName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>IsOpen</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>CfgName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>CfgDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>CfgInputDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>DefaultVal</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>CfgTarget</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>IsAdminSet</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>AccCfgRemark</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+<div  id='View_Account' name='View_Account'><h3 style='font-size:20px'>View_Account (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>UName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>UPhone</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>UMail</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>UPwd</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>UImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UInfo</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>AParentId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>AccRoleId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>AStatus</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>CreateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>SignTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>SignIp</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>SignCount</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>WXOpenId</td>
+                <td> nvarchar</td>
+                <td>100</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>WXName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>RoleName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>RoleGroup</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>RoleGrade</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>RoleDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>RStatus</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+<div  id='View_RoleAuth' name='View_RoleAuth'><h3 style='font-size:20px'>View_RoleAuth (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>AccRoleId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>AccMeunId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>AuthDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>ShortcutNum</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>RoleName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>RoleGroup</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>RoleGrade</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>RoleDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>RStatus</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>MenuType</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>MenuName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>MenuUrl</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>MenuDes</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>MenuParentId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>MenuIcon</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>MenuSort</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>MenuIsOpen</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>MenuContainUrls</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+<div  id='View_RoomMainInfo' name='View_RoomMainInfo'><h3 style='font-size:20px'>View_RoomMainInfo (  ) </h3></div> 
+ <table>
+            <tr>
+                <th>列序号</th>
+                <th>列名</th>
+                <th> 数据类型</th>
+                <th>长度</th>
+                <th>小数位</th>
+                <th>标识</th>
+                <th>主键</th>
+                <th>允许空</th>
+                <th>默认值</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Id</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>RoomAccId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>RoomName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>RoomDes</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>RoomImg</td>
+                <td> nvarchar</td>
+                <td>500</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>BasicPrice</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>SelDatePrice</td>
+                <td> decimal</td>
+                <td>18</td>
+                <td>2</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>AccountId</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>AccNickName</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>AccHeadImg</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>AccBusType</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>RAddrProvince</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>RAddrCity</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>RAddrRegion</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>RAddrStreet</td>
+                <td> nvarchar</td>
+                <td>100</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>RaddrGPSPoint</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>RBasicDesA</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>RBasicDesB</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>RBasicDesC</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>RBasicDesD</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>RBasicDesE</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>RBasicDesF</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>Remark</td>
+                <td> nvarchar</td>
+                <td>50</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>UpdateTime</td>
+                <td> datetime</td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>IsDelete</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>RoomState</td>
+                <td> int</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>
+

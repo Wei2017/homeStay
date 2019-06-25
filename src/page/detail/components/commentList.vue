@@ -1,75 +1,66 @@
 <template>
   <div class="comment">
-    <van-list v-model="datas.loading" :finished="datas.finished" finished-text="没有更多数据了"  @load="onLoad">
-      <tenant-list :listData="obj" @closeImg="closeImg"></tenant-list>
-    </van-list>
+    <div class="list" v-for="(item,index) in listObj.items" :key="index">
+        <div class="lf-con">
+          <img :src="item.userHeadImg" alt>
+        </div>
+        <div class="rg-con">
+          <div class="rg-con-top">
+            <div>
+              <span>{{item.userName}}</span>
+              <em>{{item.updateTime}}入住</em>
+            </div>
+            <div>
+              <span>{{item.userScore+'.0'}}</span>
+              <van-rate v-model="item.userScore" readonly/>
+            </div>
+          </div>
+          <div class="comment-con">
+            <p :class="'pCon'+index">{{item.userEvaluate}}</p>
+            <span @click="showMoreComment(index)" :class="'moreComment'+index">全文</span>
+            <div class="comment-imgs">
+              <span v-for="(img,inx) in item.userEImgs" :key="inx" @click="showImg(item.userEImgs)">
+                <img :src="img" alt>
+              </span>
+            </div>
+						<div v-show="listObj.replay">
+							<div class="replay" v-if="item.accReply">
+							  房东回复：
+							  <span>{{item.accReply}}</span>
+							</div>
+						</div>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
 <script>
 import { ImagePreview, Rate } from "vant";
-import { getListPageByAccOrRoom } from "../../api/api";
-import tenantList from "@/page/detail/components/commentList.vue"; //客房评论列表
 export default {
   name: "commentList",
   data() {
     return {
-      pageData: {
-        pageSize: 10,
-        pageNum: 1
-      },
 			datas:{
-				loading: false,
-				finished: false,
-				imgConfig:'',//客房点评图片config值
+				imgConfig:''
 			},
-      obj: {
-				replay:true,
-        items: []
-      }
+			listObj:{}
     };
   },
   props: {
-		
-  },
-  //在路由离开的时候，关闭预览的图片
-  beforeRouteLeave(to, from, next) {
-    if (this.datas.imgConfig) {
-      this.datas.imgConfig.close();
-    }
-    next();
+    listData: Object
   },
   components: {
     [ImagePreview.name]: ImagePreview,
-    [Rate.name]: Rate,
-		tenantList
+    [Rate.name]: Rate
   },
   mounted() {
-		
+		this.init()
   },
   methods: {
-    onLoad() {
-      let par = {
-        accountid: 0,
-        roomAccId: this.$route.query.delId,
-        pageSize: this.pageData.pageSize,
-        pageIndex: this.pageData.pageNum
-      };
-      getListPageByAccOrRoom(par).then(res => {
-        // 加载结束
-        this.datas.loading = false;
-        if (res.respCode === "2000") {
-          if (res.respData.length > 0) {
-						this.pageData.pageNum += 1;
-						this.obj.items = this.obj.items.concat(res.respData)
-          } else {
-            this.datas.finished = true; //数据加载完成
-          }
-        } else {
-          this.datas.finished = true;
-        }
-      });
-    },
+		init() {
+		  this.listObj = this.listData;
+		},
     // 查看全文
     showMoreComment(index) {
       let con = document.getElementsByClassName("moreComment" + index)[0];
@@ -84,20 +75,27 @@ export default {
         p.style.overflow = "hidden";
       }
     },
-    // 接收子组件传来的imgConfig
-    closeImg(imgConfig){
-			this.datas.imgConfig = imgConfig
-    },
+    //查看图片
+    showImg(imgs) {
+      this.datas.imgConfig = ImagePreview(imgs)
+			// 离开路由关闭大图
+			this.$emit('closeImg',this.datas.imgConfig)
+    }
   },
   computed: {},
-  watch: {}
+  watch: {
+    listData: {
+      handler() {
+        this.init();
+      },
+      deep: true
+    }
+  }
 };
 </script>
 
 <style scoped="scoped" lang="scss">
 .comment {
-  margin-bottom: 100px;
-
   .list {
     display: flex;
     padding: 30px;
@@ -194,7 +192,6 @@ export default {
           background: #f4f4f5;
           padding: 20px;
           font-size: 24px;
-
           span {
             line-height: 36px;
             color: rgb(153, 153, 153);

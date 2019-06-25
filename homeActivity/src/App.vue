@@ -1,27 +1,28 @@
 <template>
   <div id="app">
     <div class="main">
-      <keep-alive>
+      <!-- <keep-alive>
         <router-view></router-view>
-      </keep-alive>
-      <nav-bar v-show="$route.meta.showFooter"></nav-bar>
+      </keep-alive>-->
+      <!-- <router-view>
+        <activity></activity> 
+      </router-view>-->
+      <activ-ity></activ-ity>
     </div>
   </div>
 </template>
 
 <script>
-import navBar from "@/components/navBar.vue";
+import activIty from "@/page/activity/activity.vue";
 export default {
   name: "App",
   components: {
-    navBar
+    activIty
   },
   data() {
     return {};
   },
-  mounted() {
-    localStorage.setItem("userId", 2);
-  },
+  mounted() {},
   methods: {},
   watch: {}
 };
@@ -34,11 +35,5 @@ export default {
 }
 .main {
   height: auto;
-}
-.van-toast {
-  padding: 35px !important;
-}
-.van-list__finished-text{
-	padding: 50px 0 70px 0!important;
 }
 </style>

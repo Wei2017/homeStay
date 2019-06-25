@@ -40,7 +40,9 @@ import feedBack from '@/page/me/feedBack'
 import about from '@/page/me/about'
 
 // city选择
-import citySelect from '@/page/citySelect/citySelect.vue'
+import citySelect from '@/page/areaSearch/citySelect.vue'
+// 区域选择
+import searchDic from '@/page/areaSearch/searchDic.vue'
 
 // 活动页
 import activity from '@/page/activity/activity.vue'
@@ -233,6 +235,15 @@ const router = new Router({
 			showFooter: false
 		},
 		component: citySelect
+	},
+	{
+		path: '/searchDic',
+		name: 'searchDic',
+		meta: {
+			title: '乐住坊',
+			showFooter: false
+		},
+		component: searchDic
 	},
 	// 活动页
 	{

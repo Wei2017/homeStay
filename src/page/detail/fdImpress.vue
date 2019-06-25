@@ -1,102 +1,188 @@
 <template>
   <div class="fdImpress">
-    <div class="fdMsg">
-      <div class="lf-msg">
-        <h3>你好，我是</h3>
-        <span>{{obj.userName}}</span>
-        <em>欢迎您的到来</em>
-      </div>
-      <div class="rg-msg">
-        <img :src="obj.userImg" alt>
-      </div>
-    </div>
-    <div class="msg-con">
-      <div class="img">
-        <img src="/static/img/smile.png" alt>
-      </div>
-      <p>{{obj.content}}</p>
-      <div class="testMsg">
-        <h3>已验证信息</h3>
-        <p>注册时间：{{obj.registerTime}}</p>
-        <p class="trueFlag">已实名认证</p>
-        <p class="phone">手机号</p>
-      </div>
-    </div>
+		<div v-if="datas.fdDetail">
+			<div class="fdMsg">
+			  <div class="lf-msg">
+			    <h3>你好，我是</h3>
+			    <span>{{datas.fdDetail.accountName}}</span>
+			    <em>欢迎您的到来</em>
+			  </div>
+			  <div class="rg-msg">
+			    <img :src="datas.fdDetail.accHeadImg" alt>
+			  </div>
+			</div>
+			<div class="msg-con">
+			  <div class="img">
+			    <img src="/static/img/smile.png" alt>
+			  </div>
+			  <p>{{datas.fdDetail.accGgcDes}}</p>
+			  <div class="testMsg">
+			    <h3>已验证信息</h3>
+			    <p>注册时间：{{datas.fdDetail.createTime}}</p>
+			    <p class="trueFlag">已实名认证</p>
+					<p class="phone">手机号<a :href="'tel:' + datas.fdDetail.busPhone"></a></p>
+			  </div>
+			</div>
+		</div>
     <div class="fdBottom">
       <ul>
-        <li :class="{active:obj.activeInx===0}" @click="changeNav(0)">
+        <li :class="{active:datas.activeInx===0}" @click="changeNav(0)">
           上架房源
-          <em>(59)</em>
+          <em>({{datas.roomCount}})</em>
         </li>
-        <li :class="{active:obj.activeInx===1}" @click="changeNav(1)">
+        <li :class="{active:datas.activeInx===1}" @click="changeNav(1)">
           客房点评
-          <em>(59)</em>
+          <em>({{datas.comCount}})</em>
         </li>
       </ul>
       <div class="con">
-        <div v-if="obj.activeInx===0">
-          <com-list :listData="obj.hotelsObj"></com-list>
+        <div v-if="datas.activeInx===0">
+					<van-list v-model="loading.loadingF" :finished="loading.finishedF" finished-text="没有更多数据了"  @load="getHotels">
+						<com-list :listData="datas.unShelfObj"></com-list>
+					</van-list>
         </div>
-        <div v-else>客房评价</div>
+        <div v-else>
+					<van-list v-model="loading.loadingS" :finished="loading.finishedS" finished-text="没有更多数据了"  @load="getTenant">
+						<tenant-list :listData="datas.tenantCom" @closeImg="closeImg"></tenant-list>
+					</van-list>
+				</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import comList from "@/components/comList.vue"; //列表
+import comList from "@/components/comList.vue"; //上架房源列表
+import tenantList from "@/page/detail/components/commentList.vue"; //客房评论列表
+import {fdInfo , fdGetRoomList , fdGetCommentList} from '../../api/api.js'
 export default {
   name: "fdImpress",
   data() {
     return {
-      obj: {
-        userName: "kun昆明百合楼",
-        userImg: "/static/img/footer-img@2x.png",
-        content:
-          "房东在杭州居住生活了近二十年,可以为来杭旅游的住客提供细致的旅游指南和小吃指南,带你走街窜巷,像个本地人一样品尝最地道的杭州特色小吃｡",
-        registerTime: "2016年7月",
-        activeInx: 0,
-        hotelsObj: {
-          score: false,
-          comment: false,
-          items: []
-        }
-      }
+			pages:{
+				pageSize:10,
+				pageNum1:1,
+				pageNum2:1
+			},
+			loading:{
+				loadingF: false,
+				finishedF: false,
+				loadingS: false,
+				finishedS: false,
+			},
+			datas:{
+				accountId:this.$route.query.accountId,
+				fdDetail:null,
+				activeInx: 0,
+				unShelfObj:{ //上架房源列表
+					score: false,
+					comment: false,
+					items: []
+				},
+				imgConfig: "", //客房点评图片config值
+				tenantCom:{//房客点评列表
+					replay:false,
+					items:[]
+				},
+				roomCount:'', //上架房源总数
+				comCount:'', //评论总数
+			}
     };
   },
   components: {
-    comList
+    comList,
+		tenantList
+  },
+	//在路由离开的时候，关闭预览的图片
+  beforeRouteLeave(to, from, next) {
+    if (this.datas.imgConfig) {
+      this.datas.imgConfig.close();
+    }
+    next();
   },
   mounted() {
     this.init();
   },
   methods: {
     init() {
-      this.getHotels();
+			// 获取房东详情
+			fdInfo(this.datas.accountId,1).then(res =>{
+				if(res.respCode === '2000'){
+					this.datas.fdDetail = res.respData
+				}
+			})
+			// 客房点评
+			let cData = {
+				accountid: this.datas.accountId,
+				roomAccId : 0,
+				pageSize  : this.pages.pageSize,
+				pageIndex: this.pages.pageNum2,
+			}
+			fdGetCommentList(cData).then(res =>{
+				if(res.respCode === '2000'){
+					this.datas.comCount = res.respDataExt.totalCount
+				}
+			})
     },
-    // 上架房源
+    // 上架房源列表
     getHotels() {
-      this.obj.hotelsObj.items = [
-        {
-          img: "/static/img/ms-lb.png",
-          title: "宿州别墅",
-          yPrice: 244,
-          nPrice: 263,
-          id: 3
-        },
-        {
-          img: "/static/img/ms-lb.png",
-          title: "宿州别墅",
-          yPrice: 244,
-          nPrice: 263,
-          id: 3
-        }
-      ];
+			let par = {
+				orderBy: '1',
+				searchName: '',
+				pageSize: this.pages.pageSize,
+				pageIndex: this.pages.pageNum1,
+				accountId: this.datas.accountId,
+				stayInDate: '',
+				stayOutDate: ''
+			}
+			fdGetRoomList(par).then(res =>{
+				// 加载结束
+        this.loading.loadingF = false;
+				if(res.respCode === '2000'){
+					if (res.respData.length > 0) {
+						this.pages.pageNum1 += 1;
+						this.datas.unShelfObj.items = this.datas.unShelfObj.items.concat(res.respData)
+					}else{
+						this.loading.finishedF = true; //数据加载完成
+					}
+					this.datas.roomCount = res.respDataExt.totalCount
+				}else{
+					this.loading.finishedF = true; //数据加载完成
+				}
+			})
     },
-    // 上架房源/客房评价 切换
+		// 客房点评列表
+		getTenant(){
+			let cData = {
+				accountid: this.datas.accountId,
+				roomAccId : 0,
+				pageSize  : this.pages.pageSize,
+				pageIndex: this.pages.pageNum2,
+			}
+			fdGetCommentList(cData).then(res =>{
+				// 加载结束
+			  this.loading.loadingS = false;
+				if(res.respCode === '2000'){
+					if (res.respData.length > 0) {
+						this.pages.pageNum2 += 1;
+						this.datas.tenantCom.items = this.datas.tenantCom.items.concat(res.respData)
+					}else{
+						this.loading.finishedS = true; //数据加载完成
+					}
+					this.datas.comCount = res.respDataExt.totalCount
+				}else{
+					this.loading.finishedS = true; //数据加载完成
+				}
+			})
+		},
+		// 上架房源/客房评价 切换
     changeNav(index) {
-      this.obj.activeInx = index;
-    }
+      this.datas.activeInx = index;
+    },
+		// 接收子组件传来的imgConfig
+    closeImg(imgConfig){
+			this.datas.imgConfig = imgConfig
+    },
   },
   computed: {},
   watch: {}

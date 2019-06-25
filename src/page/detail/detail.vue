@@ -51,7 +51,7 @@
             <van-icon name="arrow"/>
           </span>
         </div>
-        <div class="comment-con">
+        <div class="comment-con" v-if="details.roomEvaluate">
           <div class="top-con">
             <div>
               <img :src="details.roomEvaluate.userHeadImg" alt>
@@ -181,7 +181,7 @@
       </div>
       <div>
         <img src="/static/img/detail_tel.png" alt>
-        <span>电话</span>
+        <span>电话<a :href="'tel:' + details.servicePhone"></a></span>
       </div>
       <div class="btn" @click="sureOrder">
         <span>￥{{details.roomMainInfo.selDatePrice}}</span>
@@ -316,7 +316,7 @@ export default {
       this.$router.push({
         path: "/fdImpress",
         query: {
-          delId: this.delId
+          accountId: this.details.roomMainInfo.accountId
         }
       });
     },

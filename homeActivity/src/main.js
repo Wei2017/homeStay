@@ -6,13 +6,12 @@ import router from './router'
 import "babel-polyfill"
 import 'lib-flexible' //移动端rem适配
 import './axios'
-import store from './store'
 import fastClick from 'fastclick'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
-// import NutUI from '@nutui/nutui';
-// import '@nutui/nutui/dist/nutui.css';
+import '@nutui/nutui/dist/nutui.css';
 import common from '@/common/index'
+
 // NutUI.install(Vue);
 import {
 	Icon,
@@ -33,7 +32,6 @@ Vue.prototype.$common = common
 new Vue({
 	el: '#app',
 	router,
-	store,
 	components: {
 		App
 	},

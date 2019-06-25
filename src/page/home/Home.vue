@@ -14,7 +14,20 @@
       </swiper>
       <div class="swiper-pagination"></div>
     </div>
-    <search-form></search-form>
+    <div class="search">
+      <div class="location" @click="jumpLocation">
+        <span>{{cityName}}</span>
+      </div>
+      <div class="text" @click="jumpSearchDic">
+        <input type="text" v-model="searchKey" placeholder="位置/房源/关键字">
+        <span>
+          <van-icon name="arrow"/>
+        </span>
+      </div>
+      <div class="searchBtn">
+        <span @click="searchStart">开始搜索</span>
+      </div>
+    </div>
     <div class="goodHotel listCon">
       <div class="title">
         <h1>
@@ -42,11 +55,11 @@
 </template>
 
 <script>
-import searchForm from "./components/searchForm";
 import goodList from "./components/goodList";
 import comList from "@/components/comList.vue"; //列表
 import { Swipe, SwipeItem } from "vant";
 import { homeGetAdList, getRoomList } from "../../api/api";
+import { mapState } from 'vuex'
 export default {
   name: "Home",
   data() {
@@ -69,6 +82,8 @@ export default {
         }
       },
       datas: {
+				cityName: '',
+				seachText: "",
         bannerImg: [],
         footImg: {}
       },
@@ -85,7 +100,6 @@ export default {
     };
   },
   components: {
-    searchForm,
     goodList,
     comList,
     [Swipe.name]: Swipe,
@@ -127,10 +141,37 @@ export default {
     },
     bannerJump(url) {
       window.location.href = url;
-    }
+    },
+		// 开始搜索
+		searchStart() {
+		  this.$router.push({
+		    path: "/searchList",
+		    query: { searchName: this.datas.seachText }
+		  });
+		  this.datas.seachText = "";
+		},
+		// 选择位置
+		jumpSearchDic(){
+			this.$router.push({
+			  path: "/searchDic",
+			});
+		},
+		// 选择城市
+		jumpLocation() {
+		  this.$router.push({
+		    path: "/citySelect"
+		  });
+		}
   },
-  computed: {},
-  watch: {}
+  computed: {
+		...mapState({
+			cityName:state => state.cityName,
+			searchKey:state => state.searchKey
+		})
+	},
+  watch: {
+		
+	}
 };
 </script>
 
@@ -183,15 +224,58 @@ export default {
       background: #f8ce3c;
     }
   }
-
-  .search {
-    position: absolute;
-    top: 385px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9;
-  }
-
+	
+	.search {
+		position: absolute;
+		top: 385px;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 9;
+	  height: 285px;
+	  background: #fff;
+	  border-radius: 20px;
+	  box-shadow: 0px 1px 10px #999;
+	  padding: 20px 35px;
+	  > div {
+	    height: 82px;
+	    line-height: 82px;
+	    padding: 0 10px;
+	  }
+	  .location {
+	    border-bottom: 1px solid #e9e9e9;
+	    padding-left: 28px;
+	    background: url("/static/img/location-icon@2x.png") no-repeat left center;
+	    background-size: 17px 21px;
+	    font-size: 30px;
+	  }
+	  .text {
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    span {
+	      width: 100px;
+	      text-align: right;
+	      cursor: pointer;
+	      /deep/ .van-icon {
+	        color: #999;
+	        font-size: 24px;
+	      }
+	    }
+	  }
+	  .searchBtn {
+	    height: 76px;
+	    line-height: 76px;
+	    margin: 20px auto;
+	    background: -webkit-linear-gradient(left, #ffe794, #ffd33b);
+	    border-radius: 50px;
+	    span {
+	      display: block;
+	      width: 585px;
+	      text-align: center;
+	      font-size: 36px;
+	    }
+	  }
+	}
   .goodHotel {
     margin: 0 0 0 40px;
     padding-top: 260px;
