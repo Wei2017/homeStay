@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <div class="main">
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
+			<keep-alive> 
+				<router-view  v-if="$route.meta.keepAlive"></router-view> 
+			</keep-alive>
+			<router-view v-if="!$route.meta.keepAlive"></router-view>
       <nav-bar v-show="$route.meta.showFooter"></nav-bar>
     </div>
   </div>
@@ -39,6 +40,6 @@ export default {
   padding: 35px !important;
 }
 .van-list__finished-text{
-	padding: 50px 0 70px 0!important;
+	padding: 30px 0 40px 0!important;
 }
 </style>

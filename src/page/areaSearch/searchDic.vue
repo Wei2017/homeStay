@@ -19,7 +19,7 @@
 					<div class='history-list-wrap row'>
 						<div class='key-item'
 							v-for="(item,index) in datas.histObj" 
-							:key="index">{{item}}</div>
+							:key="index"  @click="setSearchKey(item)">{{item}}</div>
 					</div>
 				</div>
 				<!-- 热门推荐 -->

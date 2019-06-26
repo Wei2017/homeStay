@@ -2,27 +2,27 @@
   <div class="fillOrder">
     <div class="order-detail">
       <div>
-        <h3>杭州西湖边的名人别墅，每幢价值超亿元，有些可以免费参观"</h3>
-        <p>经济 2居2床4人</p>
+        <h3>{{roomMainInfo.roomName}}</h3>
+        <p>{{roomMainInfo.roomDes}}</p>
       </div>
       <div>
         <span>
-          <img src="/static/img/footer-img@2x.png" alt>
+          <img :src="roomMainInfo.roomImg" alt>
         </span>
       </div>
     </div>
-    <div class="choseTime">
+    <div class="choseTime" @click="choseTime(dateInfo.stayInDay,dateInfo.stayOutDay)">
       <div>
         <span>入住日期</span>
-        <span>8月13日</span>
+        <span>{{dateInfo.stayInDay}}</span>
       </div>
       <div>
         <span>退房日期</span>
-        <span>8月14日</span>
+        <span>{{dateInfo.stayOutDay}}</span>
       </div>
       <div>
         <span>共</span>
-        <span>1晚</span>
+        <span>{{dateInfo.totalNightCount}}晚</span>
       </div>
     </div>
     <ul class="hotel-detail">
@@ -64,26 +64,25 @@
     </ul>
     <div class="notice">
       <h3>预定须知</h3>
-      <div>{{detail.noticeCon}}</div>
+      <div>{{dateInfo.userShouldKnow}}</div>
     </div>
     <div class="bottomBtn">
-      <b>￥224.00</b>
+      <b>￥{{dateInfo.totalFee}}</b>
       <span @click="sureOrder">立即预定</span>
     </div>
   </div>
 </template>
 
 <script>
+import dayEventBus from '@/components/service/dayEventBus.js'
+import { getModelByRoomAccId, getRoomDayDefaultSel ,getRoomDayUserSel} from "../../api/api";
 export default {
   name: "fillOrder",
   data() {
     return {
       delId: this.$route.query.delId,
-      detail: {
-        title: "",
-        noticeCon:
-          "这是一个隐藏在繁华城市中心的安静之所，屋内的格式细软、床品、浴品，甚至小到一个杯子都是屋主精心挑选的。这里是杭城高端公寓，非常适合旅游，商务，家庭亲子等出行安排。希望能给您旅途带来居家的惬意和舒适。床单被套都是一客一换。"
-      },
+			roomMainInfo:null, //房型主要信息
+			dateInfo:null,
       obj: {
         roomNum: 1,
         personNum: 1,
@@ -94,8 +93,45 @@ export default {
     };
   },
   components: {},
-  mounted() {},
+  mounted() {
+		this.init()
+	},
   methods: {
+		init(){
+			// 获取一个房型的主要信息 
+			getModelByRoomAccId(this.$route.query.delId).then(res =>{
+				if(res.respCode === '2000'){
+					this.roomMainInfo = res.respData
+				}
+			})
+			// 获取默认一个房型选择的日历
+			getRoomDayDefaultSel(this.$route.query.delId).then(res =>{
+				if(res.respCode === '2000'){
+					this.dateInfo = res.respData
+				}
+			})
+			this.activated()
+		},
+		
+		// 每次重新选择日期时
+		activated(){
+			//根据key名获取传递回来的参数，data就是map
+			dayEventBus.$on('dayDatas', function(data){
+					//赋值
+					console.log(data)
+					this.dateInfo.stayInDay = data.inDate
+					this.dateInfo.stayOutDay = data.outDate
+					// this.dateInfo.totalNightCount = 
+			}.bind(this));
+		},
+		// 选取时间
+		choseTime(start,end) {
+			let startDay = start.split('月')
+		  this.$router.push({
+		    path: "/timeChose",
+		    query: {start:start,end:end}
+		  });
+		},
     // 房屋数量--
     roomMinus(inx) {
       if (inx === 1) {
@@ -111,6 +147,15 @@ export default {
       }
     },
     roomPlus(inx) {
+			let par = {
+				startRoomDayId:'',
+				endRoomDayId:'',
+				roomAccId:this.$route.query.delId,
+				roomCount:'',
+			}
+			getRoomDayUserSel(par).then(res =>{
+				
+			})
       if (inx === 1) {
         this.obj.roomNum++;
       } else {

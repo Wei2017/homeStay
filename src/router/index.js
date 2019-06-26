@@ -56,7 +56,8 @@ const router = new Router({
 		name: 'home',
 		meta: {
 			title: '乐居-轻松生活',
-			showFooter: true
+			showFooter: true,
+			keepAlive:true
 		},
 		component: Home
 	},
@@ -65,7 +66,8 @@ const router = new Router({
 		name: 'order',
 		meta: {
 			title: '订单',
-			showFooter: true
+			showFooter: true,
+			keepAlive:true
 		},
 		component: Order
 	},
@@ -74,7 +76,8 @@ const router = new Router({
 		name: 'msg',
 		meta: {
 			title: '消息列表',
-			showFooter: true
+			showFooter: true,
+			keepAlive:true
 		},
 		component: Msg
 	},
@@ -91,8 +94,9 @@ const router = new Router({
 		path: '/searchList',
 		name: 'searchList',
 		meta: {
-			title: '杭州',
-			showFooter: false
+			title: '乐居住',
+			showFooter: false,
+			keepAlive:true
 		},
 		component: searchList
 	},
@@ -129,7 +133,8 @@ const router = new Router({
 		name: 'commentList',
 		meta: {
 			title: '客房评价',
-			showFooter: false
+			showFooter: false,
+			keepAlive:true
 		},
 		component: commentList
 	},

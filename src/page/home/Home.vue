@@ -144,11 +144,7 @@ export default {
     },
 		// 开始搜索
 		searchStart() {
-		  this.$router.push({
-		    path: "/searchList",
-		    query: { searchName: this.datas.seachText }
-		  });
-		  this.datas.seachText = "";
+		  this.$router.push({ path: "/searchList" });
 		},
 		// 选择位置
 		jumpSearchDic(){

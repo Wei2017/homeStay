@@ -1,80 +1,78 @@
 <template>
-  <div class="timeChose">
-    <div>
-      <div class="time-top">
-        <div>
-          <em>入住日期</em>
-          <em>离店日期</em>
-        </div>
-        <div class="times">
-          <span class="startTime">
-            {{timeObj.rzDate}}
-            <b>{{timeObj.startWeek}}</b>
-          </span>
-          <b>共{{timeObj.daysSum}}晚</b>
-          <span class="endTime">
-            {{timeObj.ldDate}}
-            <b>{{timeObj.endWeek}}</b>
-          </span>
-        </div>
-        <div class="week">
-          <span v-for="(week,index) in timeObj.weekArr" :key="index">{{week}}</span>
-        </div>
-      </div>
-      <div class="section-wrap-date">
-        <div class="month-content" v-for="(item,index) in timeObj.month" :key="index">
-          <p class="month-text">{{item.date}}</p>
-          <div class="day-list row">
-            <div v-for="(day,inx) in item.days" :key="inx">
-              <div
-                class="every-day container"
-                :class="{'ru-ld':day.state,'center':day.checked ,'no-dj':day.style == '2' && day.day !='' || day.style == '3'}"
-                :data-state="day.style"
-                :data-i="day.nums"
-                :data-type="day.state"
-                @click="selectDate"
-              >
-                <span class="day-text">{{day.day}}</span>
-                <span
-                  class="jr-or-rld"
-                  :style="{'visibility':day.festival != '' ? 'visible' : 'hidden'}"
-                >{{day.festival != ""?day.festival:"占位"}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-line">我是有底线的，最长可预订近4个月的房屋</div>
-    </div>
-    <div class="footer">
-      <b @click="clearTime">清空</b>
-			<span class="noBtn" v-if="timeObj.sureBtn">确定</span>
-      <span v-else @click="timeSure">确定</span>
-    </div>
-  </div>
+	<div class="timeChose">
+		<!-- 搜索选择日期 -->
+		<div class='container'>
+			<div class='header container'>
+				<div class='header-date row'>
+					<div class='rz-date'>
+						<span>入住日期</span>
+						<div class='date-span'>{{datas.rzDate}}</div>
+					</div>
+					<div class='sum-day'>共{{datas.daysSum}}晚</div>
+					<div class='ld-date'>
+						<span>离店日期</span>
+						<div class='date-span'>{{datas.ldDate}}</div>
+					</div>
+				</div>
+				<div class='week-span row'>
+					<span v-for="(week,index) in datas.weekArr" :key="index">{{week}}</span>
+				</div>
+			</div>
+			<div class='section-wrap-date'>
+				<div class='month-content' v-for="(item,index) in datas.date" :key="index">
+					<span class='month-span'>{{index}}</span>
+					<div class='day-list row'>
+						<div v-for="(list,inx) in item" :key="inx">
+							<div class="every-day container" :class="{'ru-ld':list.state,'center':list.checked || list.remainingRoom > datas.rzNum && list. remainingRoom < datas.ldNum, 'no-dj':list.dayState == '2'}"
+							 :data-state="list.dayState" :data-i="list.remainingRoom" :data-type="list.state" @click="selectDate">
+								<span class='day-span' v-if="list.remainingRoom !=='0'">{{list.rdExtA}}</span>
+								<span class="jr-or-rld" :style="{'visibility':list.dayDes ? 'visible' : 'hidden'}">{{list.dayDes?list.dayDes:"占位"}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-line" v-if="datas.date">我是有底线的，最长可预订近4个月的房屋</div>
+			<div class='footer row'>
+				<span @click="cancelDate">清空</span>
+				<div class='sure-btn' @click='sureDate'>确定</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
+	import dayEventBus from '@/components/service/dayEventBus.js'
+	import {
+		getRoomListCalendar
+	} from "../../api/api";
 	export default {
 		name: 'timeChose',
 		data() {
 			return {
-				timeObj: {
-					sureBtn:false,
-					rzDate: '05月28日',
-					ldDate: '05月29日',
-					startWeek: '周三',
-					endWeek: '周四',
-					daysSum: 1, //入住总天数
+				datas: {
+					date: null,
 					weekArr: ['日', '一', '二', '三', '四', '五', '六'],
+					roomId: '',
 					rzAndLd: -1, //1为点击了入住 选择离店
 					rzIndex: -1, //入住的下标
 					ldIndex: -1, //离店的下标
-					month: []
-				},
+					daysSum: '', //入住总天数
+					rzDate: '',  //入住日期
+					ldDate: '',  //离店日期
+					rzNum: 0,
+					ldNum: 0,
+					count: '', //上一页面传来的几套房屋
+					rzDayShow: '',
+					ldDayShow: '',
+					inDate: '',
+					outDate: ''
+				}
 			}
 		},
-		components: {},
+		components: {
+			dayEventBus
+		},
 		mounted() {
 			this.init()
 		},
@@ -83,363 +81,197 @@
 				this.getMonth()
 			},
 			getMonth() {
-				this.timeObj.month = [{
-					date: '2019年5月',
-					days: [{
-							day: '',
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: '',
-							festival: ''
-						},
-						{
-							day: '',
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: '',
-							festival: ''
-						},
-						{
-							day: '',
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: '',
-							festival: ''
-						}, //前三个占位
-						{
-							day: 1,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 1,
-							festival: '劳动节'
-						},
-						{
-							day: 2,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 2,
-							festival: ''
-						},
-						{
-							day: 3,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 3,
-							festival: ''
-						},
-						{
-							day: 4,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 4,
-							festival: '青年节'
-						},
-						{
-							day: 5,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 5,
-							festival: ''
-						},
-						{
-							day: 6,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 6,
-							festival: ''
-						},
-						{
-							day: 7,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 7,
-							festival: ''
-						},
-						{
-							day: 8,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 8,
-							festival: ''
-						},
-						{
-							day: 9,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 9,
-							festival: ''
-						},
-						{
-							day: 10,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 10,
-							festival: ''
-						},
-						{
-							day: 11,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 11,
-							festival: ''
-						},
-						{
-							day: 12,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 12,
-							festival: ''
-						},
-						{
-							day: 13,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 13,
-							festival: ''
-						},
-						{
-							day: 14,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 14,
-							festival: ''
-						},
-						{
-							day: 15,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 15,
-							festival: ''
-						},
-						{
-							day: 16,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 16,
-							festival: ''
-						},
-						{
-							day: 17,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 17,
-							festival: ''
-						},
-						{
-							day: 18,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 18,
-							festival: ''
-						},
-						{
-							day: 19,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 19,
-							festival: ''
-						},
-						{
-							day: 20,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 20,
-							festival: ''
-						},
-						{
-							day: 21,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 21,
-							festival: ''
-						},
-						{
-							day: 22,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 22,
-							festival: ''
-						},
-						{
-							day: 23,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 23,
-							festival: ''
-						},
-						{
-							day: 24,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 24,
-							festival: ''
-						},
-						{
-							day: 25,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 25,
-							festival: ''
-						},
-						{
-							day: 26,
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 26,
-							festival: ''
-						},
-						{
-							day: 27,
-							style: 1, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 27,
-							festival: '',
-							today: '05月27日'
-						},
-						{
-							day: 28,
-							style: 1, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 28,
-							festival: '',
-							today: '05月28日'
-						},
-						{
-							day: 29,
-							style: 1, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 29,
-							festival: '',
-							today: '05月29日'
-						},
-						{
-							day: 30,
-							style: 1, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 30,
-							festival: '',
-							today: '05月30日'
-						},
-						{
-							day: 31,
-							style: 3, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: 31,
-							festival: '无房'
-						},
-						{
-							day: '',
-							style: 2, //1可选 2不可选||小于当前日期 3满房||无房,
-							nums: '',
-							festival: ''
-						},
-					]
-				}]
+				getRoomListCalendar().then(res => {
+					if (res.respCode === "2000") {
+						let date = res.respData.monthDetail
+						let	rzDate = this.$route.query.start, //入职日期
+							ldDate = this.$route.query.end, //离店日期
+							rzNum = this.datas.rzNum,
+							ldNum = this.datas.ldNum,
+							rzDayShow = this.datas.rzDayShow,
+							ldDayShow = this.datas.ldDayShow,
+							inDate = this.datas.inDate,
+							outDate = this.datas.outDate
+						for (let i in date) {
+							let months = date[i]
+							for (let m = 0; m < months.length; m++) {
+								let monthId = months[m].remainingRoom
+								if (months[m].rdExtB == rzDate) {
+									months[m].state = true
+									months[m].dayDes = '入住'
+									let currDate = i.split('-')
+									rzDate = currDate[1] + '月' + months[m].rdExtA + '日'
+									rzNum = months[m].remainingRoom
+									rzDayShow = months[m].dayShow,
+										inDate = months[m].rdExtB
+								}
+								if (months[m].rdExtB == ldDate) {
+									months[m].state = true
+									months[m].dayDes = '离店'
+									let currDate = i.split('-')
+									ldDate = currDate[1] + '月' + months[m].rdExtA + '日'
+									ldNum = months[m].remainingRoom
+									ldDayShow = months[m].dayShow
+									outDate = months[m].rdExtB
+								}
+							}
+						}
+						this.datas.date = date
+						this.datas.rzDate = rzDate
+						this.datas.rzNum = rzNum
+						this.datas.ldDate = ldDate
+						this.datas.ldNum = ldNum
+						this.datas.daysSum = ldNum - rzNum
+						this.datas.rzAndLd = 2
+						this.datas.rzDayShow = rzDayShow
+						this.datas.ldDayShow = ldDayShow
+						this.datas.inDate = inDate
+						this.datas.inDate = outDate
+					}
+				})
 			},
-			// 选择乳垫和离店
+			// 选择入住和离店
 			selectDate(e) {
 				let that = this
 				// 状态 1 可点击
 				let state = e.currentTarget.dataset.state
 				let type = e.currentTarget.dataset.type
-				if (state != '1' || type) {
+				if (state == '2' || type) {
 					return
 				}
 				// 点击的日期下标
 				let dayIndex = e.currentTarget.dataset.i
 
-				let month = that.timeObj.month
+				// let month = that.data.month
+				let date = that.datas.date
 
-				let rzIndex = that.timeObj.rzIndex
-				let ldIndex = that.timeObj.ldIndex
+				let rzIndex = that.datas.rzIndex
+				let ldIndex = that.datas.ldIndex
 				console.log(state, dayIndex)
 
-				//入住或离店状态
-				let rzAndLd = that.timeObj.rzAndLd
+				let rzDate = that.datas.rzDate,
+					ldDate = that.datas.ldDate,
+					rzNum = that.datas.rzNum,
+					ldNum = that.datas.ldNum,
+					rzDayShow = that.datas.rzDayShow,
+					ldDayShow = that.datas.ldDayShow,
+					inDate = that.datas.inDate,
+					outDate = that.datas.outDate
 
-				if (rzAndLd === 2) {
-					let rzDate = ''
-					this.timeObj.sureBtn = true
-					console.log('重新选择'+3)
-					for (let i = 0; i < month.length; i++) {
-						// 每个月的每一天
-						let days = month[i].days
-						for (let d = 0; d < days.length; d++) {
-							days[d].checked = false
-							days[d].state = false
-							if (days[d].nums == dayIndex) {
-								days[d].state = true
-								days[d].festival = '入住'
-								rzDate = days[d].today
+				//入住或离店状态
+				let rzAndLd = that.datas.rzAndLd
+				if (rzAndLd == 2) {
+					console.log(3)
+					for (let i in date) {
+						// 每月所有天数
+						let months = date[i]
+						for (let d = 0; d < months.length; d++) {
+							months[d].checked = false
+							months[d].state = false
+							months[d].dayDes = ''
+							if (months[d].remainingRoom == dayIndex) {
+								months[d].state = true
+								months[d].dayDes = '入住'
+								let currDate = i.split('-')
+								rzDate = currDate[1] + '月' + months[d].rdExtA + '日'
+								rzNum = months[d].remainingRoom
+								rzDayShow = months[d].dayShow
+								inDate = months[d].rdExtB
 							}
-							if (days[d].nums == ldIndex) {
-								days[d].festival = ''
-							}
-							if (days[d].nums == rzIndex) {
-								days[d].festival = ''
-							}
+							// if (months[d].remainingRoom == ldNum) {
+							//   months[d].dayDes = ''
+							// }
+							// if (months[d].remainingRoom == rzNum) {
+							//   months[d].dayDes = ''
+							// }
 						}
 					}
-					that.timeObj.month = month
-					that.timeObj.rzIndex = dayIndex
-					that.timeObj.rzAndLd = 1
-					that.timeObj.rzDate = rzDate
-					that.timeObj.ldDate = ''
+					that.datas.date = date
+					that.datas.rzAndLd = 1
+					that.datas.rzDate = rzDate
+					that.datas.ldDate = ''
+					that.datas.rzNum = rzNum
+					that.datas.rzDayShow = rzDayShow
+					that.datas.ldNum = 0
+					that.datas.inDate = inDate
 					return
 				}
 
-				// 设置用户点击了入住
-				if (rzAndLd === 1) {
-					let ldDate = ''
-					let rzDate = ''
-					console.log('离店'+1)
-					this.timeObj.sureBtn = false
-					// 离店
-					for (let i = 0; i < month.length; i++) {
-						let days = month[i].days
-						// 每个月的每一天
-						for (let d = 0; d < days.length; d++) {
-							if (days[d].nums > rzIndex && days[d].nums < dayIndex) {
-								days[d].checked = true
-							}
-							// 用户选择的离店日期小于入住日期 反选
-							if (dayIndex < rzIndex) {
-								if (days[d].nums == rzIndex) {
-									days[d].festival = '离店'
-									ldDate = days[d].today
-								}
-								if (days[d].nums == dayIndex) {
-									days[d].state = true
-									days[d].festival = '入住'
-									rzDate = days[d].today
-								}
+				// nums = roomDayId
+				// festival = dayDes
 
-								// 添加中间样式
-								if (days[d].nums > dayIndex && days[d].nums < rzIndex) {
-									days[d].checked = true
+				// 设置用户点击了入住
+				if (rzAndLd == 1) {
+					console.log(1, dayIndex, rzNum)
+					let newNum = ''
+					// 离店
+					for (let i in date) {
+						let months = date[i]
+						// 每个月的每一天  28  7118
+						for (let d = 0; d < months.length; d++) {
+							if (dayIndex > rzNum) {
+								if (months[d].remainingRoom < dayIndex && months[d].remainingRoom > rzNum) {
+									months[d].checked = true
 								}
-							} else if (parseInt(days[d].nums) === parseInt(dayIndex)) {
-								days[d].state = true
-								days[d].festival = '离店'
-								ldDate = days[d].today
+								if (months[d].remainingRoom == dayIndex) {
+									months[d].state = true
+									months[d].dayDes = '离店'
+									let currDate = i.split('-')
+									ldDate = currDate[1] + '月' + months[d].rdExtA + '日'
+									ldNum = months[d].remainingRoom
+									ldDayShow = months[d].dayShow
+									outDate = months[d].rdExtB
+								}
+							} else {
+								console.log('test111')
+								if (months[d].remainingRoom > dayIndex && months[d].remainingRoom < rzNum) {
+									console.log(123123123)
+									months[d].checked = true
+								}
+								if (months[d].remainingRoom == rzNum) {
+									months[d].state = true
+									months[d].dayDes = '离店'
+									let currDate = i.split('-')
+									ldDate = currDate[1] + '月' + months[d].rdExtA + '日'
+									ldNum = months[d].remainingRoom
+									ldDayShow = months[d].dayShow
+									outDate = months[d].rdExtB
+								}
+								if (months[d].remainingRoom == dayIndex) {
+									months[d].state = true
+									months[d].dayDes = '入住'
+									let currDate = i.split('-')
+									rzDate = currDate[1] + '月' + months[d].rdExtA + '日'
+									newNum = months[d].remainingRoom
+									rzDayShow = months[d].dayShow
+									inDate = months[d].rdExtB
+								}
 							}
 						}
 					}
-					let daysSum = dayIndex > rzIndex ? dayIndex - rzIndex : rzIndex - dayIndex
-					that.timeObj.month = month
-					that.timeObj.rzAndLd = 2
-					that.timeObj.ldIndex = dayIndex > rzIndex ? dayIndex : rzIndex
-					if(dayIndex < rzIndex){
-						that.timeObj.rzIndex = dayIndex
-						that.timeObj.rzDate = rzDate
-					}
-					that.timeObj.daysSum = daysSum
-					that.timeObj.ldDate = ldDate
-				} else {
-					console.log(2)
-					let rzDate = ''
-					this.timeObj.sureBtn = true
-					// 入住
-					// 三个月的所有日期
-					for (let i = 0; i < month.length; i++) {
-						let days = month[i].days
-						// 每个月的每一天
-						for (let d = 0; d < days.length; d++) {
-							// 给当前点击的添加class
-		
-							if (parseInt(dayIndex) === parseInt(days[d].nums)) {
-								days[d].state = true
-								days[d].festival = '入住'
-								rzDate = days[d].today
-								break;
-							}
-						}
-					}
-					console.log(month)
-					// 更新数据 存储入住的日期对应下标
-					that.timeObj.month = month
-					that.timeObj.rzIndex = dayIndex
-					that.timeObj.rzAndLd = 1
-					that.timeObj.rzDate = rzDate
+					rzNum = newNum !== '' ? newNum : rzNum,
+					that.datas.date = date
+					that.datas.ldDate = ldDate
+					that.datas.ldNum = ldNum
+					that.datas.rzDate = rzDate
+					that.datas.rzNum = rzNum
+					that.datas.rzAndLd = '2'
+					that.datas.daysSum = ldNum - rzNum,
+					that.datas.ldDayShow = ldDayShow
+					that.datas.rzDayShow = rzDayShow
+					that.datas.inDate = inDate
+					that.datas.outDate = outDate
 				}
 			},
-			// 清空选择的时间
-			clearTime() {
-				this.timeObj.rzDate = ''
-				this.timeObj.ldDate = ''
-				this.timeObj.daysSum = 1  //入住总天数
-				this.timeObj.rzAndLd = -1 //1为点击了入住 选择离店
-				this.timeObj.rzIndex = -1 //入住的下标
-				this.timeObj.ldIndex = -1 //离店的下标
+			// 确定按钮
+			sureDate() {
+				// 传递一个map，dayDatas是key,this.datas是value
+				dayEventBus.$emit('dayDatas',this.datas)
+				this.$router.go(-1)
 			},
-			timeSure() {
-				console.log(this.timeObj.rzDate,this.timeObj.ldDate)
+			// 取消
+			cancelDate(){
+				this.getMonth()
 			}
 		},
 		computed: {
@@ -452,192 +284,175 @@
 </script>
 
 <style scoped="scoped" lang="scss">
-.timeChose {
-  .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 9999;
-    border-top: 1px solid #e9e9e9;
-    width: 100%;
-    height: 120px;
-    background: #fff;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    color: #000;
-    b {
-      font-weight: normal;
-      font-size: 30px;
-    }
-    span {
-      display: inline-block;
-      padding: 25px 150px;
-      border-radius: 50px;
-      background: #ffd544;
-      font-size: 36px;
-    }
-		.noBtn{
-			background: #ddd;
-			color: #fff;
+	.timeChose {
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
-  }
-  // overflow: auto;
-  /deep/ .footer-line {
-    width: 100%;
-    position: absolute;
-    bottom: 380px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-size: 28px;
-    color: #999;
-    // padding: 100px;
-  }
 
-  .time-top {
-    > div:first-child {
-      margin: 65px 20px 25px;
-      display: flex;
-      justify-content: space-between;
+		.row {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
 
-      em {
-        font-style: normal;
-        color: #999999;
-        font-size: 30px;
-      }
-    }
+		.header {
+			margin-top: 60px;
+		}
 
-    .times {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0 20px;
+		.header-date {
+			width: 674px;
+			justify-content: space-between;
+			align-items: flex-end;
+		}
+		.section-wrap-date{
+			margin-bottom:30px;
+		}
+		.rz-date>span,
+		.ld-date>span {
+			font-size: 30px;
+			color: #999;
+		}
 
-      span {
-        font-size: 42px;
-        color: #353535;
-				width: 30%;
+		.date-span {
+			font-size: 42px;
+			color: #353535;
+			margin-top: 24px;
+		}
 
-        b {
-          font-size: 24px;
-          font-weight: 100;
-          display: none;
-        }
-      }
+		.sum-day {
+			width: 109px;
+			height: 41px;
+			line-height: 41px;
+			text-align: center;
+			font-size: 24px;
+			color: #ffd544;
+			border: 2px solid #ffd544;
+			border-radius: 20px;
+		}
 
-      > b {
-        text-align: center;
-        color: #ffd544;
-        font-size: 24px;
-        padding: 5px 20px;
-        border-radius: 40px;
-        font-weight: 100;
-        border: 2px solid #ffd544;
-      }
-    }
+		.week-span {
+			width: 750px;
+			height: 60px;
+			line-height: 60px;
+			border-top: 2px solid #eaeaea;
+			border-bottom: 2px solid #eaeaea;
+			justify-content: space-around;
+			margin-top: 60px;
+		}
 
-    .week {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 50px 0 15px;
-      padding: 30px 20px;
-      border: 1px solid #e9e9e9;
-      border-left: none;
-      border-right: none;
+		.week-span>span {
+			font-size: 24px;
+			color: #666;
+		}
 
-      span {
-        font-size: 24px;
-        color: #666;
-      }
-    }
-  }
-  .row {
-    /* width: 100%; */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .month-text {
-    width: 194px;
-    height: 51px;
-    line-height: 51px;
-    text-align: center;
-    font-size: 30px;
-    color: #666;
-    border-radius: 30px;
-    border: 1px solid #e9e9e9;
-    display: block;
-    margin-top: 12px;
-  }
+		.month-span {
+			width: 194px;
+			height: 51px;
+			line-height: 51px;
+			text-align: center;
+			font-size: 30px;
+			color: #666;
+			border-radius: 30px;
+			border: 2px solid #e9e9e9;
+			display: block;
+			margin-top: 12px;
+		}
 
-  .day-text {
-    font-size: 30px;
-    color: #333;
-  }
+		.day-span {
+			font-size: 30px;
+			color: #333;
+		}
 
-  .day-list {
-    /* justify-content: space-evenly; */
-    flex-wrap: wrap;
-    align-items: flex-start;
-  }
+		.day-list {
+			/* justify-content: space-evenly; */
+			flex-wrap: wrap;
+			align-items: flex-start;
+			margin: 10px 0 20px;
+		}
 
-  .every-day {
-    width: 107px;
-    height: 90px;
-    /* margin: 0 10px 20px; 
+		.every-day {
+			width: 107px;
+			height: 90px;
+			/* margin: 0 10px 20px; 
   border-radius: 50%;*/
-    justify-content: center;
-  }
+			justify-content: center;
+		}
 
-  /* 入住和离店样式 */
-  .every-day.ru-ld {
-    background-color: #ffd544;
-  }
+		/* 入住和离店样式 */
+		.every-day.ru-ld {
+			background-color: #ffd544;
+		}
 
-  /* 选择日期之前的样式 */
-  .every-day.center {
-    background-color: #ffe693;
-  }
+		/* 选择日期之前的样式 */
+		.every-day.center {
+			background-color: #FFE693;
+		}
 
-  /* 禁止点击样式 */
-  .every-day.no-dj > span {
-    color: #ddd;
-  }
+		/* 禁止点击样式 */
+		.every-day.no-dj>span {
+			color: #ddd;
+		}
 
-  .no-dj > .day-text {
-    position: relative;
-  }
+		.no-dj>.day-span {
+			position: relative;
+		}
 
-  .no-dj > .day-text::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 36px;
-    height: 2px;
-    margin-left: -18px;
-    background-color: #ddd;
-    transform: rotate(-45deg);
-  }
+		.no-dj>.day-span::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 36px;
+			height: 2px;
+			margin-left: -18px;
+			background-color: #ddd;
+			transform: rotate(-45deg)
+		}
 
-  .every-day:nth-of-type(1n + 0) {
-    margin-left: 0;
-  }
+		.every-day:nth-of-type(1n+0) {
+			margin-left: 0;
+		}
 
-  .every-day:nth-of-type(7n + 0) {
-    margin-right: 0;
-  }
+		.every-day:nth-of-type(7n+0) {
+			margin-right: 0;
+		}
 
-  /* 节日或入离店样式 */
-  .jr-or-rld {
-    font-size: 24px;
-  }
-}
+		/* 节日或入离店样式 */
+		.jr-or-rld {
+			font-size: 24px;
+		}
+		.footer-line {
+			width: 100%;
+			text-align: center;
+			font-size: 28px;
+			color: #999;
+			margin-bottom: 230px;
+    // padding: 100px;
+		}
+		.footer {
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			height: 120px;
+			border-top: 2px solid #eee;
+			background-color: #fff;
+			justify-content: space-around;
+		}
+
+		.footer>span {
+			font-size: 30px;
+		}
+
+		.sure-btn {
+			width: 436px;
+			height: 100px;
+			line-height: 100px;
+			text-align: center;
+			font-size: 36px;
+			border-radius: 50px;
+			background-color: #ffd544;
+		}
+	}
 </style>

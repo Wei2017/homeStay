@@ -29,9 +29,25 @@ export const getRoomList = (dicTypeId, cityName) => {
 		.then(res => res.data)
 		.catch(res => res.data)
 }
-// 首页-开始搜索
+// 搜索页面-列表接口
 export const searchList = params => {
 	return axios.get(`${BASEURL}/ViewRoomMainInfo/GetListPageSearch`, {
+		params: params
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 搜索页面-列表页默认选择的日期 
+export const getRoomListDefDay = params => {
+	return axios.get(`${BASEURL}/Room/GetRoomListDefDay`, {
+		params: params
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 搜索页面-搜索列表页选择日历
+export const getRoomListCalendar = params => {
+	return axios.get(`${BASEURL}/Room/GetRoomListCalendar`, {
 		params: params
 	})
 		.then(res => res.data)
@@ -120,6 +136,34 @@ export const fdGetRoomList= params => {
 // 详情页—房东详情客房点评
 export const fdGetCommentList = params => {
 	return axios.get(`${BASEURL}/RoomEvaluate/GetListPageByAccOrRoom`, {
+		params:params
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 下单页面—获取一个房型的主要信息 
+export const getModelByRoomAccId = roomAccId => {
+	return axios.get(`${BASEURL}/ViewRoomMainInfo/GetModelByRoomAccId`, {
+		params:{
+			roomAccId:roomAccId
+		}
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 下单页面—获取默认一个房型选择的日历 
+export const getRoomDayDefaultSel = roomAccId => {
+	return axios.get(`${BASEURL}/Room/GetRoomDayDefaultSel`, {
+		params:{
+			roomAccId:roomAccId
+		}
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 下单页面—获取用户选择一个房型的入离时间 
+export const getRoomDayUserSel = params => {
+	return axios.get(`${BASEURL}/Room/GetRoomDayUserSel`, {
 		params:params
 	})
 		.then(res => res.data)

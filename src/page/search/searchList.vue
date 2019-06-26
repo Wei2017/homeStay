@@ -1,13 +1,15 @@
 <template>
   <div class="searchList">
     <div class="search-top">
-      <span @click="choseTime">{{datas.time}}</span>
-      <input
-        v-model="datas.searchText"
-        type="text"
-        placeholder="位置/房源/关键字"
-        @keyup.enter="searchBtn($event)"
-      >
+      <span @click="choseTime">{{datas.inDate}}-{{datas.outDate}}</span>
+			<b @click="jumpSearchDic">
+				<input
+				  v-model="searchKey"
+				  type="text"
+				  placeholder="位置/房源/关键字"
+				>
+			</b>
+      
     </div>
     <van-list
       v-model="datas.loading"
@@ -22,8 +24,9 @@
 </template>
 
 <script>
+import dayEventBus from '@/components/service/dayEventBus.js'
 import comList from "@/components/comList.vue"; //列表
-import { searchList } from "../../api/api";
+import { searchList ,getRoomListDefDay} from "../../api/api";
 export default {
   name: "searchList",
   data() {
@@ -33,8 +36,10 @@ export default {
         pageNum: 1
       },
       datas: {
-        searchText: "",
-        time: "05.15-05.16",
+				inDate:'',
+				outDate:'',
+				dayStart:'',
+				dayEnd:'',
         loading: false, //是否处于加载状态
         finished: false, //是否已加载完所有数据
         isLoading: false, //是否加载
@@ -47,31 +52,62 @@ export default {
     };
   },
   components: {
-    comList
+    comList,
+		dayEventBus
   },
   mounted() {
-    this.datas.searchText = this.$route.query.searchName;
+		this.init()
   },
   destroyed() {},
   methods: {
+		// 获取默认日期
+		init(){
+			getRoomListDefDay().then(res =>{
+				if (res.respCode === "2000") {
+					this.datas.inDate = res.respData.dtStartShow
+					this.datas.outDate = res.respData.dtEndShow
+					this.datas.dayStart = res.respData.dayStart
+					this.datas.dayEnd = res.respData.dayEnd
+				}
+			})
+			this.activated()
+		},
     // 选取时间
     choseTime() {
       this.$router.push({
         path: "/timeChose",
-        query: {}
+        query: {start:this.datas.inDate,end:this.datas.outDate}
       });
     },
+		// 每次重新选择日期时
+		activated(){
+			//根据key名获取传递回来的参数，data就是map
+			dayEventBus.$on('dayDatas', function(data){
+					//赋值
+					console.log(data)
+					this.datas.inDate = data.inDate
+					this.datas.outDate = data.outDate
+					this.datas.dayStart = data.rzDayShow
+					this.datas.dayEnd = data.ldDayShow
+					// 重新加载数据
+					this.pageData.pageNum = 1
+					this.datas.finished = false
+					this.datas.isLoading = false
+					this.datas.listObj.items = []
+					this.onLoad()
+			}.bind(this));
+		},
+		
     // 获取数据-上拉加载
     onLoad() {
       let par = {
         orderBy: 1, //默认写1
-        searchName: this.$route.query.searchName, //关键词
-        // searchName: sessionStorage.getItem('searchName'),  //关键词
+        searchName: this.$store.state.searchKey, //关键词
         pageSize: this.pageData.pageSize,
         pageIndex: this.pageData.pageNum,
         accountId: 0, //房东id, 默认写0
-        stayInDate: "", //入住日期, 格式为 yyyy-MM-dd
-        stayOutDate: "" //离店日期, 格式为 yyyy-MM-dd
+        stayInDate: this.datas.dayStart, //入住日期, 格式为 yyyy-MM-dd
+        stayOutDate: this.datas.dayEnd //离店日期, 格式为 yyyy-MM-dd
       };
       searchList(par).then(res => {
         if (res.respCode === "2000") {
@@ -90,19 +126,29 @@ export default {
 				this.datas.loading = false;
       });
     },
-    // 搜索查询
-    searchBtn(e) {
-      let keyCode = window.event ? e.keyCode : e.which;
-      if (keyCode === 13) {
-        this.$route.query.searchName = this.datas.searchText;
-        this.pageData.pageNum = 1;
-        this.datas.listObj.items = [];
-        this.onLoad();
-      }
-    }
+		// 选择位置
+		jumpSearchDic(){
+			this.$router.push({
+			  path: "/searchDic",
+			});
+		},
   },
-  computed: {},
-  watch: {}
+  computed: {
+		searchKey(){
+			return this.$store.state.searchKey
+		}
+  },
+  watch: {
+		searchKey:{
+			handler(){
+				this.pageData.pageNum = 1
+				this.datas.finished = false
+				this.datas.isLoading = false
+				this.datas.listObj.items = []
+				this.onLoad()
+			}
+		}
+	}
 };
 </script>
 
@@ -115,7 +161,7 @@ export default {
     background: #f1f0f8;
     padding: 23px 5px;
     border-radius: 40px;
-
+		display: flex;
     span {
       font-size: 24px;
       display: inline-block;
@@ -125,7 +171,10 @@ export default {
       background-size: 9px 8px;
       cursor: pointer;
     }
-
+		b{
+			width: 60%;
+			font-weight: normal;
+		}
     input {
       font-size: 30px;
       padding: 0 5px 0 20px;
