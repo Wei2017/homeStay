@@ -75,7 +75,7 @@ export default {
     // 选取时间
     choseTime() {
       this.$router.push({
-        path: "/timeChose",
+        path: "/searchDate",
         query: {start:this.datas.inDate,end:this.datas.outDate}
       });
     },

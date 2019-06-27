@@ -4,20 +4,20 @@
       <span>
         <img src="/static/img/sure-time-icon.png" alt>
       </span>
-      <p>等待确认</p>
+      <p>{{orderInfo.oStateName}}</p>
       <div>订单确认中，您可以联系房东询问进度</div>
     </div>
-    <div class="detail">
+    <div class="detail" @click="jumpOrderDetail">
       <div>
-        <h3>杭州西湖边的名人别墅，每幢价值超亿元，有些可以免费参观</h3>
-        <p>2019.04.07 — 2019.04.10(共3晚)</p>
+        <h3>{orderInfo.oName}}</h3>
+        <p>{{orderInfo.oDes}}</p>
       </div>
       <span>
         详情
         <van-icon name="arrow"/>
       </span>
     </div>
-    <div class="progress">
+    <div class="progress"  @click="jumpFdDetail">
       <p>与房东联系(询问进度)</p>
       <span>
         联系
@@ -28,14 +28,45 @@
 </template>
 
 <script>
+import { getOrderByCode } from "../../api/api";
 export default {
   name: "surOrder",
   data() {
-    return {};
+    return {
+			 orderInfo:null
+		};
   },
   components: {},
-  mounted() {},
-  methods: {},
+  mounted() {
+		this.init()
+	},
+  methods: {
+		init(){
+			getOrderByCode(this.$route.query.ordercode).then(res =>{
+				if (res.respCode === '2000') {
+					this.orderInfo = res.respData
+				}
+			})
+		},
+		// 跳转至订单详情
+		jumpOrderDetail(){
+			this.$router.push({
+				path: "/orderDetail",
+				query: {
+					ordercode:'',
+				}
+			});
+		},
+		// 跳转至房东页
+		jumpFdDetail(){
+			this.$router.push({
+				path: "/fdImpress",
+				query: {
+					accountId:'',
+				}
+			});
+		}
+	},
   computed: {},
   watch: {}
 };

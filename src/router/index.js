@@ -7,7 +7,9 @@ import Msg from '@/page/msg/msg'
 import Me from '@/page/me/me'
 // search
 import searchList from '@/page/search/searchList'
-import timeChose from '@/page/search/timeChose'
+import searchDate from '@/page/search/searchDate'
+import selectDate from '@/page/search/selectDate'
+
 
 // 房源详情
 import detail from '@/page/detail/detail'
@@ -101,13 +103,22 @@ const router = new Router({
 		component: searchList
 	},
 	{
-		path: '/timeChose',
-		name: 'timeChose',
+		path: '/searchDate',
+		name: 'searchDate',
 		meta: {
 			title: '选择入离时间',
 			showFooter: false
 		},
-		component: timeChose
+		component: searchDate
+	},
+	{
+		path: '/selectDate',
+		name: 'selectDate',
+		meta: {
+			title: '选择入离时间',
+			showFooter: false
+		},
+		component: selectDate
 	},
 	// 详情相关页面
 	{
@@ -153,7 +164,8 @@ const router = new Router({
 		name: 'fillOrder',
 		meta: {
 			title: '填写订单',
-			showFooter: false
+			showFooter: false,
+			keepAlive:true
 		},
 		component: fillOrder
 	},

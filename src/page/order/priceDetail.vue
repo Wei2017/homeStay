@@ -1,24 +1,24 @@
 <template>
-  <div class="priceDetail">
+  <div class="priceDetail" v-if="details">
     <div class="com div1">
       <span>线上支付</span>
-      <b>￥3400</b>
+      <b>￥{{details.totalFee}}</b>
     </div>
     <div>
       <p class="com">
-        <span>房费(9晚)</span>
-        <b>￥3200</b>
+        <span>房费({{details.stayRoomListFee.length}}晚)</span>
+        <b>￥{{details.totalRoomFee}}</b>
       </p>
       <ul class="list">
-        <li v-for="(item,index) in priceList" :key="index">
-          <span>{{item.time}}</span>
-          <span>￥{{item.price}} X {{item.num}}套</span>
+        <li v-for="(item,index) in details.stayRoomListFee" :key="index">
+          <span>{{item.rdExtB}}</span>
+          <span>￥{{item.price}} * {{item.rdExtA}}套</span>
         </li>
       </ul>
     </div>
     <div class="com">
       <span>押金(离店后退还)</span>
-      <b>￥200</b>
+      <b>￥{{details.onlineDeposit}}</b>
     </div>
     <div class="closeDevice">
       <van-icon @click="closeDevice" name="cross"/>
@@ -27,32 +27,32 @@
 </template>
 
 <script>
+import { getSelectDaysFeeDetail } from "../../api/api";
 export default {
   name: "priceDetail",
   data() {
     return {
-      priceList: [
-        {
-          time: "2019-09-18",
-          num: 1,
-          price: 338
-        },
-        {
-          time: "2019-09-18",
-          num: 1,
-          price: 338
-        },
-        {
-          time: "2019-09-18",
-          num: 1,
-          price: 338
-        }
-      ]
+      details: null
     };
   },
   components: {},
-  mounted() {},
+  mounted() {
+		this.init()
+	},
   methods: {
+		init(){
+			let par = {
+				startRoomDayId:this.$route.query.startRoomDayId,
+				endRoomDayId:this.$route.query.endRoomDayId,
+				roomAccId:this.$route.query.roomAccId,
+				roomCount:this.$route.query.roomCount,
+			}
+			getSelectDaysFeeDetail(par).then(res =>{
+				if(res.respCode === '2000'){
+					this.details = res.respData
+				}
+			})
+		},
     closeDevice() {
       this.$router.go(-1);
     }

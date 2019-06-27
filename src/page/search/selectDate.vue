@@ -23,16 +23,16 @@
 					<span class='month-span'>{{index}}</span>
 					<div class='day-list row'>
 						<div v-for="(list,inx) in item" :key="inx">
-							<div class="every-day container" :class="{'ru-ld':list.state,'center':list.checked || list.remainingRoom > datas.rzNum && list. remainingRoom < datas.ldNum, 'no-dj':list.dayState == '2'}"
-							 :data-state="list.dayState" :data-i="list.remainingRoom" :data-type="list.state" @click="selectDate">
-								<span class='day-span' v-if="list.remainingRoom !=='0'">{{list.rdExtA}}</span>
-								<span class="jr-or-rld" :style="{'visibility':list.dayDes ? 'visible' : 'hidden'}">{{list.dayDes?list.dayDes:"占位"}}</span>
+							<div class="every-day container" :class="{'ru-ld':list.state,'center':list.checked, 'no-dj':!list.canSelect && list.dayOf !==''}"
+							 :data-state="list.canSelect" :data-i="list.roomDayId" :data-type="list.state" @click="selectDate">
+								<span class='day-span'>{{list.dayOf}}</span>
+								<span class="jr-or-rld" :style="{'visibility':list.dayDes!=='' ? 'visible' : 'hidden'}">{{list.dayDes!==''?list.dayDes:"占位"}}</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="footer-line" v-if="datas.date">我是有底线的，最长可预订近4个月的房屋</div>
+			<!-- <div class="footer-line" v-if="datas.date">我是有底线的，最长可预订近4个月的房屋</div> -->
 			<div class='footer row'>
 				<span @click="cancelDate">清空</span>
 				<div class='sure-btn' @click='sureDate'>确定</div>
@@ -44,7 +44,7 @@
 <script>
 	import dayEventBus from '@/components/service/dayEventBus.js'
 	import {
-		getRoomListCalendar
+		getRoomDayForUser
 	} from "../../api/api";
 	export default {
 		name: 'timeChose',
@@ -58,15 +58,11 @@
 					rzIndex: -1, //入住的下标
 					ldIndex: -1, //离店的下标
 					daysSum: '', //入住总天数
-					rzDate: '',  //入住日期
-					ldDate: '',  //离店日期
+					rzDate: '', //入住日期
+					ldDate: '', //离店日期
 					rzNum: 0,
 					ldNum: 0,
 					count: '', //上一页面传来的几套房屋
-					rzDayShow: '',
-					ldDayShow: '',
-					inDate: '',
-					outDate: ''
 				}
 			}
 		},
@@ -81,52 +77,54 @@
 				this.getMonth()
 			},
 			getMonth() {
-				getRoomListCalendar().then(res => {
+				console.log(this.$route.query)
+				getRoomDayForUser(this.$route.query.roomAccId).then(res => {
 					if (res.respCode === "2000") {
-						let date = res.respData.monthDetail
-						let	rzDate = this.$route.query.start, //入职日期
-							ldDate = this.$route.query.end, //离店日期
+						let date = res.respData.detail
+						let rzDate = this.datas.rzDate, //入职日期
+							ldDate = this.datas.ldDate, //离店日期
 							rzNum = this.datas.rzNum,
 							ldNum = this.datas.ldNum,
-							rzDayShow = this.datas.rzDayShow,
-							ldDayShow = this.datas.ldDayShow,
-							inDate = this.datas.inDate,
-							outDate = this.datas.outDate
+							rzIndex = this.$route.query.rz,
+							ldIndex = this.$route.query.ld,
+							count = this.$route.query.count
 						for (let i in date) {
-							let months = date[i]
-							for (let m = 0; m < months.length; m++) {
-								let monthId = months[m].remainingRoom
-								if (months[m].rdExtB == rzDate) {
-									months[m].state = true
-									months[m].dayDes = '入住'
+							// 每月的所有日期
+							let days = date[i]
+							for (let d = 0; d < days.length; d++) {
+								// 给当前点击的添加class
+								if (rzIndex == days[d].roomDayId) {
+									days[d].state = true
+									days[d].dayDes = '入住'
 									let currDate = i.split('-')
-									rzDate = currDate[1] + '月' + months[m].rdExtA + '日'
-									rzNum = months[m].remainingRoom
-									rzDayShow = months[m].dayShow,
-										inDate = months[m].rdExtB
+									rzDate = currDate[1] + '月' + days[d].dayOf + '日'
+									rzNum = days[d].dayOfNum
 								}
-								if (months[m].rdExtB == ldDate) {
-									months[m].state = true
-									months[m].dayDes = '离店'
+
+								if (ldIndex == days[d].roomDayId) {
+									days[d].state = true
+									days[d].dayDes = '离店'
 									let currDate = i.split('-')
-									ldDate = currDate[1] + '月' + months[m].rdExtA + '日'
-									ldNum = months[m].remainingRoom
-									ldDayShow = months[m].dayShow
-									outDate = months[m].rdExtB
+									ldDate = currDate[1] + '月' + days[d].dayOf + '日'
+									ldNum = days[d].dayOfNum
+								}
+
+								if (days[d].roomDayId > rzIndex && days[d].roomDayId < ldIndex) {
+									days[d].checked = true
 								}
 							}
 						}
 						this.datas.date = date
-						this.datas.rzDate = rzDate
-						this.datas.rzNum = rzNum
-						this.datas.ldDate = ldDate
-						this.datas.ldNum = ldNum
-						this.datas.daysSum = ldNum - rzNum
+						this.datas.rzIndex = rzIndex
+						this.datas.ldIndex = ldIndex
 						this.datas.rzAndLd = 2
-						this.datas.rzDayShow = rzDayShow
-						this.datas.ldDayShow = ldDayShow
-						this.datas.inDate = inDate
-						this.datas.inDate = outDate
+						this.datas.rzDate = rzDate
+						this.datas.ldDate = ldDate
+						this.datas.daysSum = ldNum - rzNum
+						this.datas.rzNum = rzNum
+						this.datas.ldNum = ldNum
+						this.datas.roomId = this.$route.query.roomAccId
+						this.datas.count = count
 					}
 				})
 			},
@@ -136,141 +134,159 @@
 				// 状态 1 可点击
 				let state = e.currentTarget.dataset.state
 				let type = e.currentTarget.dataset.type
-				if (state == '2' || type) {
+				if (!state || type) {
 					return
 				}
 				// 点击的日期下标
 				let dayIndex = e.currentTarget.dataset.i
 
-				// let month = that.data.month
-				let date = that.datas.date
+				let month = that.datas.date
 
 				let rzIndex = that.datas.rzIndex
 				let ldIndex = that.datas.ldIndex
 				console.log(state, dayIndex)
 
-				let rzDate = that.datas.rzDate,
-					ldDate = that.datas.ldDate,
-					rzNum = that.datas.rzNum,
-					ldNum = that.datas.ldNum,
-					rzDayShow = that.datas.rzDayShow,
-					ldDayShow = that.datas.ldDayShow,
-					inDate = that.datas.inDate,
-					outDate = that.datas.outDate
-
 				//入住或离店状态
 				let rzAndLd = that.datas.rzAndLd
 				if (rzAndLd == 2) {
+					let rzDate = '',
+						rzNum = that.datas.rzNum,
+						ldNum = that.datas.ldNum
 					console.log(3)
-					for (let i in date) {
+					for (let i in month) {
 						// 每月所有天数
-						let months = date[i]
-						for (let d = 0; d < months.length; d++) {
-							months[d].checked = false
-							months[d].state = false
-							months[d].dayDes = ''
-							if (months[d].remainingRoom == dayIndex) {
-								months[d].state = true
-								months[d].dayDes = '入住'
+						let days = month[i]
+						for (let d = 0; d < days.length; d++) {
+							days[d].checked = false
+							days[d].state = false
+							if (days[d].roomDayId == dayIndex) {
+								days[d].state = true
+								days[d].dayDes = '入住'
 								let currDate = i.split('-')
-								rzDate = currDate[1] + '月' + months[d].rdExtA + '日'
-								rzNum = months[d].remainingRoom
-								rzDayShow = months[d].dayShow
-								inDate = months[d].rdExtB
+								rzDate = currDate[1] + '月' + days[d].dayOf + '日'
+								rzNum = days[d].dayOfNum
 							}
-							// if (months[d].remainingRoom == ldNum) {
-							//   months[d].dayDes = ''
-							// }
-							// if (months[d].remainingRoom == rzNum) {
-							//   months[d].dayDes = ''
-							// }
+							if (days[d].roomDayId == ldIndex) {
+								days[d].dayDes = ''
+							}
+							if (days[d].roomDayId == rzIndex) {
+								days[d].dayDes = ''
+							}
 						}
 					}
-					that.datas.date = date
+					that.datas.date = month
+					that.datas.rzIndex = dayIndex
 					that.datas.rzAndLd = 1
 					that.datas.rzDate = rzDate
 					that.datas.ldDate = ''
 					that.datas.rzNum = rzNum
-					that.datas.rzDayShow = rzDayShow
-					that.datas.ldNum = 0
-					that.datas.inDate = inDate
 					return
 				}
 
-				// nums = roomDayId
-				// festival = dayDes
-
 				// 设置用户点击了入住
 				if (rzAndLd == 1) {
-					console.log(1, dayIndex, rzNum)
-					let newNum = ''
+					let ldDate = '',
+						rzDate = '',
+						rzNum = that.datas.rzNum,
+						ldNum = that.datas.ldNum,
+						newNum = ''
+					console.log(1)
 					// 离店
-					for (let i in date) {
-						let months = date[i]
-						// 每个月的每一天  28  7118
-						for (let d = 0; d < months.length; d++) {
-							if (dayIndex > rzNum) {
-								if (months[d].remainingRoom < dayIndex && months[d].remainingRoom > rzNum) {
-									months[d].checked = true
+					for (let i in month) {
+						let days = month[i]
+						// 每个月的每一天 
+						for (let d = 0; d < days.length; d++) {
+							if (dayIndex > rzIndex) {
+								if (days[d].roomDayId < dayIndex && days[d].roomDayId > rzIndex) {
+									days[d].checked = true
 								}
-								if (months[d].remainingRoom == dayIndex) {
-									months[d].state = true
-									months[d].dayDes = '离店'
+								if (days[d].roomDayId == dayIndex) {
+									days[d].state = true
+									days[d].dayDes = '离店'
 									let currDate = i.split('-')
-									ldDate = currDate[1] + '月' + months[d].rdExtA + '日'
-									ldNum = months[d].remainingRoom
-									ldDayShow = months[d].dayShow
-									outDate = months[d].rdExtB
+									ldDate = currDate[1] + '月' + days[d].dayOf + '日'
+									ldNum = days[d].dayOfNum
 								}
 							} else {
 								console.log('test111')
-								if (months[d].remainingRoom > dayIndex && months[d].remainingRoom < rzNum) {
+								if (days[d].roomDayId > dayIndex && days[d].roomDayId < rzIndex) {
 									console.log(123123123)
-									months[d].checked = true
+									days[d].checked = true
 								}
-								if (months[d].remainingRoom == rzNum) {
-									months[d].state = true
-									months[d].dayDes = '离店'
+								if (days[d].roomDayId == rzIndex) {
+									days[d].state = true
+									days[d].dayDes = '离店'
 									let currDate = i.split('-')
-									ldDate = currDate[1] + '月' + months[d].rdExtA + '日'
-									ldNum = months[d].remainingRoom
-									ldDayShow = months[d].dayShow
-									outDate = months[d].rdExtB
+									ldDate = currDate[1] + '月' + days[d].dayOf + '日'
+									ldNum = days[d].dayOfNum
 								}
-								if (months[d].remainingRoom == dayIndex) {
-									months[d].state = true
-									months[d].dayDes = '入住'
+								if (days[d].roomDayId == dayIndex) {
+									days[d].state = true
+									days[d].dayDes = '入住'
 									let currDate = i.split('-')
-									rzDate = currDate[1] + '月' + months[d].rdExtA + '日'
-									newNum = months[d].remainingRoom
-									rzDayShow = months[d].dayShow
-									inDate = months[d].rdExtB
+									rzDate = currDate[1] + '月' + days[d].dayOf + '日'
+									newNum = days[d].dayOfNum
 								}
+							}
+							rzNum = newNum != '' ? newNum : rzNum
+						}
+					}
+					that.datas.date = month
+					that.datas.rzAndLd = 2
+					that.datas.ldDate = ldDate
+					that.datas.rzNum = rzNum
+					that.datas.ldNum = ldNum
+
+					if (dayIndex > rzIndex) {
+						let daysSum = ldNum - rzNum
+						that.datas.daysSum = daysSum
+						that.datas.ldIndex = dayIndex
+					} else {
+						let daysSum = ldNum - rzNum
+						that.datas.daysSum = daysSum
+						that.datas.ldIndex = rzIndex
+						that.datas.rzIndex = dayIndex
+						that.datas.rzDate = rzDate
+
+					}
+				} else {
+					console.log(2)
+					let rzDate = '',
+						rzNum = that.datas.rzNum
+					// 入住
+					// 三个月的所有日期
+					for (let i in month) {
+						let days = month[i]
+						console.log(days)
+						// 每个月的每一天
+						for (let d = 0; d < days.length; d++) {
+							// 给当前点击的添加class
+							if (dayIndex == days[d].roomDayId) {
+								days[d].state = true
+								days[d].dayDes = '入住'
+								let currDate = i.split('-')
+								rzDate = currDate[1] + '月' + days[d].dayOf + '日'
+								rzNum = days[d].dayOfNum
+								break;
 							}
 						}
 					}
-					rzNum = newNum !== '' ? newNum : rzNum,
-					that.datas.date = date
-					that.datas.ldDate = ldDate
-					that.datas.ldNum = ldNum
+					// 更新数据 存储入住的日期对应下标
+					that.datas.date = month,
+					that.datas.rzIndex = dayIndex,
+					that.datas.rzAndLd = 1,
 					that.datas.rzDate = rzDate
 					that.datas.rzNum = rzNum
-					that.datas.rzAndLd = '2'
-					that.datas.daysSum = ldNum - rzNum,
-					that.datas.ldDayShow = ldDayShow
-					that.datas.rzDayShow = rzDayShow
-					that.datas.inDate = inDate
-					that.datas.outDate = outDate
 				}
 			},
 			// 确定按钮
 			sureDate() {
 				// 传递一个map，dayDatas是key,this.datas是value
-				dayEventBus.$emit('dayDatas',this.datas)
+				dayEventBus.$emit('dayDatas', this.datas)
 				this.$router.go(-1)
 			},
 			// 取消
-			cancelDate(){
+			cancelDate() {
 				this.getMonth()
 			}
 		},
@@ -306,9 +322,11 @@
 			justify-content: space-between;
 			align-items: flex-end;
 		}
-		.section-wrap-date{
-			margin-bottom:30px;
+
+		.section-wrap-date {
+			margin-bottom: 30px;
 		}
+
 		.rz-date>span,
 		.ld-date>span {
 			font-size: 30px;
@@ -423,14 +441,16 @@
 		.jr-or-rld {
 			font-size: 24px;
 		}
+
 		.footer-line {
 			width: 100%;
 			text-align: center;
 			font-size: 28px;
 			color: #999;
 			margin-bottom: 230px;
-    // padding: 100px;
+			// padding: 100px;
 		}
+
 		.footer {
 			position: fixed;
 			bottom: 0;

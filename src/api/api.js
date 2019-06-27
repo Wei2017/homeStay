@@ -1,5 +1,6 @@
 import axios from 'axios'
 const BASEURL = 'https://apigateway.168buy.com/api/hotel'
+const wxUrl = 'https://apigateway.168buy.com/api'
 // 登录
 export const requestLogin = params => {
 	return axios
@@ -166,6 +167,36 @@ export const getRoomDayUserSel = params => {
 	return axios.get(`${BASEURL}/Room/GetRoomDayUserSel`, {
 		params:params
 	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 下单页面—获取一个房型的房源日历 
+export const getRoomDayForUser = roomAccId => {
+	return axios.get(`${BASEURL}/Room/GetRoomDayForUser`, {
+		params:{
+			roomAccId:roomAccId
+		}
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 下单页面—用户选择入离日期后获取费用明细
+export const getSelectDaysFeeDetail = params => {
+	return axios.get(`${BASEURL}/Room/GetSelectDaysFeeDetail`, {
+		params:params
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 下单页面—用户下单 
+export const addOrderHotel = params => {
+	return axios.post(`${BASEURL}/OrderMain/AddOrderHotel`, params)
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 下单页面—调起支付 
+export const createWXPay = params => {
+	return axios.post(`${wxUrl}/weixin/WXPay/CreateWXPay`, params)
 		.then(res => res.data)
 		.catch(res => res.data)
 }
