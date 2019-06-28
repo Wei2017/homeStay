@@ -24,16 +24,6 @@ export default {
           path: "/home"
         },
         {
-          tabTitle: "订单",
-          icon: "",
-          path: "/order"
-        },
-        {
-          tabTitle: "消息",
-          icon: "",
-          path: "/msg"
-        },
-        {
           tabTitle: "我的",
           icon: "",
           path: "/me"

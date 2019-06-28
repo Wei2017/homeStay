@@ -29,6 +29,10 @@ import sureOrder from '@/page/order/sureOrder'
 // 订单—订单详情
 import orderDetail from '@/page/order/orderDetail'
 
+//收藏列表
+import storeList from '@/page/myStore/storeList'
+
+
 // 消息—消息详情
 import msgDetail from '@/page/msg/msgDetail'
 
@@ -101,6 +105,16 @@ const router = new Router({
 			keepAlive:true
 		},
 		component: searchList
+	},
+	{
+		path: '/storeList',
+		name: 'storeList',
+		meta: {
+			title: '收藏列表',
+			showFooter: false,
+			keepAlive:true
+		},
+		component: storeList
 	},
 	{
 		path: '/searchDate',

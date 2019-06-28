@@ -1,6 +1,8 @@
 import axios from 'axios'
 const BASEURL = 'https://apigateway.168buy.com/api/hotel'
 const wxUrl = 'https://apigateway.168buy.com/api'
+let sign = 'PyjpqO34pPbjWXt30X+6F7BxKsU/WlfnwE5MMcq6iPE='
+let appfrom = 'wxapp_hotel_user'
 // 登录
 export const requestLogin = params => {
 	return axios
@@ -91,9 +93,14 @@ export const homeDetail = (roomAccId, userid) => {
 		.then(res => res.data)
 		.catch(res => res.data)
 }
-// 详情页—收藏
+// 详情页—添加收藏
 export const addStoreHome = (url, params) => {
-	return axios.post(`${BASEURL}/${url}`, params)
+	return axios({
+		 method: 'post',
+		 headers: { sign:sign,appfrom:appfrom },
+		 data:params,
+		 url:`${BASEURL}/${url}`
+	})
 		.then(res => res.data)
 		.catch(res => res.data)
 }
@@ -197,6 +204,18 @@ export const addOrderHotel = params => {
 // 下单页面—调起支付 
 export const createWXPay = params => {
 	return axios.post(`${wxUrl}/weixin/WXPay/CreateWXPay`, params)
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 收藏列表—分页获取房源收藏/浏览记录
+export const collectGetListPageByUserOrAcc = params => {
+	return axios.get(`${BASEURL}/UserViewCollect/GetListPageByUserOrAcc`, {
+		params:params,
+		headers:{
+			sign:sign,
+			appfrom:appfrom
+		}
+	})
 		.then(res => res.data)
 		.catch(res => res.data)
 }

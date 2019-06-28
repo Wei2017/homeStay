@@ -119,11 +119,14 @@ export default {
           } else {
             this.datas.finished = true; //数据加载完成
           }
+					// 加载结束
+					this.datas.loading = false;
         } else {
           this.datas.finished = true;
+					// 加载结束
+					this.datas.loading = false;
         }
-				// 加载结束
-				this.datas.loading = false;
+				
       });
     },
 		// 选择位置

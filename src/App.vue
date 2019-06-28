@@ -36,10 +36,33 @@ export default {
 .main {
   height: auto;
 }
+/* 弹框样式 */
 .van-toast {
   padding: 35px !important;
 }
 .van-list__finished-text{
 	padding: 30px 0 40px 0!important;
+}
+.van-dialog{
+	border-radius: 12px;
+	width:75%;
+	padding:20px;
+}
+.van-dialog .van-dialog__header{
+	font-size:36px;
+	line-height: 36px;
+	margin-bottom: 18px;
+}
+.van-dialog .van-dialog__footer .van-button--default{
+	font-size:36px;
+}
+.van-dialog .van-dialog__footer{
+	padding-top:16px;
+}
+.van-dialog .van-dialog__footer .van-dialog__cancel{
+	color:#fff100;
+}
+.van-dialog .van-dialog__footer .van-dialog__confirm{
+	color:#323232;
 }
 </style>

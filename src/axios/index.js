@@ -2,7 +2,7 @@ import axios from 'axios'
 import Vue from 'vue'
 import router from '../router'
 Vue.prototype.$axios = axios
-// axios.defaults.headers.post['Content-Type'] = ' application/json;charset=UTF-8 ';
+axios.defaults.headers.post['Content-Type'] = ' application/json';
 // axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 //配置接口地址
 // axios.defaults.baseURL = 'http://221.122.93.243:9005';
