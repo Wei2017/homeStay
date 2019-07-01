@@ -52,9 +52,7 @@
 		destroyed() {},
 		methods: {
 			init(){
-				collectGetListPageByUserOrAcc(par).then(res =>{
-					console.log(1111)
-				})
+			
 			},
 			// 获取数据-上拉加载
 			onLoad() {
@@ -68,7 +66,7 @@
 				collectGetListPageByUserOrAcc(par).then(res => {
 					if (res.respCode === "2000") {
 						if (res.respData.length > 0) {
-							if (res.respData.length < this.pageData.pageSize) {
+							if (res.respData.length <= this.pageData.pageSize) {
 								this.datas.listObj.items = res.respData
 								this.datas.finished = true; //数据加载完成
 							} else {

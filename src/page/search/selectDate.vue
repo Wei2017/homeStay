@@ -290,6 +290,11 @@
 				this.getMonth()
 			}
 		},
+		beforeRouteLeave(to,from,next){
+			// 设置下一个路由的meta，让缓存，即不刷新
+			to.meta.keepAlive = true
+			next()
+		},
 		computed: {
 
 		},

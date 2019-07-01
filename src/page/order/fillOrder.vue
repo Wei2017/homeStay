@@ -105,6 +105,15 @@
 				dates: null
 			};
 		},
+		beforeRouteEnter(to,from,next){
+			// 设置下一个路由的meta，让缓存，即不刷新
+			if(from.name === 'selectDate'){
+				to.meta.keepAlive = true
+			}else{
+				to.meta.keepAlive = false
+			}
+			next()
+		},
 		components: {},
 		mounted() {
 			this.init()
@@ -211,12 +220,6 @@
 			},
 			// 立即预定
 			sureOrder() {
-				this.$router.push({
-					path: "/sureOrder",
-					query: {
-						orderId: this.delId
-					}
-				});
 				if (this.obj.name === '') {
 					this.$toast('请输入入住人的姓名')
 					return
@@ -244,6 +247,12 @@
 				addOrderHotel(par).then(res => {
 					if (res.respCode === '2000') {
 						let orderInfo = res.respData
+						this.$router.push({
+							path: "/sureOrder",
+							query: {
+								orderCode: orderInfo.orderCode
+							}
+						});
 						let payData = {
 							from: 1, //1为花啦微店网页端 
 							orderCode: orderInfo.orderCode, //订单编号
@@ -251,7 +260,7 @@
 							orderName: orderInfo.oName, //订单名称
 							orderDes: orderInfo.oDes, //订单描述, 选填
 							userIp: '', //终端设备ip
-							openId: '', //
+							openId: 'ombSf4v8rLZ-X3eQV7CpGeQPcuOM', //
 						}
 						createWXPay(payData).then(res => {
 							if (res.respCode === '2000') {
@@ -293,12 +302,12 @@
 					function(res) {
 						if (res.err_msg == "get_brand_wcpay_request:ok") {
 							// 支付成功调起的页面
-// 							this.$router.push({
-// 								path: "/sureOrder",
-// 								query: {
-// 									orderId: this.delId
-// 								}
-// 							});
+							// 							this.$router.push({
+							// 								path: "/sureOrder",
+							// 								query: {
+							// 									orderId: this.delId
+							// 								}
+							// 							});
 						}
 					});
 			},

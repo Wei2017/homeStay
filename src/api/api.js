@@ -1,7 +1,7 @@
 import axios from 'axios'
 const BASEURL = 'https://apigateway.168buy.com/api/hotel'
 const wxUrl = 'https://apigateway.168buy.com/api'
-let sign = 'PyjpqO34pPbjWXt30X+6F7BxKsU/WlfnwE5MMcq6iPE='
+let sign = 'PyjpqO34pPbjWXt30X+6F7BxKsU/Wlfn7s0IjDXUpJM='
 let appfrom = 'wxapp_hotel_user'
 // 登录
 export const requestLogin = params => {
@@ -197,7 +197,12 @@ export const getSelectDaysFeeDetail = params => {
 }
 // 下单页面—用户下单 
 export const addOrderHotel = params => {
-	return axios.post(`${BASEURL}/OrderMain/AddOrderHotel`, params)
+	return axios({
+		 method: 'post',
+		 headers: { sign:sign,appfrom:appfrom },
+		 data:params,
+		 url:`${BASEURL}/OrderMain/AddOrderHotel`
+	})
 		.then(res => res.data)
 		.catch(res => res.data)
 }
@@ -207,9 +212,34 @@ export const createWXPay = params => {
 		.then(res => res.data)
 		.catch(res => res.data)
 }
+//订单确认页面—获取单个订单信息(按订单号ordercode获取)
+export const getOrderByCode = params => {
+	return axios.get(`${BASEURL}/OrderMain/GetOrderByCode`, {
+		params:params,
+		headers:{
+			sign:sign,
+			appfrom:appfrom
+		}
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+
 // 收藏列表—分页获取房源收藏/浏览记录
 export const collectGetListPageByUserOrAcc = params => {
 	return axios.get(`${BASEURL}/UserViewCollect/GetListPageByUserOrAcc`, {
+		params:params,
+		headers:{
+			sign:sign,
+			appfrom:appfrom
+		}
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+// 订单列表—	获取订单列表(按 状态, 用户, 房东 组合获取)
+export const getListPageByUserOrAcc = params => {
+	return axios.get(`${BASEURL}/OrderMain/GetListPageByUserOrAcc`, {
 		params:params,
 		headers:{
 			sign:sign,

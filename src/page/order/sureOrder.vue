@@ -1,5 +1,5 @@
 <template>
-  <div class="surOrder">
+  <div class="surOrder" v-if="orderInfo">
     <div class="top">
       <span>
         <img src="/static/img/sure-time-icon.png" alt>
@@ -9,7 +9,7 @@
     </div>
     <div class="detail" @click="jumpOrderDetail">
       <div>
-        <h3>{orderInfo.oName}}</h3>
+        <h3>{{orderInfo.oName}}</h3>
         <p>{{orderInfo.oDes}}</p>
       </div>
       <span>
@@ -33,7 +33,8 @@ export default {
   name: "surOrder",
   data() {
     return {
-			 orderInfo:null
+			 orderInfo:null,
+			 orderCode:this.$route.query.orderCode
 		};
   },
   components: {},
@@ -42,7 +43,10 @@ export default {
 	},
   methods: {
 		init(){
-			getOrderByCode(this.$route.query.ordercode).then(res =>{
+			let par = {
+				ordercode:this.orderCode
+			}
+			getOrderByCode(par).then(res =>{
 				if (res.respCode === '2000') {
 					this.orderInfo = res.respData
 				}
@@ -53,7 +57,7 @@ export default {
 			this.$router.push({
 				path: "/orderDetail",
 				query: {
-					ordercode:'',
+					ordercode:this.orderCode,
 				}
 			});
 		},
@@ -62,7 +66,7 @@ export default {
 			this.$router.push({
 				path: "/fdImpress",
 				query: {
-					accountId:'',
+					accountId:this.orderInfo.accountId,
 				}
 			});
 		}

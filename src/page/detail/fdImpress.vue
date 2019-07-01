@@ -136,12 +136,15 @@ export default {
 				stayOutDate: ''
 			}
 			fdGetRoomList(par).then(res =>{
-				// 加载结束
-        this.loading.loadingF = false;
 				if(res.respCode === '2000'){
 					if (res.respData.length > 0) {
-						this.pages.pageNum1 += 1;
-						this.datas.unShelfObj.items = this.datas.unShelfObj.items.concat(res.respData)
+						if(res.respData.length <= this.pages.pageSize){
+							this.datas.unShelfObj.items = res.respData
+							this.loading.finishedF = true; //数据加载完成
+						}else{
+							this.pages.pageNum1 += 1;
+							this.datas.unShelfObj.items = this.datas.unShelfObj.items.concat(res.respData)
+						}
 					}else{
 						this.loading.finishedF = true; //数据加载完成
 					}
@@ -149,6 +152,8 @@ export default {
 				}else{
 					this.loading.finishedF = true; //数据加载完成
 				}
+				// 加载结束
+				this.loading.loadingF = false;
 			})
     },
 		// 客房点评列表
@@ -160,12 +165,15 @@ export default {
 				pageIndex: this.pages.pageNum2,
 			}
 			fdGetCommentList(cData).then(res =>{
-				// 加载结束
-			  this.loading.loadingS = false;
 				if(res.respCode === '2000'){
 					if (res.respData.length > 0) {
-						this.pages.pageNum2 += 1;
-						this.datas.tenantCom.items = this.datas.tenantCom.items.concat(res.respData)
+						if(res.respData.length <= this.pages.pageSize){
+							this.datas.tenantCom.items = res.respData
+							this.loading.finishedS = true; //数据加载完成
+						}else{
+							this.pages.pageNum2 += 1;
+							this.datas.tenantCom.items = this.datas.tenantCom.items.concat(res.respData)
+						}
 					}else{
 						this.loading.finishedS = true; //数据加载完成
 					}
@@ -173,6 +181,8 @@ export default {
 				}else{
 					this.loading.finishedS = true; //数据加载完成
 				}
+				// 加载结束
+				this.loading.loadingS = false;
 			})
 		},
 		// 上架房源/客房评价 切换
