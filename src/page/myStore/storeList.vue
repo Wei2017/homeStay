@@ -1,11 +1,9 @@
 <template>
 	<div class="storeList">
-		<!-- <div v-if="datas.listObj.items.length > 0"> -->
-			<van-list v-model="datas.loading" :offset="50" :finished="datas.finished" finished-text="没有更多数据了" @load="onLoad">
-				<com-list :listData="datas.listObj" @storeChange="storeChange"></com-list>
+			<van-list v-model="datas.loading" :finished="datas.finished" :finished-text="datas.finishedText" @load="onLoad">
+				<no-data v-if="datas.listObj.items.length == 0 && !datas.loading" :NoDataVal = 'datas.NoDataObj' ></no-data>
+				<com-list v-else :listData="datas.listObj" @storeChange="storeChange"></com-list>
 			</van-list>
-		<!-- </div> -->
-		<!-- <no-data v-else :NoDataVal = 'datas.NoDataObj' ></no-data> -->
 	</div>
 </template>
 
@@ -34,6 +32,7 @@
 					loading: false, //是否处于加载状态
 					finished: false, //是否已加载完所有数据
 					isLoading: false, //是否加载
+					finishedText:'',
 					listObj: {
 						score: false,
 						comment: false,
@@ -65,24 +64,22 @@
 				this.datas.listObj.items = []
 				collectGetListPageByUserOrAcc(par).then(res => {
 					if (res.respCode === "2000") {
-						if (res.respData.length > 0) {
-							if (res.respData.length <= this.pageData.pageSize) {
-								this.datas.listObj.items = res.respData
-								this.datas.finished = true; //数据加载完成
-							} else {
-								this.pageData.pageNum += 1;
-								this.datas.listObj.items = this.datas.listObj.items.concat(
-									res.respData
-								)
-							}
-						} else {
+						// 新数据拼接
+						this.datas.listObj.items = this.datas.listObj.items.concat(
+							res.respData
+						)
+						// 加载状态结束
+						this.datas.loading = false;
+						// 数据全部加载完成
+						if(this.datas.listObj.items.length >= res.respDataExt.totalCount){
 							this.datas.finished = true; //数据加载完成
 						}
+						this.pageData.pageNum ++;
+						console.log(this.datas.listObj.items)
+						this.datas.finishedText = this.datas.listObj.items.length ===0 ? '' : '没有更多数据了'
 					} else {
 						this.datas.finished = true;
 					}
-					// 加载结束
-					this.datas.loading = false;
 				});
 			},
 			// 取消收藏
@@ -100,8 +97,10 @@
 						if (res.respCode === "2000") {
 							this.pageData.pageNum = 1
 							this.datas.finished = false
-							this.datas.isLoading = false
-							this.onLoad()
+							this.datas.loading = true
+							if(this.datas.loading){
+								this.onLoad()
+							}
 						}
 					})
 				}).catch(() => {

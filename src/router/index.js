@@ -73,7 +73,7 @@ const router = new Router({
 		meta: {
 			title: '订单',
 			showFooter: true,
-			keepAlive:true
+			// keepAlive:true
 		},
 		component: Order
 	},
@@ -112,7 +112,7 @@ const router = new Router({
 		meta: {
 			title: '收藏列表',
 			showFooter: false,
-			keepAlive:true
+			// keepAlive:true
 		},
 		component: storeList
 	},

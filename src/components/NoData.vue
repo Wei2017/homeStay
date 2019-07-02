@@ -56,6 +56,11 @@
 			font-size:36px;
 			color: #ccc;
 			padding-top: 46px;
+			
+		}
+		a{
+			font-size:36px;
+			color: #333;
 		}
 		span.btn{
 			width: 429px;

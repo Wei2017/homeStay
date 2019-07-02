@@ -35,7 +35,8 @@
 			<!-- <div class="footer-line" v-if="datas.date">我是有底线的，最长可预订近4个月的房屋</div> -->
 			<div class='footer row'>
 				<span @click="cancelDate">清空</span>
-				<div class='sure-btn' @click='sureDate'>确定</div>
+				<div class='nosure-btn' v-if="datas.ldDate == ''">确定</div>
+				<div class='sure-btn' v-else @click='sureDate'>确定</div>
 			</div>
 		</div>
 	</div>
@@ -478,6 +479,15 @@
 			font-size: 36px;
 			border-radius: 50px;
 			background-color: #ffd544;
+		}
+		.nosure-btn{
+			width: 436px;
+			height: 100px;
+			line-height: 100px;
+			text-align: center;
+			font-size: 36px;
+			border-radius: 50px;
+			background-color: #ddd;
 		}
 	}
 </style>

@@ -8,6 +8,7 @@ export default new Vuex.Store({
     //存储城市名
 		cityName:'杭州',
 		searchKey:'',
+		servicePhone:'13566605520'
   },
   mutations: {
     //修改状态，并且是同步的，在组件中使用$store.commit('',params)
@@ -17,6 +18,9 @@ export default new Vuex.Store({
 		setSearchKey (state, name) {
 		  state.searchKey = name
 		},
+		setServicePhone(state,name){
+			state.servicePhone = name
+		}
   },
   actions: {
     //异步操作,在组件中使用$store.dispath('')

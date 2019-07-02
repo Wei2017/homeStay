@@ -1,30 +1,44 @@
 <template>
 	<div class="orderList">
 		<van-tabs v-model="datas.active" swipeable animated @change="changeTab">
-			<van-tab v-for="(item,index) in datas.titles" :key="index" :title="item.name">
-				<van-list v-model="datas.loading" :offset="50" :finished="datas.finished" finished-text="没有更多数据了" @load="onLoad">
-					<div class="all-order-list">
-						<div class="order-header row">
-							<span class="order-header-text">(湖景-高级标准间)</span>
-							<span class="order-header-state">{{datas.test == '2'?'待支付':datas.test == '3'?'待确认':'待评价'}}</span>
-						</div>
-						<div class="order-content row" @click="toDetail">
-							<div class="order-img-text row">
-								<img src="/static/img/footer-img@2x.png" class="order-img">
-								<div class="order-title">
-									<p class="order-name">杭州西湖边的名人别墅，每幢价值超亿元，有些可以免费参观</p>
-									<span class="order-date">2019.04.07→2019.04.10</span>
+			<van-tab v-for="(title,inx) in datas.titles" :key="inx" :title="title.name">
+				<van-list
+					v-model="datas.loading" 
+					:finished="datas.finished" 
+					:finished-text="datas.finishedText" @load="onLoad">
+					<!-- 空页面 -->
+					<no-data v-if="datas.items.length == 0 && !datas.loading" :NoDataVal = 'datas.NoDataObj' ></no-data>
+					<div class="orderCon" v-else>
+						<div class="all-order-list" v-for="(item,index) in datas.items" :key="index">
+							<div class="order-header row">
+								<span class="order-header-text">{{item.accountName}}</span>
+								<span class="order-header-state">{{item.oStateName}}</span>
+							</div>
+							<div class="order-content row" @click="jumpDetail(item.orderCode)">
+								<div class="order-img-text row">
+									<img :src="item.roomAccImg" class="order-img">
+									<div class="order-title">
+										<p class="order-name">{{item.oName}}</p>
+										<span class="order-date">{{item.oDes}}</span>
+									</div>
 								</div>
+								<div class="order-price">￥{{item.oMoney}}</div>
 							</div>
-							<div class="order-price">￥224.00</div>
-						</div>
-						<div class="order-footer row">
-							<div class="order-pay-time">
-								<span>22分钟</span>后订单自动取消
-							</div>
-							<div class="order-btn row">
-								<span class="btn-item btn-concat">联系房东</span>
-								<span class="btn-item btn-pay">去支付</span>
+							<div class="order-footer row">
+								<div class="order-pay-time">
+									<span>{{item.recMark}}</span>
+								</div>
+								<div class="order-btn row">
+									<span>
+										<span v-if="item.oExtB == 'btnNeedHelp'" >
+											<span class="btn-item btn-concat concat-kf"><a :href="'tel:' + serviceTel">{{item.oExtA}}</a></span>
+										</span>
+										<span v-else >
+											<b class="btn-item btn-concat bStyle"  @click="item.oExtB" v-if="item.oExtA">{{item.oExtA}}</b>
+										</span>
+									</span>
+									 <span class='btn-item btn-pay' @click="item.oExtD" v-if="item.oExtC">{{item.oExtC}}</span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -35,6 +49,7 @@
 </template>
 
 <script>
+	import noData from '@/components/NoData.vue'
 	import {
 		Tab,
 		Tabs
@@ -47,12 +62,18 @@
 		data() {
 			return {
 				pageData: {
-					pageSize: 10,
+					pageSize: 15,
 					pageNum: 1
 				},
 				datas: {
 					active: 0,
 					stateId:0,
+					NoDataObj: {
+						text: '还没有订单哦',
+						btnShow: true,
+						name: '去逛逛吧',
+						path: '/home',
+					},
 					titles:[
 						{key:'0',name:'全部'},
 						{key:'1',name:'待支付'},
@@ -61,79 +82,97 @@
 					],
 					loading: false, //是否处于加载状态
 					finished: false, //是否已加载完所有数据
-					test: 3,
+					finishedText:'',
+					len:1,
 					items: []
 				}
 			};
 		},
 		components: {
 			[Tab.name]: Tab,
-			[Tabs.name]: Tabs
+			[Tabs.name]: Tabs,
+			noData
 		},
-		mounted() {},
+		mounted() {
+		},
 		methods: {
 			onLoad(){
-				let par = {
-					stateId:this.datas.stateId,
-					userId:localStorage.getItem('userId'),
-					accountId:0,
-					pageSize:this.pageData.pageSize,
-					pageIndex:this.pageData.pageNum
-				}
-				getListPageByUserOrAcc(par).then(res =>{
-					if(res.respCode === '2000'){
-						this.datas.items = res.respData
-						if (res.respData.length > 0){
-							if (res.respData.length <= this.pageData.pageSize) {
-								this.datas.items = res.respData
-								this.datas.finished = true; //数据加载完成
-							}else{
-								this.pageData.pageNum += 1;
-								this.datas.items = this.datas.items.concat(res.respData)
-							}
-						}else{
-							this.datas.finished = true; //数据加载完成
-						}
-					}else{
-						this.datas.finished = true;
+				setTimeout(async() =>{
+					let par = {
+						stateId:this.datas.stateId,
+						userId:localStorage.getItem('userId'),
+						accountId:0,
+						pageSize:this.pageData.pageSize,
+						pageIndex:this.pageData.pageNum
 					}
-					// 加载结束
-					this.datas.loading = false;
-				})
+					getListPageByUserOrAcc(par).then(res =>{
+						if(res.respCode === '2000'){
+							// 新数据拼接
+							this.datas.items = this.datas.items.concat(res.respData)
+							// 加载状态结束
+							this.datas.loading = false;
+							// 数据全部加载完成
+							if(this.datas.items.length >= res.respDataExt.totalCount){
+								this.datas.finished = true; //数据加载完成
+							}
+							this.pageData.pageNum ++;
+							console.log(this.datas.items)
+							this.datas.finishedText = this.datas.items.length ===0 ? '' : '没有更多数据了'
+						}else{
+							this.datas.finished = true;
+						}
+					})
+				},150)
+				
 			},
 			// 当前激活的标签改变时触发
 			changeTab(inx,title) {
-				console.log(inx,title);
 				var scrollTop =
 					window.pageYOffset ||
 					document.documentElement.scrollTop ||
 					document.body.scrollTop;
 				scrollTop = 0;
+				this.datas.NoDataObj.text = inx ==0 ? '还没有订单哦' : '还没有'+title+'的订单哦'
+				this.datas.stateId = title == '待评价' ? 5 : inx
+				this.datas.items = []
+				this.pageData.pageNum = 1
+				this.datas.loading = true //下拉加载中
+				this.datas.finished = false 
+				if(this.datas.loading){
+					this.onLoad()
+				}
 			},
-			toDetail() {
+			jumpDetail(orderCode) {
 				this.$router.push({
 					path: "/orderDetail",
 					query: {
-						ordercode:this.orderCode,
+						ordercode:orderCode,
 					}
 				})
+			},
+			// 删除
+			btnDelByUser(){
+				alert(1)
 			}
 		},
-		computed: {},
+		computed: {
+			serviceTel(){
+				return this.$store.state.servicePhone
+			}
+		},
 		watch: {}
 	};
 </script>
 
 <style scoped="scoped" lang="scss">
 	.orderList {
-		position: absolute;
+		position: relative;
 		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		overflow-y: auto;
+		height: -webkit-fill-available;
+// 		top: 0;
+// 		left: 0;
+// 		overflow-y: auto;
 		background: #f0f0f8;
-
 		/deep/ .van-tabs {
 			.van-tabs__wrap {
 				padding: 40px;
@@ -163,15 +202,20 @@
 			}
 
 			.van-tabs__content {
+				.van-tabs__track{
+					min-height: 1000px;
+				}
 				.van-tabs {
 					height: 500px;
 				}
-
+				
 				.van-tab__pane {
+					position: relative;
+					min-height: 1000px;
 					display: flex;
 					align-items: center;
 					justify-content: center;
-
+					padding-bottom: 160px;
 					.row {
 						display: flex;
 						flex-direction: row;
@@ -221,7 +265,6 @@
 					.order-name {
 						display: block;
 						font-size: 20px;
-						max-width: 280px;
 						margin-bottom: 12px;
 						text-overflow: -o-ellipsis-lastline;
 						overflow: hidden;
@@ -239,7 +282,7 @@
 					.order-price {
 						font-size: 24px;
 						font-weight: 600;
-						margin-top: 16px;
+						margin: 16px 0 0 15px;
 					}
 
 					.order-pay-time {
@@ -270,9 +313,20 @@
 
 					.btn-concat {
 						color: #666;
+						font-size: 26px;
 						border: 2px solid #f0f0f8;
+						display: inline-block;
 					}
-
+					.bStyle{
+						font-weight: normal;
+					}
+					.concat-kf{
+						a{
+							color: #666;
+							display: inline-block;
+							width: inherit;
+						}
+					}
 					.btn-pay {
 						color: #fff;
 						border: 2px solid #ffd33b;

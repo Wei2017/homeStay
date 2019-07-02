@@ -1,10 +1,10 @@
 <template>
-	<div class="orderDetail">
+	<div class="orderDetail" v-if="orderDetail">
 		<div class="header">
-			<span>等待确认</span>
+			<span>{{orderDetail.oStateName}}</span>
 			<div class="header-desc">
-				<span>请您耐心等待</span>
-				<span class="count-down">14分05秒</span>
+				<span>{{otherInfo.oStateDes}}</span>
+				<!-- <span class="count-down">14分05秒</span> -->
 			</div>
 		</div>
 		<div class="section-wrap">
@@ -12,31 +12,31 @@
 				<!-- 入住信息 -->
 				<div class="room-info container">
 					<!-- 预订日期 -->
-					<div class="reserve-date row">
+					<div class="reserve-date row" v-if="otherInfo">
 						<div class="rz-date container">
 							<em>入住日期</em>
-							<span>8月13日</span>
-							<em>周一14:00后</em>
+							<span>{{otherInfo.stayInDay}}</span>
+							<em>{{otherInfo.stayInTime}}</em>
 						</div>
-						<div class="rz-sums">共20晚</div>
+						<div class="rz-sums">共{{otherInfo.stayNight}}晚</div>
 						<div class="ld-date container">
 							<em>退房日期</em>
-							<span>8月13日</span>
-							<em>周三12:00前</em>
+							<span>{{otherInfo.stayOutDay}}</span>
+							<em>{{otherInfo.stayOutTime}}</em>
 						</div>
 					</div>
 					<!-- 位置等信息 -->
 					<div class="address-other">
 						<div class="other-tips row">
-							<span>2019.8.12 12:00后取消或变更订单将产生违约金</span>
-							<van-icon name="arrow" />
+							<span>{{orderDetail.oDes}}</span>
+							<!-- <van-icon name="arrow" /> -->
 						</div>
 						<div class="address-info row">
 							<div class="room-name container">
-								<span class="name-text">杭州西湖边的名人别墅，每幢价值超亿元，有些可以免费参观</span>
-								<span class="room-type">经济 2居2床4人</span>
+								<span class="name-text">{{orderDetail.oName}}</span>
+								<span class="room-type">{{orderDetail.roomDes}}</span>
 							</div>
-							<van-icon name="arrow" />
+							<!-- <van-icon name="arrow" /> -->
 						</div>
 						<!-- 具体位置 地图展示 -->
 						<div class="map-view">
@@ -47,7 +47,7 @@
               enable-scroll="{{enableScroll}}">
               </map>-->
 							<div class="address-text row">
-								<span>杭州西湖边（龙门村例）</span>
+								<span>{{orderDetail.roomAddress}}</span>
 								<div class="to-navi row">
 									<img class="to-navi-img" src="/static/img/to-navi.png" alt>
 									<span>去导航</span>
@@ -57,13 +57,13 @@
 						<!-- 联系商户 -->
 						<div class="concat-merchant row">
 							<div class="merchant-left row">
-								<img src="/static/img/footer-img@2x.png" class="merchant-head">
+								<img :src="orderDetail.roomAccImg" class="merchant-head">
 								<div class="merchant-info">
-									<p>巨野山庄</p>
+									<p>{{orderDetail.accountName}}</p>
 									<span>商户</span>
 								</div>
 							</div>
-							<div class="concat-phone row">
+							<div class="concat-phone row" @click="jumpFd(orderDetail.accountId)">
 								<img class="phone-icon" src="/static/img/da-phone.png" alt>
 								<span>打电话</span>
 							</div>
@@ -75,68 +75,99 @@
 					<div class="rzr-info">
 						<div class="order-num row">
 							<span class="left-head">订单编号</span>
-							<span>123123123131</span>
+							<span>{{orderDetail.orderCode}}</span>
 						</div>
 						<div class="rz-ren row">
 							<span class="left-head">入住人</span>
-							<span>王集权</span>
+							<span>{{orderDetail.recName}}</span>
 						</div>
 						<div class="rzr-phone row">
 							<span class="left-head">手机号</span>
-							<span>13126666501</span>
+							<span>{{orderDetail.recPhone}}</span>
 						</div>
 					</div>
 					<div class="online-pay row">
 						<span>线上支付</span>
 						<div class="money row">
-							<span>￥100</span>
-							<van-icon name="arrow" />
+							<span>￥{{orderDetail.oMoney}}</span>
+							<!-- <van-icon name="arrow" /> -->
 						</div>
 					</div>
 					<div class="pay-deposit row">
 						<span>押金</span>
 						<div class="money row">
-							<span>￥100</span>
-							<van-icon name="arrow" />
+							<span>￥{{orderDetail.extMoney}}</span>
+							<!-- <van-icon name="arrow" /> -->
 						</div>
 					</div>
 					<div class="order-tips row">
 						<span>若需要机打发票，请在退房时在民宿前台开具发票</span>
-						<van-icon name="arrow" />
+						<!-- <van-icon name="arrow" /> -->
 					</div>
 				</div>
 				<!-- 入住须知 -->
 				<div class="rz-notice">
 					<div class="notice-title">入住须知</div>
-					<div class="notice-content">
-						这是一个隐藏在繁华城市中心的安静之所，屋内的格式细软、床品、浴品，甚至小到一个杯子都是屋主精心挑选的。这里是杭城高端公寓，非常适合旅游，商务，家庭亲子等出行安排。希望能给您旅途带来居家的惬意和舒适。床单被套都是一客一换。
-						房子紧邻历史悠久的京杭大运河，步行十分钟可以到达杭州著名景区拱宸桥，桥边可以坐水上巴士游览京
-					</div>
+					<div class="notice-content">{{otherInfo.userShouldKnow}}</div>
 				</div>
 			</div>
 		</div>
-		<!-- 底部按按 -->
-		<div class="footer row">
-			<span class="cancel-btn">取消订单</span>
+		<!-- 底部按钮 -->
+		<div class='footer row'>
+			<span v-if="orderDetail.oExtB == 'btnNeedHelp'" >
+				<span class="cancel-btn concat-kf"><a :href="'tel:' + serviceTel">{{orderDetail.oExtA}}</a></span>
+			</span>
+			<span v-else>
+				<div class='cancel-btn' v-if="orderDetail.oExtA" @click='orderDetail.oExtB'>{{orderDetail.oExtA}}</div>
+			</span>
+			<span class='other-btn' v-if="orderDetail.oExtC" @click='orderDetail.oExtD'>{{orderDetail.oExtC}}</span>
 		</div>
 	</div>
 </template>
 
 <script>
 	import {
-		createWXPay
+		getOrderByCode
 	} from "../../api/api";
 	export default {
-		name: "orderDetail.",
+		name: "orderDetail",
 		data() {
 			return {
-				datas: {}
+				orderDetail: null,
+				otherInfo: null,
+				orderCode: this.$route.query.ordercode
 			};
 		},
 		components: {},
-		mounted() {},
-		methods: {},
-		computed: {},
+		mounted() {
+			this.init()
+		},
+		methods: {
+			init() {
+				let par = {
+					ordercode: this.orderCode
+				}
+				getOrderByCode(par).then(res => {
+					if (res.respCode === '2000') {
+						this.orderDetail = res.respData
+						this.otherInfo = res.respDataExt
+					}
+				})
+			},
+			jumpFd(accountId) {
+				this.$router.push({
+					path: "/fdImpress",
+					query: {
+						accountId: accountId
+					}
+				});
+			}
+		},
+		computed: {
+			serviceTel(){
+				return this.$store.state.servicePhone
+			}
+		},
 		watch: {}
 	};
 </script>
@@ -420,14 +451,35 @@
 		}
 
 		.cancel-btn {
+			border: 2px solid #f0f0f8;
+			display: inline-block;
+		}
+
+		.cancel-btn,
+		.other-btn {
 			width: 198px;
 			height: 80px;
 			line-height: 80px;
 			text-align: center;
 			font-size: 36px;
 			border-radius: 50px;
-			border: 1px solid #f0f0f8;
 			margin-right: 51px;
+		}
+
+		.other-btn {
+			color: #fff;
+			border: 2px solid #ffd33b;
+			background-color: #ffd33b;
+		}
+
+		.concat-kf {
+			background-color: transparent;
+			padding: 0;
+			margin: 0 50px 0 0;
+			a{
+				color: #333;
+				display: inline-block;
+			}
 		}
 	}
 </style>

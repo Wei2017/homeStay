@@ -7,7 +7,7 @@
 			</b>
 
 		</div>
-		<van-list v-model="datas.loading" :offset="50" :finished="datas.finished" finished-text="没有更多数据了" @load="onLoad">
+		<van-list v-if="datas.flag == 0" v-model="datas.loading" :finished="datas.finished" finished-text="没有更多数据了" @load="onLoad">
 			<com-list :listData="datas.listObj"></com-list>
 		</van-list>
 	</div>
@@ -29,6 +29,7 @@
 					pageNum: 1
 				},
 				datas: {
+					flag:0,
 					inDate: '',
 					outDate: '',
 					dayStart: '',
@@ -63,7 +64,6 @@
 			}
 		},
 		mounted() {
-			this.activated()
 			this.init()
 		},
 		destroyed() {},
@@ -78,6 +78,7 @@
 						this.datas.dayEnd = res.respData.dayEnd
 					}
 				})
+				this.activated()
 			},
 			// 选取时间
 			choseTime() {
@@ -102,9 +103,11 @@
 					// 重新加载数据
 					this.pageData.pageNum = 1
 					this.datas.finished = false
-					this.datas.loading = false
+					this.datas.loading = true
 					this.datas.listObj.items = []
-					this.onLoad()
+					if(this.datas.loading){
+						this.onLoad()
+					}
 				}.bind(this));
 			},
 
@@ -121,27 +124,19 @@
 				};
 				searchList(par).then(res => {
 					if (res.respCode === "2000") {
-						if (res.respData.length > 0) {
-							if (res.respData.length <= this.pageData.pageSize) {
-								this.datas.listObj.items = res.respData
-								this.datas.finished = true; //数据加载完成
-							} else {
-								this.pageData.pageNum += 1;
-								this.datas.listObj.items = this.datas.listObj.items.concat(
-									res.respData
-								)
-							}
-						} else {
+						// 新数据拼接
+						this.datas.listObj.items = this.datas.listObj.items.concat(res.respData)
+						// 加载状态结束
+						this.datas.loading = false;
+						// 数据全部加载完成
+						if(this.datas.listObj.items.length >= res.respDataExt.totalCount){
 							this.datas.finished = true; //数据加载完成
 						}
-						// 加载结束
-						this.datas.loading = false;
+						this.pageData.pageNum ++;
+						console.log(this.datas.items)
 					} else {
 						this.datas.finished = true;
-						// 加载结束
-						this.datas.loading = false;
 					}
-
 				});
 			},
 			// 选择位置
@@ -161,9 +156,11 @@
 				handler() {
 					this.pageData.pageNum = 1
 					this.datas.finished = false
-					this.datas.loading = false
+					this.datas.loading = true
 					this.datas.listObj.items = []
-					this.onLoad()
+					if(this.datas.loading){
+						this.onLoad()
+					}
 				}
 			}
 		}

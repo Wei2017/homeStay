@@ -1,7 +1,7 @@
 import axios from 'axios'
 const BASEURL = 'https://apigateway.168buy.com/api/hotel'
 const wxUrl = 'https://apigateway.168buy.com/api'
-let sign = 'PyjpqO34pPbjWXt30X+6F7BxKsU/Wlfn7s0IjDXUpJM='
+let sign = 'PyjpqO34pPbjWXt30X+6F7BxKsU/WlfndQ+5S91h4LA='
 let appfrom = 'wxapp_hotel_user'
 // 登录
 export const requestLogin = params => {
@@ -212,7 +212,7 @@ export const createWXPay = params => {
 		.then(res => res.data)
 		.catch(res => res.data)
 }
-//订单确认页面—获取单个订单信息(按订单号ordercode获取)
+//订单确认页面—获取单个订单信息(按订单号ordercode获取)、订单详情
 export const getOrderByCode = params => {
 	return axios.get(`${BASEURL}/OrderMain/GetOrderByCode`, {
 		params:params,
