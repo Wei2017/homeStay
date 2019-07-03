@@ -106,18 +106,22 @@
 			};
 		},
 		beforeRouteEnter(to,from,next){
-			// 设置下一个路由的meta，让缓存，即不刷新
 			if(from.name === 'selectDate'){
-				to.meta.keepAlive = true
+				next(vm =>{
+					vm.activated()
+				})
 			}else{
-				to.meta.keepAlive = false
+				next(vm =>{
+					vm.init()
+				})
 			}
-			next()
 		},
 		components: {},
+		beforeDestroy(){
+			dayEventBus.$off('dayDatas');
+		},
 		mounted() {
-			this.init()
-			console.log(WeixinJSBridge)
+			// this.init()
 		},
 		methods: {
 			init() {
@@ -244,6 +248,7 @@
 					roomCount: this.obj.roomNum, //预订房间套数
 					personCount: this.obj.personNum, //入住人数量
 				}
+				console.log(par)
 				addOrderHotel(par).then(res => {
 					if (res.respCode === '2000') {
 						let orderInfo = res.respData

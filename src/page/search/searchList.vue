@@ -34,7 +34,7 @@
 					outDate: '',
 					dayStart: '',
 					dayEnd: '',
-					loading: false, //是否处于加载状态
+					loading: true, //是否处于加载状态
 					finished: false, //是否已加载完所有数据
 					isLoading: false, //是否加载
 					listObj: {
@@ -49,19 +49,27 @@
 			comList,
 		},
 		beforeRouteEnter(to,from,next){
-			// 设置下一个路由的meta，让缓存，即不刷新
-			// console.log(from,to)
 			if(from.name === 'searchDate'){
 				next(vm =>{
-						vm.activated()
+					vm.activated()
 				})
-				// console.log(1)
-				// to.meta.keepAlive = true
-// 			}else{
-// 				to.meta.keepAlive = false
 			}else{
-				next()
+				next(vm =>{
+					vm.getDefDay()
+					vm.pageData.pageNum = 1
+					vm.datas.finished = false
+					vm.datas.loading = true
+					vm.datas.listObj.items = []
+					vm.datas.dayStart = ''
+					vm.datas.dayEnd = ''
+					if(vm.datas.loading){
+						vm.onLoad()
+					}
+				})
 			}
+		},
+		beforeDestroy(){
+			dayEventBus.$off('dayDatas');
 		},
 		mounted() {
 			this.init()
@@ -70,6 +78,10 @@
 		methods: {
 			// 获取默认日期
 			init() {
+				// this.getDefDay()
+				this.activated()
+			},
+			getDefDay(){
 				getRoomListDefDay().then(res => {
 					if (res.respCode === "2000") {
 						this.datas.inDate = res.respData.dtStartShow
@@ -78,7 +90,6 @@
 						this.datas.dayEnd = res.respData.dayEnd
 					}
 				})
-				this.activated()
 			},
 			// 选取时间
 			choseTime() {
@@ -133,7 +144,7 @@
 							this.datas.finished = true; //数据加载完成
 						}
 						this.pageData.pageNum ++;
-						console.log(this.datas.items)
+						console.log(this.datas.listObj.items)
 					} else {
 						this.datas.finished = true;
 					}
@@ -162,7 +173,7 @@
 						this.onLoad()
 					}
 				}
-			}
+			},
 		}
 	};
 </script>

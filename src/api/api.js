@@ -1,7 +1,7 @@
 import axios from 'axios'
 const BASEURL = 'https://apigateway.168buy.com/api/hotel'
 const wxUrl = 'https://apigateway.168buy.com/api'
-let sign = 'PyjpqO34pPbjWXt30X+6F7BxKsU/WlfndQ+5S91h4LA='
+let sign = 'PyjpqO34pPbjWXt30X+6F7BxKsU/WlfnH6AbdQSHn70='
 let appfrom = 'wxapp_hotel_user'
 // 登录
 export const requestLogin = params => {
@@ -245,6 +245,61 @@ export const getListPageByUserOrAcc = params => {
 			sign:sign,
 			appfrom:appfrom
 		}
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+//订单操作—取消订单(未付款时取消)
+export const orderCancel = params => {
+	return axios({
+		 method: 'post',
+		 headers: { sign:sign,appfrom:appfrom },
+		 data:params,
+		 url:`${BASEURL}/OrderMain/OrderCancel`
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+//订单操作—申请退款 
+export const orderApplyRefund = params => {
+	return axios({
+		 method: 'post',
+		 headers: { sign:sign,appfrom:appfrom },
+		 data:params,
+		 url:`${BASEURL}/OrderMain/OrderApplyRefund`
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+//订单操作—催单 
+export const orderPleaseConfirm = params => {
+	return axios({
+		 method: 'post',
+		 headers: { sign:sign,appfrom:appfrom },
+		 data:params,
+		 url:`${BASEURL}/OrderMain/OrderPleaseConfirm`
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+//订单操作—用户删除订单 
+export const orderDeleteByUser = params => {
+	return axios({
+		 method: 'post',
+		 headers: { sign:sign,appfrom:appfrom },
+		 data:params,
+		 url:`${BASEURL}/OrderMain/OrderDeleteByUser`
+	})
+		.then(res => res.data)
+		.catch(res => res.data)
+}
+//用户进行评论
+export const addModelEvaluate = params => {
+	return axios({
+		 method: 'post',
+		 headers: { sign:sign,appfrom:appfrom },
+		 data:params,
+		 url:`${BASEURL}/RoomEvaluate/AddModelEvaluate`
 	})
 		.then(res => res.data)
 		.catch(res => res.data)

@@ -50,6 +50,9 @@ import citySelect from '@/page/areaSearch/citySelect.vue'
 // 区域选择
 import searchDic from '@/page/areaSearch/searchDic.vue'
 
+// 用户评价页面
+import evaluate from '@/page/evaluate/evaluate.vue'
+
 // 活动页
 import activity from '@/page/activity/activity.vue'
 
@@ -73,7 +76,7 @@ const router = new Router({
 		meta: {
 			title: '订单',
 			showFooter: true,
-			// keepAlive:true
+			keepAlive:true
 		},
 		component: Order
 	},
@@ -112,7 +115,7 @@ const router = new Router({
 		meta: {
 			title: '收藏列表',
 			showFooter: false,
-			// keepAlive:true
+			keepAlive:true
 		},
 		component: storeList
 	},
@@ -285,6 +288,16 @@ const router = new Router({
 			showFooter: false
 		},
 		component: activity
+	},
+	// 用户评价
+	{
+		path: '/evaluate',
+		name: 'evaluate',
+		meta: {
+			title: '评价',
+			showFooter: false
+		},
+		component: evaluate
 	},
 	{
 		path: '/',
