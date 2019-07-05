@@ -38,7 +38,8 @@ export default {
 }
 /* 弹框样式 */
 .van-toast {
-  padding: 35px !important;
+  padding:30px 50px !important;
+	font-size:30px;
 }
 .van-list__finished-text{
 	padding: 30px 0 40px 0!important;

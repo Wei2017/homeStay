@@ -8,7 +8,10 @@ export default new Vuex.Store({
     //存储城市名
 		cityName:'杭州',
 		searchKey:'',
-		servicePhone:'13566605520'
+		servicePhone:'13566605520',
+		searchDate:{},
+		selectDate:{},
+		selectPriceDate:{}
   },
   mutations: {
     //修改状态，并且是同步的，在组件中使用$store.commit('',params)
@@ -20,6 +23,15 @@ export default new Vuex.Store({
 		},
 		setServicePhone(state,name){
 			state.servicePhone = name
+		},
+		setSearchDate(state,searchDate){
+			state.searchDate = searchDate
+		},
+		setSelectDate(state,selectDate){
+			state.selectDate = selectDate
+		},
+		setselectPriceDate(state,selectPriceDate){
+			state.selectPriceDate = selectPriceDate
 		}
   },
   actions: {

@@ -124,7 +124,7 @@ const router = new Router({
 		name: 'searchDate',
 		meta: {
 			title: '选择入离时间',
-			showFooter: false
+			showFooter: false,
 		},
 		component: searchDate
 	},
@@ -182,7 +182,7 @@ const router = new Router({
 		meta: {
 			title: '填写订单',
 			showFooter: false,
-			keepAlive:true
+			// keepAlive:true
 		},
 		component: fillOrder
 	},

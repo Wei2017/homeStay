@@ -35,7 +35,9 @@ export default {
       details: null
     };
   },
-  components: {},
+  components: {
+		
+	},
   mounted() {
 		this.init()
 	},
@@ -57,7 +59,8 @@ export default {
       this.$router.go(-1);
     }
   },
-  computed: {},
+  computed: {
+	},
   watch: {}
 };
 </script>

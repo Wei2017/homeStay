@@ -1,7 +1,7 @@
 import axios from 'axios'
 const BASEURL = 'https://apigateway.168buy.com/api/hotel'
 const wxUrl = 'https://apigateway.168buy.com/api'
-let sign = 'PyjpqO34pPbjWXt30X+6F7BxKsU/WlfnH6AbdQSHn70='
+let sign = 'PyjpqO34pPbjWXt30X+6F9pSDUyU9Hyh7svnYxigLLU='
 let appfrom = 'wxapp_hotel_user'
 // 登录
 export const requestLogin = params => {
@@ -208,7 +208,12 @@ export const addOrderHotel = params => {
 }
 // 下单页面—调起支付 
 export const createWXPay = params => {
-	return axios.post(`${wxUrl}/weixin/WXPay/CreateWXPay`, params)
+	return axios({
+		 method: 'post',
+		 // headers: { sign:sign,appfrom:appfrom },
+		 data:params,
+		 url:`${wxUrl}/weixin/WXPay/CreateWXPay`
+	})
 		.then(res => res.data)
 		.catch(res => res.data)
 }

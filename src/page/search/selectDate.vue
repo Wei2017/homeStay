@@ -283,7 +283,9 @@
 			// 确定按钮
 			sureDate() {
 				// 传递一个map，dayDatas是key,this.datas是value
-				dayEventBus.$emit('dayDatas', this.datas)
+				this.$store.commit('setSelectDate', this.datas)
+				console.log(this.datas)
+				// dayEventBus.$emit('dayDatas', this.datas)
 				this.$router.go(-1)
 			},
 			// 取消

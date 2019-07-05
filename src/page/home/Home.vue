@@ -107,6 +107,8 @@ export default {
   },
   mounted() {
     this.init();
+		console.log(this.$store.state,this.$store.state.searchDate)
+		
   },
   methods: {
     init() {

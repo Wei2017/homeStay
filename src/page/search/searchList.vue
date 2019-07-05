@@ -1,13 +1,16 @@
 <template>
 	<div class="searchList">
 		<div class="search-top">
-			<span @click="choseTime">{{datas.inDate}}-{{datas.outDate}}</span>
+			<span @click="choseTime">{{searchDate.inDate ? searchDate.inDate : datas.inDate}}-{{searchDate.outDate ? searchDate.outDate : datas.outDate}}</span>
 			<b @click="jumpSearchDic">
 				<input v-model="searchKey" type="text" placeholder="位置/房源/关键字">
 			</b>
 
 		</div>
-		<van-list v-if="datas.flag == 0" v-model="datas.loading" :finished="datas.finished" finished-text="没有更多数据了" @load="onLoad">
+		<van-list 
+			v-model="datas.loading" 
+			:finished="datas.finished" 
+			finished-text="没有更多数据了" @load="onLoad">
 			<com-list :listData="datas.listObj"></com-list>
 		</van-list>
 	</div>
@@ -20,12 +23,13 @@
 		searchList,
 		getRoomListDefDay
 	} from "../../api/api";
+	import { mapState } from 'vuex'
 	export default {
 		name: "searchList",
 		data() {
 			return {
 				pageData: {
-					pageSize: 10,
+					pageSize: 15,
 					pageNum: 1
 				},
 				datas: {
@@ -34,7 +38,7 @@
 					outDate: '',
 					dayStart: '',
 					dayEnd: '',
-					loading: true, //是否处于加载状态
+					loading: false, //是否处于加载状态
 					finished: false, //是否已加载完所有数据
 					isLoading: false, //是否加载
 					listObj: {
@@ -47,39 +51,26 @@
 		},
 		components: {
 			comList,
+			dayEventBus
 		},
+		destroyed() {},
 		beforeRouteEnter(to,from,next){
-			if(from.name === 'searchDate'){
+			if(from.name === 'home'){
 				next(vm =>{
-					vm.activated()
+					vm.$store.state.searchDate = {}
 				})
-			}else{
-				next(vm =>{
-					vm.getDefDay()
-					vm.pageData.pageNum = 1
-					vm.datas.finished = false
-					vm.datas.loading = true
-					vm.datas.listObj.items = []
-					vm.datas.dayStart = ''
-					vm.datas.dayEnd = ''
-					if(vm.datas.loading){
-						vm.onLoad()
-					}
-				})
+				return;
 			}
-		},
-		beforeDestroy(){
-			dayEventBus.$off('dayDatas');
+			next()
 		},
 		mounted() {
 			this.init()
 		},
-		destroyed() {},
 		methods: {
 			// 获取默认日期
 			init() {
-				// this.getDefDay()
-				this.activated()
+				this.getDefDay()
+				// this.activated()
 			},
 			getDefDay(){
 				getRoomListDefDay().then(res => {
@@ -96,16 +87,18 @@
 				this.$router.push({
 					path: "/searchDate",
 					query: {
-						start: this.datas.inDate,
-						end: this.datas.outDate
+						start: this.$store.state.searchDate.inDate ? this.$store.state.searchDate.inDate : this.datas.inDate,
+						end: this.$store.state.searchDate.outDate ? this.$store.state.searchDate.outDate : this.datas.outDate
 					}
 				});
 			},
 			// 每次重新选择日期时
 			activated() {
 				//根据key名获取传递回来的参数，data就是map
+				console.log(22)
 				dayEventBus.$on('dayDatas', function(data) {
 					//赋值
+					console.log(33333)
 					console.log(data)
 					this.datas.inDate = data.inDate
 					this.datas.outDate = data.outDate
@@ -124,14 +117,16 @@
 
 			// 获取数据-上拉加载
 			onLoad() {
+				let stayInDate = this.$store.state.searchDate.dayStart ? this.$store.state.searchDate.dayStart : this.datas.dayStart,
+					stayOutDate = this.$store.state.searchDate.dayEnd ? this.$store.state.searchDate.dayEnd : this.datas.dayEnd
 				let par = {
 					orderBy: 1, //默认写1
 					searchName: this.$store.state.searchKey, //关键词
 					pageSize: this.pageData.pageSize,
 					pageIndex: this.pageData.pageNum,
 					accountId: 0, //房东id, 默认写0
-					stayInDate: this.datas.dayStart, //入住日期, 格式为 yyyy-MM-dd
-					stayOutDate: this.datas.dayEnd //离店日期, 格式为 yyyy-MM-dd
+					stayInDate: stayInDate, //入住日期, 格式为 yyyy-MM-dd
+					stayOutDate: stayOutDate //离店日期, 格式为 yyyy-MM-dd
 				};
 				searchList(par).then(res => {
 					if (res.respCode === "2000") {
@@ -157,10 +152,19 @@
 				});
 			},
 		},
+		beforeRouteLeave (to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
+    //根据自己的逻辑添加代码
+			to.meta.keepAlive=true   //可以动态修改是否让路由缓存
+     
+			next()
+		},
 		computed: {
-			searchKey() {
-				return this.$store.state.searchKey
-			}
+			...mapState({
+				searchKey:state =>state.searchKey,
+				searchDate:state =>state.searchDate
+			})
 		},
 		watch: {
 			searchKey: {
@@ -174,6 +178,23 @@
 					}
 				}
 			},
+			searchDate(){
+				if(this.$store.state.searchDate.inDate){
+					// 重新加载数据
+					this.pageData.pageNum = 1
+					this.datas.finished = false
+					this.datas.loading = true
+					this.datas.listObj.items = []
+					if(this.datas.loading){
+						this.onLoad()
+					}
+				}else{
+					this.pageData.pageNum = 1
+					this.datas.finished = false
+					this.datas.loading = false
+					this.datas.listObj.items = []
+				}
+			}
 		}
 	};
 </script>

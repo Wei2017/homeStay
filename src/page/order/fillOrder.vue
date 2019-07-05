@@ -29,7 +29,7 @@
 			<li>
 				<span>房屋套数</span>
 				<div class="stepNum">
-					<em @click="roomMinus(1)">-</em>
+					<span><em @click="roomMinus(1)">-</em></span>
 					<b>{{obj.roomNum}}套</b>
 					<em @click="roomPlus(1)">+</em>
 				</div>
@@ -79,7 +79,6 @@
 
 <script>
 	import WeixinJSBridge from 'weixin-js-sdk'
-	import dayEventBus from '@/components/service/dayEventBus.js'
 	import {
 		getModelByRoomAccId,
 		getRoomDayDefaultSel,
@@ -87,6 +86,7 @@
 		addOrderHotel,
 		createWXPay
 	} from "../../api/api";
+	import { mapState } from 'vuex'
 	export default {
 		name: "fillOrder",
 		data() {
@@ -94,6 +94,7 @@
 				delId: this.$route.query.delId,
 				roomMainInfo: null, //房型主要信息
 				dateInfo: null,
+				orderInfo:null,
 				obj: {
 					roomNum: 1,
 					personNum: 1, //入住人数
@@ -102,57 +103,78 @@
 					idCard: "", //入住人身份证信息
 					msg: '', //用户留言
 				},
-				dates: null
+				dates: null,
+				flag:0
 			};
 		},
+		components: {},
 		beforeRouteEnter(to,from,next){
-			if(from.name === 'selectDate'){
+			if(from.name === 'detail' || !from.name){
 				next(vm =>{
-					vm.activated()
+					vm.flag = 0
 				})
 			}else{
 				next(vm =>{
-					vm.init()
+					vm.flag = 1 
 				})
 			}
 		},
-		components: {},
-		beforeDestroy(){
-			dayEventBus.$off('dayDatas');
-		},
+// 		beforeRouteEnter(to,from,next){
+// 			if(from.name === 'detail' || !from.name){
+// 				next(vm =>{
+// 					vm.$store.state.searchDate = {}
+// 					vm.getDateInfo()
+// 				})
+// 				return 
+// 			}else{
+// 				next(vm =>{
+// 					vm.$nextTick(function(){
+// 						console.log(vm.$store.state.selectDate)
+// 						vm.upDates()
+// 						
+// 						console.log(vm.dateInfo)
+// 					})
+// 				})
+// 			}
+// 		},
 		mounted() {
-			// this.init()
+			this.init()
+			// this.getRoomDetail()
+			console.log(WeixinJSBridge)
 		},
 		methods: {
-			init() {
-				// 获取一个房型的主要信息 
-				getModelByRoomAccId(this.$route.query.delId).then(res => {
-					if (res.respCode === '2000') {
-						this.roomMainInfo = res.respData
-					}
-				})
+			init(){
+				this.getDateInfo()
+				this.getRoomDetail()
+			},
+			getDateInfo() {
 				// 获取默认一个房型选择的日历
 				getRoomDayDefaultSel(this.$route.query.delId).then(res => {
 					if (res.respCode === '2000') {
 						this.dateInfo = res.respData
 					}
 				})
-				this.activated()
 			},
-			// 每次重新选择日期时
-			activated() {
-				//根据key名获取传递回来的参数，data就是map
-				dayEventBus.$on('dayDatas', function(data) {
-					//赋值
-					console.log(data)
-					this.dateInfo.stayInDay = data.rzDate
-					this.dateInfo.stayOutDay = data.ldDate
-					this.dateInfo.totalNightCount = data.daysSum
-					this.dateInfo.startRoomDayId = data.rzIndex
-					this.dateInfo.endRoomDayId = data.ldIndex
-					this.$route.query.delId = data.roomId
-					this.getNewDateinfo()
-				}.bind(this));
+			getRoomDetail(){
+				// 获取一个房型的主要信息 
+				getModelByRoomAccId(this.$route.query.delId).then(res => {
+					if (res.respCode === '2000') {
+						this.roomMainInfo = res.respData
+					}
+				})
+			},
+			// 选择日期后重新赋值
+			upDates() {
+				let selectDate = this.$store.state.selectDate
+				this.dateInfo = selectDate
+				this.dateInfo.stayInDay = selectDate.rzDate
+				this.dateInfo.stayOutDay = selectDate.ldDate
+				this.dateInfo.totalNightCount = selectDate.daysSum
+				this.dateInfo.startRoomDayId = selectDate.rzIndex
+				this.dateInfo.endRoomDayId = selectDate.ldIndex
+				this.$route.query.delId = selectDate.roomId
+				console.log('update',this.dateInfo)
+				this.getNewDateinfo()
 			},
 			// 选择时间、房屋套数后，重新获取dateInfo的值
 			getNewDateinfo() {
@@ -218,24 +240,24 @@
 						startRoomDayId: this.dateInfo.startRoomDayId,
 						endRoomDayId: this.dateInfo.endRoomDayId,
 						roomAccId: this.$route.query.delId,
-						roomCount: this.obj.roomNum,
+						roomCount: this.obj.roomNum
 					}
 				});
 			},
 			// 立即预定
 			sureOrder() {
-				if (this.obj.name === '') {
-					this.$toast('请输入入住人的姓名')
-					return
-				}
-				if (this.obj.tel === '') {
-					this.$toast('请输入手机号码')
-					return
-				}
-				if (!(/^1[3456789]\d{9}$/.test(this.obj.tel))) {
-					this.$toast('请输入正确的手机号码')
-					return
-				}
+// 				if (this.obj.name === '') {
+// 					this.$toast('请输入入住人的姓名')
+// 					return
+// 				}
+// 				if (this.obj.tel === '') {
+// 					this.$toast('请输入手机号码')
+// 					return
+// 				}
+// 				if (!(/^1[3456789]\d{9}$/.test(this.obj.tel))) {
+// 					this.$toast('请输入正确的手机号码')
+// 					return
+// 				}
 				let par = {
 					roomAccId: this.$route.query.delId,
 					userId: localStorage.getItem('userId'),
@@ -249,76 +271,91 @@
 					personCount: this.obj.personNum, //入住人数量
 				}
 				console.log(par)
-				addOrderHotel(par).then(res => {
-					if (res.respCode === '2000') {
-						let orderInfo = res.respData
-						this.$router.push({
-							path: "/sureOrder",
-							query: {
-								orderCode: orderInfo.orderCode
-							}
-						});
-						let payData = {
-							from: 1, //1为花啦微店网页端 
-							orderCode: orderInfo.orderCode, //订单编号
-							orderMoney: orderInfo.oMoney, //订单总金额
-							orderName: orderInfo.oName, //订单名称
-							orderDes: orderInfo.oDes, //订单描述, 选填
-							userIp: '', //终端设备ip
-							openId: 'ombSf4v8rLZ-X3eQV7CpGeQPcuOM', //
-						}
-						createWXPay(payData).then(res => {
-							if (res.respCode === '2000') {
-								const pay_params = res.respData
-								if (typeof wx == "undefined") {
-									if (document.addEventListener) {
-										document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-									} else if (document.attachEvent) {
-										document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-										document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-									}
-								} else {
-									this.onBridgeReady(pay_params);
-								}
-							} else {
-								this.$toast('微信支付调起失败！')
-								// 								this.$router.push({
-								// 									path: "/order"
-								// 								});
-							}
-						})
-					} else {
-						this.$toast(res.respMsg)
-					}
-				})
+// 				addOrderHotel(par).then(res => {
+// 					if (res.respCode === '2000') {
+// 						let orderInfo = res.respData
+// 						let payData = {
+// 							from: 1, //1为花啦微店网页端 
+// 							orderCode: orderInfo.orderCode, //订单编号
+// 							orderMoney: orderInfo.oMoney, //订单总金额
+// 							orderName: orderInfo.oName, //订单名称
+// 							orderDes: orderInfo.oDes, //订单描述, 选填
+// 							userIp: '', //终端设备ip
+// 							openId: 'ombSf4v8rLZ-X3eQV7CpGeQPcuOM', //
+// 						}
+// 						createWXPay(payData).then(res => {
+// 							if (res.respCode === '2000') {
+// 								const pay_params = res.respData
+// 								if (typeof WeixinJSBridge == "undefined") {
+// 									if (document.addEventListener) {
+// 										document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
+// 									} else if (document.attachEvent) {
+// 										document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady);
+// 										document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
+// 									}
+// 								} else {
+// 									this.onBridgeReady(pay_params);
+// 								}
+// 							} else {
+// 								this.$toast(res.respMsg)
+// 							}
+// 						})
+// 					} else {
+// 						this.$toast(res.respMsg)
+// 					}
+// 				})
 			},
 			// 获取微信签名
 			onBridgeReady(params) {
 				const pay_params = JSON.parse(params);
 				WeixinJSBridge.invoke(
-					'getBrandWCPayRequest', {
+					'getBrandWCPayRequest', {  //微信接口
 						"appId": pay_params.appId, //公众号名称，由商户传入     
 						"timeStamp": pay_params.timeStamp, //时间戳，自1970年以来的秒数     
 						"nonceStr": pay_params.nonceStr, //随机串     
 						"package": pay_params.package,
 						"signType": pay_params.signType, //微信签名方式：     
-						"paySign": pay_params.paySign //微信签名 
+						"paySign": pay_params.paySign, //微信签名 
+						 //这里的信息从后台返回的接口获得。
+            jsApiList: [
+              'chooseWXPay'
+            ]
 					},
 					function(res) {
 						if (res.err_msg == "get_brand_wcpay_request:ok") {
+							this.$toast('支付成功')
 							// 支付成功调起的页面
-							// 							this.$router.push({
-							// 								path: "/sureOrder",
-							// 								query: {
-							// 									orderId: this.delId
-							// 								}
-							// 							});
+							this.$router.push({
+								path: "/sureOrder",
+								query: {
+									orderCode: orderInfo.orderCode
+								}
+							});
+						}else{
+							this.$toast('支付失败！')
+							this.$router.push({
+								path: "/order"
+							});
 						}
 					});
 			},
 		},
-		computed: {},
-		watch: {}
+		computed: {
+			...mapState({
+				searchKey:state =>state.searchKey,
+				selectDate:state =>state.selectDate,
+			})
+		},
+		watch: {
+			flag(){
+				if(this.flag === 0){
+					this.$route.meta.keepAlive = false
+				}else{
+					this.$route.meta.keepAlive = true
+					this.upDates()
+				}
+			}
+		}
 	};
 </script>
 
@@ -326,8 +363,9 @@
 	@import "../../style/com.css";
 
 	.fillOrder {
+		padding: 20px 0 80px 0;
 		>div {
-			padding: 20px;
+			padding:20px;
 		}
 
 		.order-detail {
@@ -417,15 +455,15 @@
 				div.stepNum {
 					em {
 						display: inline-block;
-						width: 32px;
-						height: 32px;
-						line-height: 32px;
+						width: 40px;
+						height: 40px;
+						line-height: 40px;
 						text-align: center;
 						border-radius: 50%;
-						font-size: 22px;
 						color: #ffd33b;
 						border: 2px solid #ffd33b;
 						touch-action: none;
+						margin: 0 20px;
 					}
 
 					em:nth-child(1) {
@@ -493,7 +531,7 @@
 
 			span {
 				display: inline-block;
-				padding: 25px 120px;
+				padding: 20px 120px;
 				border-radius: 50px;
 				background: #ffd544;
 			}

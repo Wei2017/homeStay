@@ -19,7 +19,7 @@
 		data() {
 			return {
 				pageData: {
-					pageSize: 10,
+					pageSize: 15,
 					pageNum: 1
 				},
 				datas: {

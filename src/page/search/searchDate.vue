@@ -71,6 +71,9 @@
 				}
 			}
 		},
+		beforeDestory() {
+			dayEventBus.$off('dayDatas', (time) => console.log(time))
+		},
 		components: {
 			dayEventBus
 		},
@@ -127,7 +130,7 @@
 						this.datas.rzDayShow = rzDayShow
 						this.datas.ldDayShow = ldDayShow
 						this.datas.inDate = inDate
-						this.datas.inDate = outDate
+						this.datas.outDate = outDate
 					}
 				})
 			},
@@ -267,18 +270,24 @@
 			// 确定按钮
 			sureDate() {
 				// 传递一个map，dayDatas是key,this.datas是value
-				dayEventBus.$emit('dayDatas',this.datas)
+				let data = {
+					inDate:this.datas.inDate,
+					outDate:this.datas.outDate,
+					dayStart:this.datas.rzDayShow,
+					dayEnd:this.datas.ldDayShow
+				}
+				console.log(this.datas)
+				this.$store.commit('setSearchDate', data)
 				this.$router.go(-1)
+// 				this.$nextTick(function(){
+// 					dayEventBus.$emit('dayDatas',this.datas)
+					// this.$router.go(-1)
+// 				})
 			},
 			// 取消
 			cancelDate(){
 				this.getMonth()
 			}
-		},
-		beforeRouteLeave(to,from,next){
-			// 设置下一个路由的meta，让缓存，即不刷新
-			to.meta.keepAlive = true
-			next()
 		},
 		computed: {
 

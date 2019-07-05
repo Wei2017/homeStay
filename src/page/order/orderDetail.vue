@@ -118,16 +118,22 @@
 				<span class="cancel-btn concat-kf"><a :href="'tel:' + serviceTel">{{orderDetail.oExtA}}</a></span>
 			</span>
 			<span v-else>
-				<div class='cancel-btn' v-if="orderDetail.oExtA" @click='orderDetail.oExtB'>{{orderDetail.oExtA}}</div>
+				<div class='cancel-btn' v-if="orderDetail.oExtA" @click='operaClick(orderDetail.oExtB,orderDetail)'>{{orderDetail.oExtA}}</div>
 			</span>
-			<span class='other-btn' v-if="orderDetail.oExtC" @click='orderDetail.oExtD'>{{orderDetail.oExtC}}</span>
+			<span class='other-btn' v-if="orderDetail.oExtC" @click='operaClick(orderDetail.oExtD)'>{{orderDetail.oExtC}}</span>
 		</div>
 	</div>
 </template>
 
 <script>
+	import WeixinJSBridge from 'weixin-js-sdk'
 	import {
-		getOrderByCode
+		getOrderByCode,
+		createWXPay,
+		orderPleaseConfirm,
+		orderApplyRefund,
+		orderCancel,
+		orderDeleteByUser
 	} from "../../api/api";
 	export default {
 		name: "orderDetail",
@@ -138,7 +144,9 @@
 				orderCode: this.$route.query.ordercode
 			};
 		},
-		components: {},
+		components: {
+			WeixinJSBridge
+		},
 		mounted() {
 			this.init()
 		},
@@ -154,6 +162,7 @@
 					}
 				})
 			},
+			// 跳转至房东页
 			jumpFd(accountId) {
 				this.$router.push({
 					path: "/fdImpress",
@@ -161,7 +170,207 @@
 						accountId: accountId
 					}
 				});
+			},
+			/*
+			 * 不同订单状态下 用户的操作
+			 * btnCancel:表示用户未支付时取消订单 ==>调取消订单接口
+			 * btnPay:表示用户对未付款订单的重新支付 ==>调用户支付接口
+			 * btnApplyRefund:表示用户对已支付未入住订单的申请退款 ==>调用申请退款接口
+			 * btnUrged:表示用户对待确认的催单，即发送短信给房东 ==>调用催单
+			 * btnEvaluate:表示已离店用户要对订单进行评价 ==>调用评价接口
+			 * btnNeedHelp:表示用户要联系客服 ==>调用微信客服，打开客服对话
+			 * btnDelByUser:用户删除订单  ==>用户删除
+			 * */
+			// 操作按钮
+			operaClick(btnName, item) {
+				switch (btnName) {
+					case 'btnCancel':
+						this.btnCancel(item)
+						break;
+					case 'btnPay':
+						this.btnPay(item)
+						break;
+					case 'btnApplyRefund':
+						this.btnApplyRefund(item)
+						break;
+					case 'btnUrged':
+						this.btnUrged(item)
+						break;
+					case 'btnEvaluate':
+						this.btnEvaluate(item)
+						break;
+					case 'btnDelByUser':
+						this.btnDelByUser(item)
+						break;
+				}
+			},
+			// 表示用户未支付时取消订单
+			btnCancel(item) {
+				let par = {
+					oid: item.id,
+					userid: localStorage.getItem('userId'),
+					why: ''
+				}
+				this.$dialog.confirm({
+					title: '取消订单',
+					message: '取消后不可恢复，确定取消吗？'
+				}).then(() => {
+					orderCancel(par).then(res => {
+						if (res.respCode === '2000') {
+							this.$toast(res.respMsg);
+							this.$router.replace({
+								path: "/order"
+							});
+						} else {
+							this.$toast(res.respMsg);
+						}
+					})
+				}).catch(() => {
+
+				})
+			},
+			// 表示用户对未付款订单的重新支付
+			btnPay(item) {
+				let payData = {
+					from: 1, //1为花啦微店网页端 
+					orderCode: item.orderCode, //订单编号
+					orderMoney: item.oMoney, //订单总金额
+					orderName: item.oName, //订单名称
+					orderDes: item.oDes, //订单描述, 选填
+					userIp: '', //终端设备ip
+					openId: 'ombSf4v8rLZ-X3eQV7CpGeQPcuOM', //
+				}
+				createWXPay(payData).then(res => {
+					if (res.respCode === '2000') {
+						const pay_params = res.respData
+						if (typeof WeixinJSBridge == "undefined") {
+							if (document.addEventListener) {
+								document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
+							} else if (document.attachEvent) {
+								document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady);
+								document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
+							}
+						} else {
+							this.onBridgeReady(pay_params);
+						}
+						this.$router.replace({
+							path: "/order"
+						});
+					}
+				})
+			},
+			// 获取微信签名
+			onBridgeReady(params) {
+				const pay_params = JSON.parse(params);
+				WeixinJSBridge.invoke(
+					'getBrandWCPayRequest', { //微信接口
+						"appId": pay_params.appId, //公众号名称，由商户传入     
+						"timeStamp": pay_params.timeStamp, //时间戳，自1970年以来的秒数     
+						"nonceStr": pay_params.nonceStr, //随机串     
+						"package": pay_params.package,
+						"signType": pay_params.signType, //微信签名方式：     
+						"paySign": pay_params.paySign, //微信签名 
+						//这里的信息从后台返回的接口获得。
+						jsApiList: [
+							'chooseWXPay'
+						]
+					},
+					function(res) {
+						if (res.err_msg == "get_brand_wcpay_request:ok") {
+							this.$toast('支付成功')
+							this.$router.replace({
+								path: "/order"
+							});
+						} else {
+							this.$toast('支付失败！')
+						}
+					});
+			},
+			// 表示用户对已支付未入住订单的申请退款
+			btnApplyRefund(item) {
+				let par = {
+					oid: item.id,
+					userid: localStorage.getItem('userId'),
+					why: ''
+				}
+				this.$dialog.confirm({
+					title: '确定退款',
+					message: '确定退款吗？'
+				}).then(() => {
+					orderApplyRefund(par).then(res => {
+						if (res.respCode === '2000') {
+							this.$toast(res.respMsg);
+							this.$router.replace({
+								path: "/order"
+							});
+						} else {
+							this.$toast(res.respMsg);
+						}
+					})
+				}).catch(() => {
+
+				})
+
+			},
+			// 表示用户对待确认的催单
+			btnUrged(item) {
+				let par = {
+					oid: item.id,
+					userid: localStorage.getItem('userId'),
+					remark: ''
+				}
+				this.$dialog.confirm({
+					title: '催单',
+					message: '20分钟内未确认，您可以联系房东或者平台客服为您处理，确认催单吗？'
+				}).then(() => {
+					orderPleaseConfirm(par).then(res => {
+						if (res.respCode === '2000') {
+							this.$toast(res.respMsg);
+							this.$router.replace({
+								path: "/order"
+							});
+						} else {
+							this.$toast(res.respMsg);
+						}
+					})
+				}).catch(() => {
+					// on cancel
+				})
+			},
+			// 表示已离店用户要对订单进行评价
+			btnEvaluate(item) {
+				this.$router.replace({
+					path: "/evaluate",
+					query: {
+						orderCode: item.orderCode
+					}
+				});
+			},
+			// 用户删除订单
+			btnDelByUser(item) {
+				let par = {
+					oid: item.id,
+					userid: localStorage.getItem('userId')
+				}
+				this.$dialog.confirm({
+					title: '删除订单',
+					message: '确定要删除订单吗?'
+				}).then(() => {
+					orderDeleteByUser(par).then(res => {
+						if (res.respCode === '2000') {
+							this.$toast(res.respMsg);
+							this.$router.replace({
+								path: "/order"
+							});
+						} else {
+							this.$toast(res.respMsg);
+						}
+					})
+				}).catch(() => {
+					// on cancel
+				})
 			}
+			
 		},
 		computed: {
 			serviceTel(){
